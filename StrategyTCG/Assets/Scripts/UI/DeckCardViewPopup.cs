@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 using Ch120.Popup;
 using Ch120.ScrollView;
-
+using UK.Const.Ability;
 using UK.Const.Game;
 using UK.Const.Card.Type;
 using UK.Const.Effect;
@@ -40,10 +40,18 @@ namespace UK.Popup.DeckCardView
         // ---------- Public関数 ----------
 
         // 山札一覧の設定
-        public void SetDeckView(DeckUnit deckUnit, List<CardType> activeCardList = default, int selectCardNum = 0)
+        public void SetDeckView(DeckUnit deckUnit, dynamic popupParam)
         {
-            Debug.Log("selectCardNum = " + selectCardNum);
-            _selectCardNum = selectCardNum;
+            // 値の格納
+            var param = new
+            {
+                ability = AbilityType.NONE,
+                activeCardList = new List<CardType>(),
+                abilityParameter = 0,
+                cardId = 0
+            };
+            param = popupParam;
+            _selectCardNum = param.abilityParameter;
 
             if (_selectCardNum > 0)
             {
@@ -61,18 +69,53 @@ namespace UK.Popup.DeckCardView
                 cardUnit.Index = i;
                 cardUnit.SetActiveBackImage(false);
 
+                // カードが選択できる場合
                 if (_selectCardNum != default)
                 {
-                    if (IsCardType(cardUnit, activeCardList))
+                    switch (param.ability)
                     {
-                        // カード選択用のボタンイベント
-                        cardUnit.SetSelectButtonEvent(() => {
-                            SetCardSelectButton(cardUnit);
-                        });
-                    }
-                    else
-                    {
-                        cardUnit.SetGrayCard();
+                        // カードタイプ別でカード選択
+                        case AbilityType.DECK_CARD_GET:
+                        case AbilityType.DECK_PEASON_GET:
+                        case AbilityType.DECK_PEASON_PLACE:
+                        case AbilityType.DECK_BUILDING_GET:
+                        case AbilityType.DECK_BUILDING_PLACE:
+                        case AbilityType.DECK_GOODS_GET:
+                        case AbilityType.DECK_GOODS_PLACE:
+                        case AbilityType.DECK_POLICY_GET:
+                        case AbilityType.DECK_POLICY_PLACE:
+                            if (IsCardType(cardUnit, param.activeCardList))
+                            {
+                                // カード選択用のボタンイベント
+                                cardUnit.SetSelectButtonEvent(() => {
+                                    SetCardSelectButton(cardUnit);
+                                });
+                            }
+                            else
+                            {
+                                cardUnit.SetGrayCard();
+                            }
+                            break;
+                        
+                        // カードIDでカード選択
+                        case AbilityType.DECK_CARD_GET_NAME:
+                        case AbilityType.DECK_CARD_PLACE_NAME:
+                            if (param.cardId == cardUnit.CardModel.CardId)
+                            {
+                                // カード選択用のボタンイベント
+                                cardUnit.SetSelectButtonEvent(() => {
+                                    SetCardSelectButton(cardUnit);
+                                });
+                            }
+                            else
+                            {
+                                cardUnit.SetGrayCard();
+                            }
+                            break;
+                        
+                        default:
+                            cardUnit.SetGrayCard();
+                            break;
                     }
                 }
                 else

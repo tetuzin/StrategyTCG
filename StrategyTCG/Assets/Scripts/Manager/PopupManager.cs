@@ -77,7 +77,7 @@ namespace UK.Manager.Popup
         }
 
         // 山札カード一覧ポップアップ設定
-        public void SetDeckCardViewPopup(DeckUnit deckUnit, Dictionary<string, UnityAction> actions, List<CardType> activeCardList, int selectCardNum)
+        public void SetDeckCardViewPopup(DeckUnit deckUnit, Dictionary<string, UnityAction> actions, dynamic popupParam)
         {
             var parameter = new {
                 titleText = "山札カード一覧",
@@ -85,7 +85,7 @@ namespace UK.Manager.Popup
                 cancelText = "やめる"
             };
             _deckCardViewPopup.InitPopup(actions, parameter);
-            _deckCardViewPopup.SetDeckView(deckUnit, activeCardList, selectCardNum);
+            _deckCardViewPopup.SetDeckView(deckUnit, popupParam);
         }
 
         // シンプルテキストポップアップ表示

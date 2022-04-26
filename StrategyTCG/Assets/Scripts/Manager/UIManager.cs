@@ -74,8 +74,7 @@ namespace UK.Manager.UI
                 PopupManager.Instance.SetDeckCardViewPopup(
                     CardManager.Instance.GetCardBattleField(GameConst.PLAYER).GetDeckUnit(),
                     actions,
-                    new List<CardType>(),
-                    0
+                    new { activeCardList = new List<CardType>(), abilityParameter = 0 }
                 );
                 PopupManager.Instance.ShowDeckCardViewPopup();
             });

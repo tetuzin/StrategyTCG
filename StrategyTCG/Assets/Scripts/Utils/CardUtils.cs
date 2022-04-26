@@ -1,5 +1,3 @@
-
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,13 +7,11 @@ using Ch120.Manager.Master;
 using UK.Manager.Card;
 using UK.Manager.Ingame;
 using UK.Manager.Popup;
-using UK.Manager.UI;
 
 using UK.Model.CardMain;
 using UK.Model.EffectMain;
 using UK.Model.EffectGroup;
 using UK.Model.EffectAbility;
-using UK.Model.CountryMain;
 
 using UK.Dao;
 
@@ -272,6 +268,7 @@ namespace UK.Utils.Card
                     UnitUtils.UpdateParameter(model);
                     break;
 
+                // 山札からカードを取得
                 case AbilityType.DECK_CARD_GET:
                 case AbilityType.DECK_CARD_GET_NAME:
                 case AbilityType.DECK_CARD_PLACE_NAME:
@@ -283,12 +280,18 @@ namespace UK.Utils.Card
                 case AbilityType.DECK_GOODS_PLACE:
                 case AbilityType.DECK_POLICY_GET:
                 case AbilityType.DECK_POLICY_PLACE:
+                    var popupParam = new
+                    {
+                        ability = abilityType,
+                        activeCardList = GetActiveCardList(abilityType),
+                        abilityParameter = model.AbilityParameter1,
+                        cardId = model.AbilityParameter2
+                    };
                     Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
                     PopupManager.Instance.SetDeckCardViewPopup(
                         CardManager.Instance.GetCardBattleField(GetUserType(model.UserType)).GetDeckUnit(),
                         actions,
-                        GetActiveCardList(abilityType),
-                        model.AbilityParameter1
+                        popupParam
                     );
                     PopupManager.Instance.ShowDeckCardViewPopup();
                     break;
