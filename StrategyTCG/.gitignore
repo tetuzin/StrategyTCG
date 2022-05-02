@@ -1,0 +1,20 @@
+Library
+Temp
+Logs
+obj
+*.bat
+*.csproj
+*.csproj.user
+*.booproj
+*.pidb
+*.sln
+*.sln.meta
+*.suo
+*.unityproj
+*.userprefs
+*.userprefs.meta
+*.vsconfig
+*~
+.DS_Store
+*[! -~]*
+*.pidb.meta
