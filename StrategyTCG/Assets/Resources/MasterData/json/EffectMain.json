@@ -1,0 +1,16 @@
+﻿[
+    {
+        "effectId": 10001,
+        "effectName": "一人っ子政策の効果",
+        "effectTriggerType": 101,
+        "effectGroupId": 100001,
+        "effectText": "一人っ子政策の効果の説明文"
+    },
+    {
+        "effectId": 10002,
+        "effectName": "日米和親条約の効果",
+        "effectTriggerType": 102,
+        "effectGroupId": 100002,
+        "effectText": "日米和親条約の効果の説明文"
+    }
+]

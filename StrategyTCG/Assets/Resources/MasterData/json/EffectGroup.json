@@ -1,0 +1,12 @@
+﻿[
+    {
+        "effectGroupId": 100001,
+        "effectAbilityId": 10001,
+        "abilityTriggerType": 101
+    },
+    {
+        "effectGroupId": 100002,
+        "effectAbilityId": 10002,
+        "abilityTriggerType": 102
+    }
+]

@@ -1,0 +1,12 @@
+﻿[
+    {
+        "countryId": 1001,
+        "countryName": "中国",
+        "countryText": "中国の説明文"
+    },
+    {
+        "countryId": 1002,
+        "countryName": "アメリカ",
+        "countryText": "アメリカの説明文"
+    }
+]

@@ -1,0 +1,22 @@
+﻿[
+    {
+        "cardId": 1000001,
+        "cardName": "一人っ子政策",
+        "cardType": 1,
+        "effectId": 10001,
+        "rarity": 1,
+        "countryId": 1001,
+        "text": "一人っ子政策のカード。",
+        "image": "img_1000001"
+    },
+    {
+        "cardId": 1000002,
+        "cardName": "日米和親条約",
+        "cardType": 2,
+        "effectId": 10002,
+        "rarity": 2,
+        "countryId": 1002,
+        "text": "日米和親条約のカード。",
+        "image": "img_1000002"
+    }
+]
