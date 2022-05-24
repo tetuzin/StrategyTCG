@@ -42,6 +42,7 @@ namespace Ch120.Utils.Popup
             // Popupインスタンス生成
             GameObject obj = Instantiate(popupPrefab, canvas.transform.position, Quaternion.identity);
             BasePopup popup = obj.GetComponent<BasePopup>();
+            obj.name = obj.name.Replace( "(Clone)", "" );
 
             // ポップアップが既に開いているなら開かない
             if (popup.CheckOpen()) { return; }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Ch120.Utils.AudioUtils
+namespace Ch120.Utils.Audio
 {
     public class AudioUtils
     {
