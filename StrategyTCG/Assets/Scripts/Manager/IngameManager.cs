@@ -4,6 +4,12 @@ using UnityEngine;
 
 using UK.Manager.UI;
 
+// テスト用
+using UK.Unit.Card;
+using UK.Model.CardMain;
+using UK.Dao;
+using Ch120.Manager.Master;
+
 namespace UK.Manager.Ingame
 {
     public class IngameManager : MonoBehaviour
@@ -16,12 +22,18 @@ namespace UK.Manager.Ingame
         // ---------- インスタンス変数宣言 ----------
 
         private bool _isFirst = default;
+        // テスト用
+        public CardUnit cardUnit = default;
 
         // ---------- Unity組込関数 ----------
         
         void Start()
         {
             InitializeIngame();
+            CardMainDao dao = (CardMainDao)MasterManager.Instance.GetDao("CardMainDao");
+            List<CardMainModel> list = dao.Get();
+            CardMainModel model = list[0];
+            cardUnit.Initialize(model);
         }
 
         // ---------- Public関数 ----------

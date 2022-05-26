@@ -1,34 +1,34 @@
 ﻿[
     {
-        "effectAbilityId": 10001,
-        "abilityName": "織田信長"
+        "_effectAbilityId": 10001,
+        "_abilityName": "織田信長"
     },
     {
-        "effectAbilityId": 10002,
-        "abilityName": "伊能忠敬"
+        "_effectAbilityId": 10002,
+        "_abilityName": "伊能忠敬"
     },
     {
-        "effectAbilityId": 10003,
-        "abilityName": "緊急事態宣言"
+        "_effectAbilityId": 10003,
+        "_abilityName": "緊急事態宣言"
     },
     {
-        "effectAbilityId": 10004,
-        "abilityName": "生類憐みの令"
+        "_effectAbilityId": 10004,
+        "_abilityName": "生類憐みの令"
     },
     {
-        "effectAbilityId": 10005,
-        "abilityName": "八ツ橋"
+        "_effectAbilityId": 10005,
+        "_abilityName": "八ツ橋"
     },
     {
-        "effectAbilityId": 10006,
-        "abilityName": "ゼロ戦"
+        "_effectAbilityId": 10006,
+        "_abilityName": "ゼロ戦"
     },
     {
-        "effectAbilityId": 10007,
-        "abilityName": "軍艦島"
+        "_effectAbilityId": 10007,
+        "_abilityName": "軍艦島"
     },
     {
-        "effectAbilityId": 10008,
-        "abilityName": "東京スカイツリー"
+        "_effectAbilityId": 10008,
+        "_abilityName": "東京スカイツリー"
     }
 ]

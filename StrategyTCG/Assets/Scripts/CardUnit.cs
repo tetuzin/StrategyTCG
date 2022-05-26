@@ -38,6 +38,7 @@ namespace UK.Unit.Card
         public void Initialize(CardMainModel model)
         {
             _model = model;
+            Debug.Log(_model.Image);
             SetCardImage(_model.Image);
             SetCardNameText(_model.CardName);
             SetCardTypeIcon(_model.CardType);
