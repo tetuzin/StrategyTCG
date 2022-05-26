@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using UK.Model.Card;
+using Ch120.Utils.Resource;
+
+using UK.Model.CardMain;
 
 namespace UK.Unit.Card
 {
@@ -25,7 +27,7 @@ namespace UK.Unit.Card
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
-        private CardModel _model = default;
+        private CardMainModel _model = default;
         private int _curHp = default;
         private int _curAtk = default;
 
@@ -33,10 +35,10 @@ namespace UK.Unit.Card
         // ---------- Public関数 ----------
 
         // 初期化
-        public void Initialize(CardModel model)
+        public void Initialize(CardMainModel model)
         {
             _model = model;
-            SetCardImage();
+            SetCardImage(_model.Image);
             SetCardNameText(_model.CardName);
             SetCardTypeIcon(_model.CardType);
             SetAtkText(_model.Attack);
@@ -47,9 +49,12 @@ namespace UK.Unit.Card
         // ---------- Private関数 ----------
 
         // カード画像の設定
-        private void SetCardImage()
+        private void SetCardImage(string imageFile)
         {
             // TODO
+            string path = ResourceUtils.GetTexturePath("CardImage/" + imageFile);
+            Sprite sprite = ResourceUtils.GetSprite(path);
+            _image.sprite = sprite;
         }
 
         // カード名テキストの設定
@@ -72,21 +77,21 @@ namespace UK.Unit.Card
         }
 
         // ATKテキストの設定
-        private void SetAtkText(string text)
+        private void SetAtkText(int attack)
         {
-            _atkText.text = text;
+            _atkText.text = attack.ToString();
         }
 
         // HPテキストの設定
-        private void SetHpText(string text)
+        private void SetHpText(int hp)
         {
-            _hpText.text = text;
+            _hpText.text = hp.ToString();
         }
 
         // Costテキストの設定
-        private void SetCostText(string text)
+        private void SetCostText(int cost)
         {
-            _costText.text = text;
+            _costText.text = cost.ToString();
         }
 
         // ---------- protected関数 ---------

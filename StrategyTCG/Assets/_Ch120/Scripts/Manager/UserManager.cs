@@ -25,7 +25,6 @@ namespace Ch120.Manager.User
         // データの初期化
         private void InitializeUserData()
         {
-            // string path = Application.persistentDataPath + "/" + _fileName + ".json";
             string path = "Assets/Resources/" + _fileName + ".json";
             if (File.Exists(path))
             {

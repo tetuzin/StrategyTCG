@@ -8,5 +8,35 @@
         "effectGroupId": 100002,
         "effectAbilityId": 10002,
         "abilityTriggerType": 102
+    },
+    {
+        "effectGroupId": 100003,
+        "effectAbilityId": 10003,
+        "abilityTriggerType": 103
+    },
+    {
+        "effectGroupId": 100004,
+        "effectAbilityId": 10004,
+        "abilityTriggerType": 104
+    },
+    {
+        "effectGroupId": 100005,
+        "effectAbilityId": 10005,
+        "abilityTriggerType": 105
+    },
+    {
+        "effectGroupId": 100006,
+        "effectAbilityId": 10006,
+        "abilityTriggerType": 106
+    },
+    {
+        "effectGroupId": 100007,
+        "effectAbilityId": 10007,
+        "abilityTriggerType": 107
+    },
+    {
+        "effectGroupId": 100008,
+        "effectAbilityId": 10008,
+        "abilityTriggerType": 108
     }
 ]

@@ -1,16 +1,58 @@
 ﻿[
     {
         "effectId": 10001,
-        "effectName": "一人っ子政策の効果",
+        "effectName": "織田信長",
         "effectTriggerType": 101,
         "effectGroupId": 100001,
-        "effectText": "一人っ子政策の効果の説明文"
+        "effectText": "織田信長"
     },
     {
         "effectId": 10002,
-        "effectName": "日米和親条約の効果",
+        "effectName": "伊能忠敬",
         "effectTriggerType": 102,
         "effectGroupId": 100002,
-        "effectText": "日米和親条約の効果の説明文"
+        "effectText": "伊能忠敬"
+    },
+    {
+        "effectId": 10003,
+        "effectName": "緊急事態宣言",
+        "effectTriggerType": 103,
+        "effectGroupId": 100003,
+        "effectText": "緊急事態宣言"
+    },
+    {
+        "effectId": 10004,
+        "effectName": "生類憐みの令",
+        "effectTriggerType": 104,
+        "effectGroupId": 100004,
+        "effectText": "生類憐みの令"
+    },
+    {
+        "effectId": 10005,
+        "effectName": "八ツ橋",
+        "effectTriggerType": 105,
+        "effectGroupId": 100005,
+        "effectText": "八ツ橋"
+    },
+    {
+        "effectId": 10006,
+        "effectName": "ゼロ戦",
+        "effectTriggerType": 106,
+        "effectGroupId": 100006,
+        "effectText": "ゼロ戦"
+    },
+    {
+        "effectId": 10007,
+        "effectName": "軍艦島",
+        "effectTriggerType": 107,
+        "effectGroupId": 100007,
+        "effectText": "軍艦島"
+    },
+    {
+        "effectId": 10008,
+        "effectName": "東京スカイツリー",
+        "effectTriggerType": 108,
+        "effectGroupId": 100008,
+        "effectText": "東京スカイツリー"
     }
 ]

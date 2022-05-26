@@ -14,23 +14,12 @@ namespace Ch120.Manager.Master
         // TODO
         // Daoクラスの名前リスト（新しく作成したDaoクラスはここに記述する）
         private static readonly string[] DAO_CLASS_NAME = {
-            "CharacterMainDao",
-            "CharacterStatusDao",
-            "CharacterExpTableDao",
-            "EffectMainDao",
-            "EffectGroupDao",
-            "EnemyMainDao",
-            "EnemyStatusDao",
-            "EquipmentMainDao",
-            "EquipmentTypeDao",
-            "ItemMainDao",
-            "ItemTypeDao",
-            "SkillMainDao"
+            "CardMainDao",
         };
 
         // TODO
         // Daoクラスの名前空間
-        private readonly string DAO_CLASS_NAMESPACE = "Animals.Dao.";
+        private readonly string DAO_CLASS_NAMESPACE = "UK.Dao.";
 
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         // ---------- プレハブ ----------
