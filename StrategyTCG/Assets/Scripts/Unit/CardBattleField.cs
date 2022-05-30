@@ -24,17 +24,39 @@ namespace UK.Unit.Field
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
+        // 手札
+        private List<CardMainModel> _handCard = default;
         // 配置した人物カード配列
-        private CardUnit[] _personUnits = new CardUnit[GameConst.MAX_PERSON_CARD];
+        private CardUnit[] _personUnits = default;
         // 配置した建造物カード配列
-        private CardUnit[] _buildingUnits = new CardUnit[GameConst.MAX_BUILDING_CARD];
+        private CardUnit[] _buildingUnits = default;
         // 配置した人物カードの数
-        private int _personNum = 0;
+        private int _personNum = default;
         // 配置した建造物カードの数
-        private int _buildingNum = 0;
+        private int _buildingNum = default;
 
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
+
+        // 初期化
+        public void Initialize(List<CardMainModel> cardModels)
+        {
+            // 各種値の初期化
+            _handCard = new List<CardMainModel>();
+            _personUnits = new CardUnit[GameConst.MAX_PERSON_CARD];
+            _buildingUnits = new CardUnit[GameConst.MAX_BUILDING_CARD];
+            _personNum = 0;
+            _buildingNum = 0;
+            // カードリストをデッキに設定
+            SetDeck(cardModels);
+        }
+
+        // 上からカードを引いて手札に加える
+        public void DrawDeck(int num = 1)
+        {
+            List<CardMainModel> cardList = _deckUnit.Draw(num);
+            _handCard.AddRange(cardList);
+        }
 
         // デッキを設定
         public void SetDeck(List<CardMainModel> cardModels)

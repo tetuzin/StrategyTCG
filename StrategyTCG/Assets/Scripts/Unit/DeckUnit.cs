@@ -27,19 +27,39 @@ namespace UK.Unit.Deck
         public void Initialize(List<CardMainModel> deckCard)
         {
             _deckCard = deckCard;
+            Shuffle();
             SetCardNum(_deckCard.Count);
         }
 
         // デッキシャッフル
         public void Shuffle()
         {
-            // TODO
+            for (int i = _deckCard.Count - 1; i > 0; i--){
+                var j = Random.Range(0, i+1);   // ランダムで要素番号を１つ選ぶ（ランダム要素）
+                var temp = _deckCard[i];        // 一番最後の要素を仮確保（temp）にいれる
+                _deckCard[i] = _deckCard[j];    // ランダム要素を一番最後にいれる
+                _deckCard[j] = temp;            // 仮確保を元ランダム要素に上書き
+            }
         }
 
-        // カードを引く
-        public void Draw()
+        // カードをn枚引く
+        public List<CardMainModel> Draw(int num = 1)
         {
-            // TODO
+            List<CardMainModel> cardList = new List<CardMainModel>();
+            for (int i = 0; i < num; i++)
+            {
+                cardList.Add(OneDraw());
+            }
+            return cardList;
+        }
+
+        // カードを一枚引く
+        public CardMainModel OneDraw()
+        {
+            CardMainModel card = _deckCard[0];
+            _deckCard.RemoveAt(0);
+            SetCardNum(_deckCard.Count);
+            return card;
         }
 
         // デッキのカード枚数を設定する
@@ -61,7 +81,7 @@ namespace UK.Unit.Deck
         private void SetDeckHeightScale(int height)
         {
             Vector3 vector = this.gameObject.transform.localScale;
-            vector.y = height;
+            vector.y = (height / 10) * 150 / 100;
             this.gameObject.transform.localScale = vector;
         }
 

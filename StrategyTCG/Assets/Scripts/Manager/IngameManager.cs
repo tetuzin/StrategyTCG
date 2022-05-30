@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Ch120.Singleton;
+using Ch120.Manager.Master;
+
 using UK.Manager.UI;
+using UK.Manager.Card;
+using UK.Model.CardMain;
+using UK.Dao;
 
 namespace UK.Manager.Ingame
 {
-    public class IngameManager : MonoBehaviour
+    public class IngameManager : SingletonMonoBehaviour<IngameManager>
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
@@ -44,6 +50,20 @@ namespace UK.Manager.Ingame
         {
             // TODO
             Debug.Log("StartGame");
+
+            // TODO お互いのデッキを読み込む(現状、仮)
+            List<CardMainModel> playerDeck = CreateDeck();
+            List<CardMainModel> opponentDeck = CreateDeck();
+
+            // お互いのデッキをDeckUnitに設定
+            CardManager.Instance.SetPlayerDeck(playerDeck);
+            CardManager.Instance.SetOpponentDeck(opponentDeck);
+
+            // 手札を取得
+            CardManager.Instance.InitializePlayerHand();
+            CardManager.Instance.InitializeOpponentHand();
+
+            // TODO プレイヤーの手札を表示
 
             // 先手後手の初期化
             decisionIsFirst();
@@ -119,7 +139,13 @@ namespace UK.Manager.Ingame
             _isFirst = isFirst;
         }
 
-        // デバッグ用：相手ターン処理
+
+
+
+
+
+
+        // 開発テスト用関数：相手ターン処理
         private async void TestPlayOpponentTurn()
         {
             await System.Threading.Tasks.Task.Delay(1000);
@@ -130,6 +156,18 @@ namespace UK.Manager.Ingame
             Debug.Log("3");
             await System.Threading.Tasks.Task.Delay(1000);
             EndOpponentTurn();
+        }
+
+        // 開発テスト用関数：山札生成
+        private List<CardMainModel> CreateDeck()
+        {
+            List<CardMainModel> deck = new List<CardMainModel>();
+            List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
+            for(int i = 0; i < 40; i++)
+            {
+                deck.Add(list[0]);
+            }
+            return deck;
         }
 
         // ---------- protected関数 ---------
