@@ -69,11 +69,13 @@ namespace UK.Unit.Card
         {
             if (_cardTypeIcons[cardType])
             {
-                _cardTypeIcon = _cardTypeIcons[cardType];
+                GameObject obj = Instantiate(_cardTypeIcons[cardType], Vector3.zero, Quaternion.identity);
+                obj.transform.SetParent(_cardTypeIcon.transform, false);
             }
             else
             {
-                _cardTypeIcon = _cardTypeIcons[0];
+                GameObject obj = Instantiate(_cardTypeIcons[0], Vector3.zero, Quaternion.identity);
+                obj.transform.SetParent(_cardTypeIcon.transform, false);
             }
         }
 

@@ -1,0 +1,10 @@
+namespace UK.Const.Game
+{
+    public class GameConst
+    {
+        // 自分の場における人物カードの最大数
+        public static readonly int MAX_PERSON_CARD = 5;
+        // 自分の場における建造物カードの最大数
+        public static readonly int MAX_BUILDING_CARD = 5;
+    }
+}
