@@ -5,6 +5,7 @@ using UnityEngine;
 using UK.Const.Game;
 using UK.Model.CardMain;
 using UK.Unit.Card;
+using UK.Unit.Hand;
 using UK.Unit.Deck;
 using UK.Unit.Place;
 
@@ -18,14 +19,20 @@ namespace UK.Unit.Field
         [SerializeField, Tooltip("人物カード配置プレハブ")] private CardPlacement[] _personPlaces = default;
         [SerializeField, Tooltip("建造物カード配置プレハブ")] private CardPlacement[] _buildingPlaces = default;
         [SerializeField, Tooltip("デッキプレハブ")] private DeckUnit _deckUnit = default;
+        [SerializeField, Tooltip("手札オブジェクト")] private HandUnit _handUnit = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+
+        public bool IsPlayer
+        {
+            get { return _isPlayer; }
+        }
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
-        // 手札
-        private List<CardMainModel> _handCard = default;
+        // プレイヤーフラグ
+        private bool _isPlayer = default;
         // 配置した人物カード配列
         private CardUnit[] _personUnits = default;
         // 配置した建造物カード配列
@@ -39,29 +46,65 @@ namespace UK.Unit.Field
         // ---------- Public関数 ----------
 
         // 初期化
-        public void Initialize(List<CardMainModel> cardModels)
+        public void Initialize(List<CardMainModel> cardModels, bool isPlayer)
         {
+            _isPlayer = isPlayer;
+
+            // 手札の初期化
+            _handUnit.Initialize(_isPlayer);
+
+            // 山札の初期化
+            _deckUnit.Initialize(cardModels, _isPlayer);
+
+            // 人物カード配置箇所の初期化
+            for (int i = 0; i < _personPlaces.Length; i++)
+            {
+                _personPlaces[i].Initialize(_isPlayer);
+            }
+
+            // 建造物カード配置箇所の初期化
+            for (int i = 0; i < _buildingPlaces.Length; i++)
+            {
+                _buildingPlaces[i].Initialize(_isPlayer);
+            }
+
             // 各種値の初期化
-            _handCard = new List<CardMainModel>();
             _personUnits = new CardUnit[GameConst.MAX_PERSON_CARD];
             _buildingUnits = new CardUnit[GameConst.MAX_BUILDING_CARD];
             _personNum = 0;
             _buildingNum = 0;
-            // カードリストをデッキに設定
-            SetDeck(cardModels);
         }
 
         // 上からカードを引いて手札に加える
-        public void DrawDeck(int num = 1)
+        public List<CardMainModel> DrawDeck(int num = 1)
         {
             List<CardMainModel> cardList = _deckUnit.Draw(num);
-            _handCard.AddRange(cardList);
+            _handUnit.AddHandCard(cardList);
+            return cardList;
         }
 
-        // デッキを設定
-        public void SetDeck(List<CardMainModel> cardModels)
+        // 人物カード配列を返す
+        public CardPlacement[] GetPersonPlaces()
         {
-            _deckUnit.Initialize(cardModels);
+            return _personPlaces;
+        }
+
+        // 建造物カード配列を返す
+        public CardPlacement[] GetBuildingPlaces()
+        {
+            return _buildingPlaces;
+        }
+
+        // 山札を返す
+        public DeckUnit GetDeckUnit()
+        {
+            return _deckUnit;
+        }
+
+        // 手札を返す
+        public HandUnit GetHandUnit()
+        {
+            return _handUnit;
         }
 
         // 人物カードを追加配置する

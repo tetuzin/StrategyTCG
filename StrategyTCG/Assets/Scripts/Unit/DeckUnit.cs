@@ -12,6 +12,12 @@ namespace UK.Unit.Deck
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+
+        public bool IsPlayer
+        {
+            get { return _isPlayer; }
+        }
+
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
@@ -19,13 +25,16 @@ namespace UK.Unit.Deck
         private int _cardNum = default;
         // デッキに含まれるカード
         private List<CardMainModel> _deckCard = default;
+        // プレイヤーフラグ
+        private bool _isPlayer = default;
 
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
 
         // デッキ初期化
-        public void Initialize(List<CardMainModel> deckCard)
+        public void Initialize(List<CardMainModel> deckCard, bool isPlayer)
         {
+            _isPlayer = isPlayer;
             _deckCard = deckCard;
             Shuffle();
             SetCardNum(_deckCard.Count);

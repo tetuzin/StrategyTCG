@@ -5,6 +5,7 @@ using UnityEngine;
 using Ch120.Singleton;
 using Ch120.Manager.Master;
 
+using UK.Const.Game;
 using UK.Manager.UI;
 using UK.Manager.Card;
 using UK.Model.CardMain;
@@ -39,6 +40,8 @@ namespace UK.Manager.Ingame
             // TODO
             Debug.Log("InitializeIngame");
 
+            UIManager.Instance.Initialize();
+
             // ターン終了の処理をボタンに設定
             UIManager.Instance.SetTurnEndAction(EndPlayerTurn);
 
@@ -60,8 +63,8 @@ namespace UK.Manager.Ingame
             CardManager.Instance.SetOpponentDeck(opponentDeck);
 
             // 手札を取得
-            CardManager.Instance.InitializePlayerHand();
-            CardManager.Instance.InitializeOpponentHand();
+            CardManager.Instance.GetCardBattleField(GameConst.PLAYER).DrawDeck(GameConst.START_HAND_CARD);
+            CardManager.Instance.GetCardBattleField(GameConst.OPPONENT).DrawDeck(GameConst.START_HAND_CARD);
 
             // TODO プレイヤーの手札を表示
 
@@ -84,7 +87,8 @@ namespace UK.Manager.Ingame
 
             // TODO ターンスタートアニメーション
 
-            // TODO 山札一枚ドロー
+            // 山札一枚ドロー
+            CardManager.Instance.GetCardBattleField(GameConst.PLAYER).DrawDeck();
 
             // TODO UI表示
             UIManager.Instance.SetActiveActionUI(true);
@@ -109,10 +113,10 @@ namespace UK.Manager.Ingame
 
             // TODO ターンスタートアニメーション
 
-            // TODO 山札一枚ドロー
+            // 山札一枚ドロー
+            CardManager.Instance.GetCardBattleField(GameConst.OPPONENT).DrawDeck();
 
             // TODO UI表示
-
             UIManager.Instance.SwitchTurnText(false);
 
 
@@ -165,7 +169,7 @@ namespace UK.Manager.Ingame
             List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
             for(int i = 0; i < 40; i++)
             {
-                deck.Add(list[0]);
+                deck.Add(list[4]);
             }
             return deck;
         }
