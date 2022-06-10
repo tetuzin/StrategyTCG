@@ -7,6 +7,8 @@ using UK.Manager.Card;
 using UK.Manager.UI;
 using UK.Unit.Card;
 using UK.Unit.Card3D;
+using UK.Const.Game;
+using UK.Const.Card.Type;
 
 namespace UK.Unit.Place
 {
@@ -25,6 +27,12 @@ namespace UK.Unit.Place
             get { return _isPlayer; }
         }
 
+        public CardType FieldType
+        {
+            get { return _fieldType; }
+            set { _fieldType = value; }
+        }
+
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
@@ -34,6 +42,8 @@ namespace UK.Unit.Place
         private bool _isPlacement = default;
         // プレイヤーフラグ
         private bool _isPlayer = default;
+        // 場種
+        private CardType _fieldType = default;
 
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
@@ -50,31 +60,35 @@ namespace UK.Unit.Place
         // カードを配置する
         public void SetCardPlacement()
         {
-            // カードが選択されているなら
-            if (CardManager.Instance.IsSelect())
-            {
-                // 選択中カードユニットを取得
-                CardUnit cardUnit = CardManager.Instance.IsSelectCardUnit;
+            // カードが選択されていないなら
+            if (!CardManager.Instance.IsSelect()) { return; }
 
-                // カードを3Dで生成する
-                _card3DUnit = CardManager.Instance.Instantiate3DCardUnit(cardUnit.Model);
+            // この場が自分の場でないなら
+            if (!_isPlayer) { return; }
 
-                // 手札ボタンの非活性化
-                UIManager.Instance.SetHandButtonActive(false);
+            // 選択中カードユニットを取得
+            CardUnit cardUnit = CardManager.Instance.IsSelectCardUnit;
 
-                // 選択中カードを削除する
-                CardUnit selectCard = CardManager.Instance.IsSelectCardUnit;
-                CardManager.Instance.RemoveCard(_isPlayer, selectCard);
-                Destroy(selectCard.gameObject);// TODO Destroy
+            // カード種別が一致しているなら
+            if ((int)_fieldType != cardUnit.Model.CardType) { return; }
 
-                // カードを配置表示
-                _card3DUnit.gameObject.transform.SetParent(this.gameObject.transform);
-                _card3DUnit.gameObject.transform.localPosition = new Vector3(0.0f, 0.2f, 0.0f);
-                _card3DUnit.gameObject.transform.localRotation = Quaternion.Euler(90.0f, -90.0f, 0.0f);
-                _card3DUnit.gameObject.transform.localScale = new Vector3(0.14f, 0.14f, 1.0f);
+            // カードを3Dで生成する
+            _card3DUnit = CardManager.Instance.Instantiate3DCardUnit(cardUnit.Model, _isPlayer);
 
-                _isPlacement = true;
-            }
+            // 手札ボタンの非活性化
+            UIManager.Instance.SetHandButtonActive(false);
+
+            // 選択中カードを削除する
+            CardUnit selectCard = CardManager.Instance.IsSelectCardUnit;
+            CardManager.Instance.RemoveCard(_isPlayer, selectCard);
+
+            // カードを配置表示
+            _card3DUnit.gameObject.transform.SetParent(this.gameObject.transform);
+            _card3DUnit.gameObject.transform.localPosition = new Vector3(0.0f, 0.2f, 0.0f);
+            _card3DUnit.gameObject.transform.localRotation = Quaternion.Euler(90.0f, -90.0f, 0.0f);
+            _card3DUnit.gameObject.transform.localScale = new Vector3(0.14f, 0.14f, 1.0f);
+
+            _isPlacement = true;
         }
 
         // カードユニットを設定

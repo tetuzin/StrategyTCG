@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 
 using Ch120.Utils.Resource;
 
 using UK.Manager.Card;
 using UK.Manager.UI;
+using UK.Manager.Popup;
 using UK.Model.CardMain;
+using UK.Utils.Card;
+using UK.Const.Card.UseType;
 
 namespace UK.Unit.Card
 {
@@ -39,6 +43,10 @@ namespace UK.Unit.Card
         {
             get { return _model; }
         }
+        public bool IsPlayer
+        {
+            get { return _isPlayer; }
+        }
 
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
@@ -53,8 +61,8 @@ namespace UK.Unit.Card
         private int _curAtk = default;
         // 選択フラグ
         private bool _isSelect = default;
-        // 手札の初期位置
-        private Vector3 _defaultPosition = default;
+        // プレイヤーフラグ
+        private bool _isPlayer = default;
 
         // ---------- Unity組込関数 ----------
 
@@ -77,10 +85,11 @@ namespace UK.Unit.Card
         // ---------- Public関数 ----------
 
         // 初期化
-        public void Initialize(CardMainModel model, RectTransform canvasRect)
+        public void Initialize(CardMainModel model, RectTransform canvasRect, bool isPlayer)
         {
             _model = model;
             _canvasRect = canvasRect;
+            _isPlayer = isPlayer;
             SetCardImage(_model.Image);
             SetCardNameText(_model.CardName);
             SetCardTypeIcon(_model.CardType);
@@ -95,22 +104,64 @@ namespace UK.Unit.Card
                 // 選択中のカードがあるか
                 if (!CardManager.Instance.IsSelect())
                 {
-                    _defaultPosition = this.gameObject.transform.localPosition;
-                    CardManager.Instance.IsSelectCardUnit = this;
+                    // カード使用タイプを取得
+                    CardUseType cardUseType = CardUtils.GetCardUseType(_model);
 
-                    // 手札ボタンの設定
-                    UIManager.Instance.SetHandButtonAction(() => {
-                        _isSelect = false;
-                        CardManager.Instance.IsSelectCardUnit = null;
-                        this.gameObject.transform.localPosition = _defaultPosition;
-                        _cardButton.gameObject.SetActive(true);
-                    });
-                    UIManager.Instance.SetHandButtonActive(true);
-                    
-                    _cardButton.gameObject.SetActive(false);
-                    _isSelect = true;
+                    // 配置タイプのカード
+                    if (cardUseType == CardUseType.PLACEMENT)
+                    {
+                        UseCardPlacement();
+                    }
+
+                    // 消費タイプのカード
+                    if (cardUseType == CardUseType.CONSUMPTION)
+                    {
+                        UseCardConsumption();
+                    }
                 }
             });
+        }
+
+        // カード使用（配置）
+        public void UseCardPlacement()
+        {
+            Vector3 position = this.gameObject.transform.localPosition;
+            CardManager.Instance.IsSelectCardUnit = this;
+
+            // 手札ボタンの設定
+            UIManager.Instance.SetHandButtonAction(() => {
+                _isSelect = false;
+                CardManager.Instance.IsSelectCardUnit = null;
+                this.gameObject.transform.localPosition = position;
+                _cardButton.gameObject.SetActive(true);
+            });
+            UIManager.Instance.SetHandButtonActive(true);
+            
+            _cardButton.gameObject.SetActive(false);
+            _isSelect = true;
+        }
+
+        // カード使用（消費）
+        public void UseCardConsumption()
+        {
+            Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+            actions.Add(
+                Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
+                () => {
+                    // カード効果発動
+                    EffectActivation();
+                    // カードをトラッシュへ
+                    CardManager.Instance.TrashCard(_isPlayer, this);
+                }
+            );
+            PopupManager.Instance.SetConsumptionPopup(_model, actions);
+            PopupManager.Instance.ShowConsumptionPopup();
+        }
+
+        // カード効果発動
+        public void EffectActivation()
+        {
+            Debug.Log(_model.CardName + "の効果発動!");
         }
 
         // カードを非活性化

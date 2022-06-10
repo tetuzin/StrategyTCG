@@ -33,6 +33,8 @@ namespace UK.Unit.Hand
 
         // 手札
         private List<CardMainModel> _handCard = default;
+        // ユニットリスト（手札）
+        private List<CardUnit> _handCardUnit = default;
         // プレイヤーフラグ
         private bool _isPlayer = default;
 
@@ -44,6 +46,7 @@ namespace UK.Unit.Hand
         {
             _isPlayer = isPlayer;
             _handCard = new List<CardMainModel>();
+            _handCardUnit = new List<CardUnit>();
         }
 
         // カードをパネルに配置（手札表示
@@ -58,11 +61,12 @@ namespace UK.Unit.Hand
         // カードリストを手札に追加
         public void AddHandCard(List<CardMainModel> addCardList)
         {
-            _handCard.AddRange(addCardList);
             foreach (CardMainModel cardModel in addCardList)
             {
-                CardUnit cardUnit = CardManager.Instance.Instantiate2DCardUnit(cardModel);
+                CardUnit cardUnit = CardManager.Instance.Instantiate2DCardUnit(cardModel, _isPlayer);
                 SetCardPanel(cardUnit);
+                _handCardUnit.Add(cardUnit);
+                _handCard.Add(cardModel);
             }
         }
 
@@ -76,9 +80,15 @@ namespace UK.Unit.Hand
             }
             else
             {
-                Debug.LogWarning("Listに指定の値は存在しません。");
+                Debug.LogWarning("_handCardListに指定の値は存在しません。");
             }
-            
+        }
+
+        // 手札を削除
+        public void RemoveHandCard(CardUnit cardUnit)
+        {
+            _handCardUnit.Remove(cardUnit);
+            Destroy(cardUnit.gameObject);// TODO Destroy
         }
 
         // ---------- Private関数 ----------

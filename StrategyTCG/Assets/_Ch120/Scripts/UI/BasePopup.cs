@@ -13,20 +13,24 @@ namespace Ch120.Popup
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         
-        [SerializeField, Tooltip("ポップアップのオブジェクト")] protected GameObject popupObject;
-        [SerializeField, Tooltip("モーダルのオブジェクト")] protected GameObject modalObject;
+        [SerializeField, Tooltip("ポップアップのオブジェクト")] protected GameObject popupObject = default;
+        [SerializeField, Tooltip("モーダルのオブジェクト")] protected GameObject modalObject = default;
+        [SerializeField, Tooltip("キャンバス")] private Canvas _canvas = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+
         public bool IsOpen
         {
             get { return _isOpen; }
         }
+
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
-        private Dictionary<string, UnityAction> _actions;
-        private bool _isOpen;
+        private Dictionary<string, UnityAction> _actions = default;
+        private bool _isOpen = default;
+        private GameObject _modal = default;
         
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
@@ -34,12 +38,11 @@ namespace Ch120.Popup
         // 初期化
         public void InitPopup(
             Dictionary<string, UnityAction> actions,
-            GameObject modal,
-            dynamic param
+            dynamic param = null
             )
         {
+            gameObject.name = gameObject.name.Replace( "(Clone)", "" );
             SetActions(actions);
-            SetModal(modal);
             SetData(param);
             SetButtonEvents();
         }
@@ -49,7 +52,9 @@ namespace Ch120.Popup
         {
             if (!_isOpen)
             {
+                SetModal();
                 _isOpen = true;
+                modalObject.SetActive(true);
                 popupObject.SetActive(true);
                 PopupUtils.AddPopupName(this.gameObject);
             }
@@ -62,8 +67,7 @@ namespace Ch120.Popup
             {
                 modalObject.SetActive(false);
                 popupObject.SetActive(false);
-                Destroy(modalObject);
-                Destroy(popupObject);
+                Destroy(_modal);
                 PopupUtils.RemovePopupName(this.gameObject);
                 _isOpen = false;
             }
@@ -84,14 +88,19 @@ namespace Ch120.Popup
         }
 
         // モーダルの設定
-        void SetModal(GameObject modal)
+        void SetModal()
         {
-            if (modal != null)
-            {
-                Button button = modal.GetComponent<Button>();
-                button.onClick.AddListener(Close);
-                modalObject = modal;
-            }
+            // モーダルが無ければ何もしない
+            if (modalObject == null) { return; }
+
+            // モーダル生成
+            _modal = PopupUtils.CreateModal(_canvas.gameObject);
+
+            // モーダルにポップアップ閉じる処理を設定
+            Button button = _modal.GetComponent<Button>();
+            button.onClick.AddListener(Close);
+
+            _modal.transform.SetParent(modalObject.transform);
         }
 
         // ---------- protected関数 ---------
@@ -105,7 +114,9 @@ namespace Ch120.Popup
         // コールバックの取得
         protected UnityAction GetAction(string key)
         {
-            return _actions[key];
+            if (_actions.ContainsKey(key)) { return _actions[key]; }
+            
+            return () => {};
         }
     }
 }

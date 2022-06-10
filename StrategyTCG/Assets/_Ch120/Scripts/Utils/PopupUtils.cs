@@ -47,9 +47,6 @@ namespace Ch120.Utils.Popup
             // ポップアップが既に開いているなら開かない
             if (popup.CheckOpen()) { return; }
 
-            // モーダルの生成
-            GameObject modal = CreateModal(canvas);
-
             // Popupをキャンバスの下に配置
             obj.transform.SetParent(canvas.transform);
 
@@ -57,7 +54,7 @@ namespace Ch120.Utils.Popup
             if (actions == null) { actions = new Dictionary<string, UnityAction>(); }
 
             // Popup表示
-            popup.InitPopup(actions, modal, param);
+            popup.InitPopup(actions, param);
             popup.Open();
         }
 
@@ -79,10 +76,8 @@ namespace Ch120.Utils.Popup
             return _openPopupNameList.Contains(obj.name);
         }
 
-        // ---------- Private関数 ----------
-
         // モーダル生成
-        private static GameObject CreateModal(GameObject parentObj)
+        public static GameObject CreateModal(GameObject parentObj)
         {
             // インスタンス生成
             GameObject modal = new GameObject(MODAL_NAME);
@@ -100,6 +95,7 @@ namespace Ch120.Utils.Popup
             return modal;
         }
 
+        // ---------- Private関数 ----------
         // ---------- protected関数 ---------
     }
 }

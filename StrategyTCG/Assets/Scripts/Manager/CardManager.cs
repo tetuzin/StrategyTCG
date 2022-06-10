@@ -42,7 +42,7 @@ namespace UK.Manager.Card
         // ---------- Public関数 ----------
 
         // 2Dカードオブジェクトを生成して返す
-        public CardUnit Instantiate2DCardUnit(CardMainModel cardModel)
+        public CardUnit Instantiate2DCardUnit(CardMainModel cardModel, bool isPlayer)
         {
             // インスタンスオブジェクト生成
             GameObject obj = Instantiate(_2dCardPrefab, Vector3.zero, Quaternion.identity);
@@ -51,30 +51,39 @@ namespace UK.Manager.Card
             // カードユニット初期化
             CardUnit cardUnit = obj.GetComponent<CardUnit>();
             Canvas canvas = UIManager.Instance.GetCanvas();
-            cardUnit.Initialize(cardModel, canvas.gameObject.GetComponent<RectTransform>());
+            cardUnit.Initialize(cardModel, canvas.gameObject.GetComponent<RectTransform>(), isPlayer);
             return cardUnit;
         }
 
         // 3Dカードオブジェクトを生成して返す
-        public Card3DUnit Instantiate3DCardUnit(CardMainModel cardModel)
+        public Card3DUnit Instantiate3DCardUnit(CardMainModel cardModel, bool isPlayer)
         {
             // インスタンスオブジェクト生成
             GameObject obj = Instantiate(_3dCardPrefab, Vector3.zero, Quaternion.identity);
 
             // 2Dオブジェクトを生成
-            CardUnit cardUnit = Instantiate2DCardUnit(cardModel);
+            CardUnit cardUnit = Instantiate2DCardUnit(cardModel, isPlayer);
             
             // カードユニット初期化
             Card3DUnit card3DUnit = obj.GetComponent<Card3DUnit>();
-            card3DUnit.Initialize(cardUnit);
+            card3DUnit.Initialize(cardUnit, isPlayer);
             return card3DUnit;
+        }
+
+        // カードをトラッシュへ送る
+        public void TrashCard(bool isPlayer, CardUnit cardUnit)
+        {
+            // TODO トラッシュにカードを描画
+
+            // 手札カードの削除
+            RemoveCard(isPlayer, cardUnit);
         }
 
         // 手札のカードを削除する
         public void RemoveCard(bool isPlayer, CardUnit cardUnit)
         {
             CardBattleField battleField = GetCardBattleField(isPlayer);
-            battleField.GetHandUnit().RemoveHandCard(cardUnit.Model);
+            battleField.GetHandUnit().RemoveHandCard(cardUnit);
         }
         
         // 自分のデッキを設定

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 using Ch120.Singleton;
 
@@ -15,25 +16,52 @@ namespace UK.Manager.UI
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
-        
+
+        [Header("キャンバス")]
         [SerializeField, Tooltip("キャンバス")] private Canvas _canvas = default;
+
+        [Header("キャンバスグループ")]
+        [SerializeField, Tooltip("プレイヤーアクション実行用UI")] private CanvasGroup _playerActionGroup = default;
+        [SerializeField, Tooltip("手札表示・手札使用UI")] private CanvasGroup _handCardGroup = default;
+
+        [Header("ボタン")]
         [SerializeField, Tooltip("ターン終了ボタン")] private Button _turnEndButton = default;
+        [SerializeField, Tooltip("手札表示・非表示ボタン")] private Button _handViewButton = default;
         [SerializeField, Tooltip("手札ボタン")] private Button _handButton = default;
-        [SerializeField, Tooltip("ターンテキスト")] private Text _turnText = default;
+
+        [Header("テキスト")]
+        [SerializeField, Tooltip("ターンテキスト")] private TextMeshProUGUI _turnText = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
+
+        private bool _isShowHandView = false;
+
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
 
         // UIの初期化
         public void Initialize()
         {
+            InitializeButton();
             _handButton.gameObject.SetActive(false);
             SwitchTurnText(true);
             SetActiveActionUI(false);
+            SetHandViewButton(() => {
+                _isShowHandView = !_isShowHandView;
+                _handCardGroup.alpha = _isShowHandView ? 1 : 0;
+            });
+            SetActiveHandGroup(false);
+        }
+
+        // ボタン関数の初期化
+        public void InitializeButton()
+        {
+            _turnEndButton.onClick.RemoveAllListeners();
+            _handButton.onClick.RemoveAllListeners();
+            _handViewButton.onClick.RemoveAllListeners();
         }
 
         // Canvasを取得
@@ -42,10 +70,16 @@ namespace UK.Manager.UI
             return _canvas;
         }
 
-        // プレイヤーが操作するUIの活性化・非活性化
+        // プレイヤーが操作するUIの表示・非表示
         public void SetActiveActionUI(bool b)
         {
-            _turnEndButton.gameObject.SetActive(b);
+            _playerActionGroup.alpha = b ? 1 : 0;
+        }
+
+        // プレイヤーが操作するUIの活性化・非活性化
+        public void SetActiveHandGroup(bool b)
+        {
+            _handCardGroup.interactable = b;
         }
 
         // ターン終了ボタンにイベントを設定する
@@ -53,6 +87,13 @@ namespace UK.Manager.UI
         {
             _turnEndButton.onClick.RemoveAllListeners();
             _turnEndButton.onClick.AddListener(action);
+        }
+
+        // ターン終了ボタンにイベントを設定する
+        public void SetHandViewButton(UnityAction action)
+        {
+            _handViewButton.onClick.RemoveAllListeners();
+            _handViewButton.onClick.AddListener(action);
         }
 
         // ターンテキストを切り替える

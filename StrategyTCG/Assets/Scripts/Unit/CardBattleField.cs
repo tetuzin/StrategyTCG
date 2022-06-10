@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UK.Const.Game;
+using UK.Const.Card.Type;
 using UK.Model.CardMain;
 using UK.Unit.Card;
 using UK.Unit.Hand;
@@ -60,12 +61,14 @@ namespace UK.Unit.Field
             for (int i = 0; i < _personPlaces.Length; i++)
             {
                 _personPlaces[i].Initialize(_isPlayer);
+                _personPlaces[i].FieldType = CardType.PERSON;
             }
 
             // 建造物カード配置箇所の初期化
             for (int i = 0; i < _buildingPlaces.Length; i++)
             {
                 _buildingPlaces[i].Initialize(_isPlayer);
+                _buildingPlaces[i].FieldType = CardType.BUILDING;
             }
 
             // 各種値の初期化

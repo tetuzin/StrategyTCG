@@ -16,18 +16,26 @@ namespace UK.Unit.Card3D
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+
+        public bool IsPlayer
+        {
+            get { return _isPlayer; }
+        }
+        
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
         private CardUnit _cardUnit = default;
+        private bool _isPlayer = default;
 
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
 
         // 初期化
-        public void Initialize(CardUnit cardUnit)
+        public void Initialize(CardUnit cardUnit, bool isPlayer)
         {
             _cardUnit = cardUnit;
+            _isPlayer = isPlayer;
             _cardUnit.gameObject.transform.SetParent(this.gameObject.transform);
             _cardUnit.gameObject.transform.localPosition = new Vector3(0, 0, 0);
             

@@ -66,11 +66,17 @@ namespace UK.Manager.Ingame
             CardManager.Instance.GetCardBattleField(GameConst.PLAYER).DrawDeck(GameConst.START_HAND_CARD);
             CardManager.Instance.GetCardBattleField(GameConst.OPPONENT).DrawDeck(GameConst.START_HAND_CARD);
 
-            // TODO プレイヤーの手札を表示
-
             // 先手後手の初期化
             decisionIsFirst();
             UIManager.Instance.SwitchTurnText(_isFirst);
+            if (_isFirst)
+            {
+                StartPlayerTurn();
+            }
+            else
+            {
+                StartOpponentTurn();
+            }
         }
 
         // ゲーム終了
@@ -93,6 +99,7 @@ namespace UK.Manager.Ingame
             // TODO UI表示
             UIManager.Instance.SetActiveActionUI(true);
             UIManager.Instance.SwitchTurnText(true);
+            UIManager.Instance.SetActiveHandGroup(true);
         }
 
         // 自分のターン終了
@@ -102,6 +109,7 @@ namespace UK.Manager.Ingame
 
             // TODO UI非表示
             UIManager.Instance.SetActiveActionUI(false);
+            UIManager.Instance.SetActiveHandGroup(false);
 
             StartOpponentTurn();
         }
@@ -167,9 +175,12 @@ namespace UK.Manager.Ingame
         {
             List<CardMainModel> deck = new List<CardMainModel>();
             List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
-            for(int i = 0; i < 40; i++)
+            for(int i = 0; i < 10; i++)
             {
                 deck.Add(list[4]);
+                deck.Add(list[1]);
+                deck.Add(list[3]);
+                deck.Add(list[7]);
             }
             return deck;
         }
