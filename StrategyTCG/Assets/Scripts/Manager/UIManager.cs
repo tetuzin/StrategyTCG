@@ -43,8 +43,9 @@ namespace UK.Manager.UI
         // ---------- Public関数 ----------
 
         // UIの初期化
-        public void Initialize()
+        virtual public void Initialize()
         {
+            Debug.Log("UIManager.Initialize");
             InitializeButton();
             _handButton.gameObject.SetActive(false);
             SwitchTurnText(true);
