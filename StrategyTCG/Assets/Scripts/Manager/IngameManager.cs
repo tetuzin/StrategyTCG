@@ -10,6 +10,7 @@ using UK.Manager.UI;
 using UK.Manager.Card;
 using UK.Model.CardMain;
 using UK.Dao;
+using UK.Unit.Player;
 
 namespace UK.Manager.Ingame
 {
@@ -23,6 +24,8 @@ namespace UK.Manager.Ingame
         // ---------- インスタンス変数宣言 ----------
 
         private bool _isFirst = default;
+        private PlayerUnit _playerUnit = default;
+        private PlayerUnit _opponentUnit = default;
 
         // ---------- Unity組込関数 ----------
         
@@ -39,6 +42,10 @@ namespace UK.Manager.Ingame
         {
             // TODO
             Debug.Log("InitializeIngame");
+
+            // TODO お互いのユニットを読み込む
+            _playerUnit = GetPlayerUnit();
+            _opponentUnit = GetPlayerUnit();
 
             UIManager.Instance.Initialize();
 
@@ -61,10 +68,12 @@ namespace UK.Manager.Ingame
             // お互いのデッキをDeckUnitに設定
             CardManager.Instance.SetPlayerDeck(playerDeck);
             CardManager.Instance.SetOpponentDeck(opponentDeck);
+            UIManager.Instance.InitializePlayerStatusGroup(_playerUnit);
+            UIManager.Instance.InitializeOpponentStatusGroup(_opponentUnit);
 
             // 手札を取得
-            CardManager.Instance.GetCardBattleField(GameConst.PLAYER).DrawDeck(GameConst.START_HAND_CARD);
-            CardManager.Instance.GetCardBattleField(GameConst.OPPONENT).DrawDeck(GameConst.START_HAND_CARD);
+            CardManager.Instance.DeckDraw(GameConst.PLAYER, GameConst.START_HAND_CARD);
+            CardManager.Instance.DeckDraw(GameConst.OPPONENT, GameConst.START_HAND_CARD);
 
             // 先手後手の初期化
             decisionIsFirst();
@@ -94,9 +103,9 @@ namespace UK.Manager.Ingame
             // TODO ターンスタートアニメーション
 
             // 山札一枚ドロー
-            CardManager.Instance.GetCardBattleField(GameConst.PLAYER).DrawDeck();
+            CardManager.Instance.DeckDraw(GameConst.PLAYER);
 
-            // TODO UI表示
+            // UI表示
             UIManager.Instance.SetActiveActionUI(true);
             UIManager.Instance.SwitchTurnText(true);
             UIManager.Instance.SetActiveHandGroup(true);
@@ -107,7 +116,7 @@ namespace UK.Manager.Ingame
         {
             Debug.Log("EndPlayerTurn");
 
-            // TODO UI非表示
+            // UI非表示
             UIManager.Instance.SetActiveActionUI(false);
             UIManager.Instance.SetActiveHandGroup(false);
 
@@ -122,9 +131,9 @@ namespace UK.Manager.Ingame
             // TODO ターンスタートアニメーション
 
             // 山札一枚ドロー
-            CardManager.Instance.GetCardBattleField(GameConst.OPPONENT).DrawDeck();
+            CardManager.Instance.DeckDraw(GameConst.OPPONENT);
 
-            // TODO UI表示
+            // UI表示
             UIManager.Instance.SwitchTurnText(false);
 
 
@@ -183,6 +192,20 @@ namespace UK.Manager.Ingame
                 deck.Add(list[7]);
             }
             return deck;
+        }
+
+        // 開発テスト用関数：PlayerUnitの仮データを返す
+        private PlayerUnit GetPlayerUnit()
+        {
+            PlayerUnit unit = new PlayerUnit();
+            unit.Atk = 100;
+            unit.PeopleNum = 5;
+            unit.MaxHp = 1000;
+            unit.CurHp = 1000;
+            unit.Fund = 100;
+            unit.TurnFund = 50;
+            unit.Name = "Player";
+            return unit;
         }
 
         // ---------- protected関数 ---------

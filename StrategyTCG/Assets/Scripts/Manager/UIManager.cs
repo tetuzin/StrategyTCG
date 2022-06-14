@@ -8,7 +8,10 @@ using TMPro;
 
 using Ch120.Singleton;
 
+using UK.Const.Game;
 using UK.Unit.Card;
+using UK.Unit.Player;
+using UK.UI.StatusGroup;
 
 namespace UK.Manager.UI
 {
@@ -31,6 +34,10 @@ namespace UK.Manager.UI
 
         [Header("テキスト")]
         [SerializeField, Tooltip("ターンテキスト")] private TextMeshProUGUI _turnText = default;
+
+        [Header("ステータスグループ")]
+        [SerializeField, Tooltip("自分のステータスグループ")] private PlayerStatusGroup _playerStatus = default;
+        [SerializeField, Tooltip("相手のステータスグループ")] private PlayerStatusGroup _opponentStatus = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -126,6 +133,31 @@ namespace UK.Manager.UI
         public void SetHandButtonActive(bool b)
         {
             _handButton.gameObject.SetActive(b);
+        }
+
+        // 自分のステータス詳細を設定
+        public void InitializePlayerStatusGroup(PlayerUnit statusGroup)
+        {
+            _playerStatus.Initialize(statusGroup, GameConst.PLAYER);
+        }
+
+        // 相手のステータス詳細を設定
+        public void InitializeOpponentStatusGroup(PlayerUnit statusGroup)
+        {
+            _opponentStatus.Initialize(statusGroup, GameConst.OPPONENT);
+        }
+
+        // ステータス詳細を取得
+        public PlayerStatusGroup GetStatusGroup(bool isPlayer)
+        {
+            if (isPlayer)
+            {
+                return _playerStatus;
+            }
+            else
+            {
+                return _opponentStatus;
+            }
         }
 
         // ---------- Private関数 ----------

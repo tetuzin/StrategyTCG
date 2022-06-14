@@ -111,6 +111,17 @@ namespace UK.Manager.Card
             }
         }
 
+        // 山札をドロー
+        public void DeckDraw(bool isPlayer, int num = 1)
+        {
+            // Num枚引く
+            GetCardBattleField(isPlayer).DrawDeck(num);
+
+            // UI再描画
+            int deckCount = GetCardBattleField(isPlayer).GetDeckUnit().GetCardNum();
+            UIManager.Instance.GetStatusGroup(isPlayer).SetCurDeckNumText(deckCount);
+        }
+
         // 選択しているカードがあるか
         public bool IsSelect()
         {

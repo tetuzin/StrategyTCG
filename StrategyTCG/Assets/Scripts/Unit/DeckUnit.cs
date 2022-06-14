@@ -23,6 +23,8 @@ namespace UK.Unit.Deck
 
         // デッキのカード枚数
         private int _cardNum = default;
+        // デッキのカード枚数（最大値）
+        private int _maxCardNum = default;
         // デッキに含まれるカード
         private List<CardMainModel> _deckCard = default;
         // プレイヤーフラグ
@@ -37,6 +39,7 @@ namespace UK.Unit.Deck
             _isPlayer = isPlayer;
             _deckCard = deckCard;
             Shuffle();
+            _maxCardNum = _deckCard.Count;
             SetCardNum(_deckCard.Count);
         }
 
@@ -69,6 +72,18 @@ namespace UK.Unit.Deck
             _deckCard.RemoveAt(0);
             SetCardNum(_deckCard.Count);
             return card;
+        }
+
+        // デッキのカード枚数を取得する
+        public int GetMaxCardNum()
+        {
+            return _maxCardNum;
+        }
+
+        // デッキのカード枚数を取得する
+        public int GetCardNum()
+        {
+            return _cardNum;
         }
 
         // デッキのカード枚数を設定する

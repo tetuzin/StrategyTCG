@@ -176,7 +176,6 @@ namespace UK.Unit.Card
         // カード画像の設定
         private void SetCardImage(string imageFile)
         {
-            // TODO
             string path = ResourceUtils.GetTexturePath("CardImage/" + imageFile);
             Sprite sprite = ResourceUtils.GetSprite(path);
             _image.sprite = sprite;
