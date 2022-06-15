@@ -2,57 +2,73 @@
     {
         "_effectId": 10001,
         "_effectName": "織田信長",
-        "_effectTriggerType": 101,
+        "_effectConditionType": 101,
         "_effectGroupId": 100001,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "織田信長"
     },
     {
         "_effectId": 10002,
         "_effectName": "伊能忠敬",
-        "_effectTriggerType": 102,
+        "_effectConditionType": 102,
         "_effectGroupId": 100002,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "伊能忠敬"
     },
     {
         "_effectId": 10003,
         "_effectName": "緊急事態宣言",
-        "_effectTriggerType": 103,
+        "_effectConditionType": 103,
         "_effectGroupId": 100003,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "緊急事態宣言"
     },
     {
         "_effectId": 10004,
         "_effectName": "生類憐みの令",
-        "_effectTriggerType": 104,
+        "_effectConditionType": 104,
         "_effectGroupId": 100004,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "生類憐みの令"
     },
     {
         "_effectId": 10005,
         "_effectName": "八ツ橋",
-        "_effectTriggerType": 105,
+        "_effectConditionType": 105,
         "_effectGroupId": 100005,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "八ツ橋"
     },
     {
         "_effectId": 10006,
         "_effectName": "ゼロ戦",
-        "_effectTriggerType": 106,
+        "_effectConditionType": 106,
         "_effectGroupId": 100006,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "ゼロ戦"
     },
     {
         "_effectId": 10007,
         "_effectName": "軍艦島",
-        "_effectTriggerType": 107,
+        "_effectConditionType": 107,
         "_effectGroupId": 100007,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "軍艦島"
     },
     {
         "_effectId": 10008,
         "_effectName": "東京スカイツリー",
-        "_effectTriggerType": 108,
+        "_effectConditionType": 108,
         "_effectGroupId": 100008,
+        "_effectTimingType": null,
+        "_effectTriggerType": null,
         "_effectText": "東京スカイツリー"
     }
 ]

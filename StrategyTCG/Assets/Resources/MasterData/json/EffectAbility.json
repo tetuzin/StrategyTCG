@@ -1,34 +1,58 @@
 ﻿[
     {
         "_effectAbilityId": 10001,
-        "_abilityName": "織田信長"
+        "_abilityName": "織田信長",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     },
     {
         "_effectAbilityId": 10002,
-        "_abilityName": "伊能忠敬"
+        "_abilityName": "伊能忠敬",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     },
     {
         "_effectAbilityId": 10003,
-        "_abilityName": "緊急事態宣言"
+        "_abilityName": "緊急事態宣言",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     },
     {
         "_effectAbilityId": 10004,
-        "_abilityName": "生類憐みの令"
+        "_abilityName": "生類憐みの令",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     },
     {
         "_effectAbilityId": 10005,
-        "_abilityName": "八ツ橋"
+        "_abilityName": "八ツ橋",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     },
     {
         "_effectAbilityId": 10006,
-        "_abilityName": "ゼロ戦"
+        "_abilityName": "ゼロ戦",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     },
     {
         "_effectAbilityId": 10007,
-        "_abilityName": "軍艦島"
+        "_abilityName": "軍艦島",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     },
     {
         "_effectAbilityId": 10008,
-        "_abilityName": "東京スカイツリー"
+        "_abilityName": "東京スカイツリー",
+        "_abilityType": null,
+        "_abilityParameter": null,
+        "_abilityProbability": null
     }
 ]

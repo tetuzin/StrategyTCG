@@ -2,41 +2,41 @@
     {
         "_effectGroupId": 100001,
         "_effectAbilityId": 10001,
-        "_abilityTriggerType": 101
+        "_abilityConditionType": 101
     },
     {
         "_effectGroupId": 100002,
         "_effectAbilityId": 10002,
-        "_abilityTriggerType": 102
+        "_abilityConditionType": 102
     },
     {
         "_effectGroupId": 100003,
         "_effectAbilityId": 10003,
-        "_abilityTriggerType": 103
+        "_abilityConditionType": 103
     },
     {
         "_effectGroupId": 100004,
         "_effectAbilityId": 10004,
-        "_abilityTriggerType": 104
+        "_abilityConditionType": 104
     },
     {
         "_effectGroupId": 100005,
         "_effectAbilityId": 10005,
-        "_abilityTriggerType": 105
+        "_abilityConditionType": 105
     },
     {
         "_effectGroupId": 100006,
         "_effectAbilityId": 10006,
-        "_abilityTriggerType": 106
+        "_abilityConditionType": 106
     },
     {
         "_effectGroupId": 100007,
         "_effectAbilityId": 10007,
-        "_abilityTriggerType": 107
+        "_abilityConditionType": 107
     },
     {
         "_effectGroupId": 100008,
         "_effectAbilityId": 10008,
-        "_abilityTriggerType": 108
+        "_abilityConditionType": 108
     }
 ]
