@@ -6,6 +6,7 @@ using Ch120.Singleton;
 using Ch120.Manager.Master;
 
 using UK.Const.Game;
+using UK.Const.Effect;
 using UK.Manager.UI;
 using UK.Manager.Card;
 using UK.Model.CardMain;
@@ -20,12 +21,19 @@ namespace UK.Manager.Ingame
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+
+        public TimingType CurTiming
+        {
+            get { return _curTiming; }
+        }
+
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
         private bool _isFirst = default;
         private PlayerUnit _playerUnit = default;
         private PlayerUnit _opponentUnit = default;
+        private TimingType _curTiming = default;
 
         // ---------- Unity組込関数 ----------
         
@@ -50,7 +58,7 @@ namespace UK.Manager.Ingame
             UIManager.Instance.Initialize();
 
             // ターン終了の処理をボタンに設定
-            UIManager.Instance.SetTurnEndAction(EndPlayerTurn);
+            UIManager.Instance.SetTurnEndAction(AttackPlayer);
 
             StartGame();
         }
@@ -60,6 +68,9 @@ namespace UK.Manager.Ingame
         {
             // TODO
             Debug.Log("StartGame");
+
+            // タイミング初期化
+            _curTiming = TimingType.NONE;
 
             // TODO お互いのデッキを読み込む(現状、仮)
             List<CardMainModel> playerDeck = CreateDeck();
@@ -100,6 +111,9 @@ namespace UK.Manager.Ingame
         {
             Debug.Log("StartPlayerTurn");
 
+            // タイミング：プレイヤーターンスタート
+            _curTiming = TimingType.START_TURN_PLAYER;
+
             // TODO ターンスタートアニメーション
 
             // 山札一枚ドロー
@@ -109,12 +123,31 @@ namespace UK.Manager.Ingame
             UIManager.Instance.SetActiveActionUI(true);
             UIManager.Instance.SwitchTurnText(true);
             UIManager.Instance.SetActiveHandGroup(true);
+
+            // タイミング：プレイヤーターン
+            _curTiming = TimingType.TURN_PLAYER;
+        }
+
+        // 相手の攻撃
+        private void AttackPlayer()
+        {
+            Debug.Log("AttackPlayer");
+
+            // タイミング：相手の攻撃
+            _curTiming = TimingType.END_ATTACK_PLAYER;
+
+            // TODO ターン最後の攻撃処理
+
+            EndPlayerTurn();
         }
 
         // 自分のターン終了
         private void EndPlayerTurn()
         {
             Debug.Log("EndPlayerTurn");
+
+            // タイミング：プレイヤーターンエンド
+            _curTiming = TimingType.END_TURN_PLAYER;
 
             // UI非表示
             UIManager.Instance.SetActiveActionUI(false);
@@ -128,6 +161,9 @@ namespace UK.Manager.Ingame
         {
             Debug.Log("StartOpponentTurn");
 
+            // タイミング：相手ターンスタート
+            _curTiming = TimingType.START_TURN_OPPONENT;
+
             // TODO ターンスタートアニメーション
 
             // 山札一枚ドロー
@@ -136,15 +172,33 @@ namespace UK.Manager.Ingame
             // UI表示
             UIManager.Instance.SwitchTurnText(false);
 
+            // タイミング：相手ターン
+            _curTiming = TimingType.TURN_OPPONENT;
+
 
             TestPlayOpponentTurn();
-            // EndOpponentTurn();
+        }
+
+        // 相手の攻撃
+        private void AttackOpponent()
+        {
+            Debug.Log("AttackOpponent");
+
+            // タイミング：相手の攻撃
+            _curTiming = TimingType.END_ATTACK_OPPONENT;
+
+            // TODO ターン最後の攻撃処理
+
+            EndOpponentTurn();
         }
 
         // 相手のターン終了
         private void EndOpponentTurn()
         {
             Debug.Log("EndOpponentTurn");
+
+            // タイミング：プレイヤーターンエンド
+            _curTiming = TimingType.END_TURN_OPPONENT;
 
             // TODO 攻撃アニメーションと処理
 
@@ -176,7 +230,7 @@ namespace UK.Manager.Ingame
             await System.Threading.Tasks.Task.Delay(1000);
             Debug.Log("3");
             await System.Threading.Tasks.Task.Delay(1000);
-            EndOpponentTurn();
+            AttackOpponent();
         }
 
         // 開発テスト用関数：山札生成

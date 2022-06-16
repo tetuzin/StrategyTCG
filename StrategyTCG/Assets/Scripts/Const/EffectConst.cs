@@ -57,12 +57,25 @@ namespace UK.Const.Effect
         // 全体
         PLACE_CARD_HIGHER_PLAYER = 3001,        // 自分の場のカードがN枚以上なら
         PLACE_CARD_HIGHER_OPPONENT = 3002,      // 相手の場のカードがN枚以上なら
+        PLACE_CARD_LOWER_PLAYER = 3003,         // 自分の場のカードがN枚以下なら
+        PLACE_CARD_LOWER_OPPONENT = 3004,       // 相手の場のカードがN枚以下なら
+        // 人物
+        PLACE_PEASON_HIGHER_PLAYER = 3101,        // 自分の場の人物カードがN枚以上なら
+        PLACE_PEASON_HIGHER_OPPONENT = 3102,      // 相手の場の人物カードがN枚以上なら
+        PLACE_PEASON_LOWER_PLAYER = 3103,         // 自分の場の人物カードがN枚以下なら
+        PLACE_PEASON_LOWER_OPPONENT = 3104,       // 相手の場の人物カードがN枚以下なら
+        // 建造物
+        PLACE_BUILDING_HIGHER_PLAYER = 3201,        // 自分の場の建造物カードがN枚以上なら
+        PLACE_BUILDING_HIGHER_OPPONENT = 3202,      // 相手の場の建造物カードがN枚以上なら
+        PLACE_BUILDING_LOWER_PLAYER = 3203,         // 自分の場の建造物カードがN枚以下なら
+        PLACE_BUILDING_LOWER_OPPONENT = 3204,       // 相手の場の建造物カードがN枚以下なら
     }
 
     // 効果発動条件タイミング
     public enum TimingType
     {
         NONE = 0,
+
         ALL_TIMING = 9000,              // いつでも
         START_TURN_PLAYER = 9001,       // 自分のターンスタート
         START_TURN_OPPONENT = 9002,     // 相手のターンスタート
@@ -79,6 +92,7 @@ namespace UK.Const.Effect
     public enum TriggerType
     {
         NONE = 0,
+
         ALWAYS = 8000,                      // 常時発動
         PLACEMENT_SELECT = 8001,            // カード配置時に任意で
         PLACEMENT_FORCED = 8002,            // カード配置時に強制で
@@ -96,5 +110,14 @@ namespace UK.Const.Effect
         OPPONENT_TURN_MANY_FORCED = 8014,   // 自分のターンに何度でも強制で
         CARD_DESTORY_SELECT = 8015,         // カードが破壊されたとき任意で
         CARD_DESTORY_FORCED = 8016,         // カードが破壊されたとき強制で
+    }
+
+    // 使用者・発動者
+    public enum UserType
+    {
+        NONE = 0,
+
+        USE_PLAYER = 1,     // 自分
+        USE_OPPONENT = 2,   // 相手
     }
 }
