@@ -50,7 +50,10 @@ namespace UK.Const.Ability
         FUND_UP = 530001,          // 国民数をN増加させる
 
         // ダメージ系
-        PLAYER_DAMAGE_DOWN = 610001,   // 次の相手ターンに受けるダメージをN減少させる
+        PLAYER_DAMAGE_DOWN = 610001,    // プレイヤーが次の相手ターンに受けるダメージをN減少させる
+        CARD_DAMAGE_DOWN = 610002,      // 選択したユニットが次の相手ターンに受けるダメージをN減少させる
+
+        CARD_DAMAGE = 620001,    // ユニット1体にNダメージ
 
         // その他
     }

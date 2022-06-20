@@ -1,42 +1,50 @@
 ﻿[
     {
-        "_effectGroupId": 100001,
-        "_effectAbilityId": 10001,
-        "_abilityConditionType": 101
+        "_effectId": 10000001,
+        "_effectAbilityId": 1100003,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     },
     {
-        "_effectGroupId": 100002,
-        "_effectAbilityId": 10002,
-        "_abilityConditionType": 102
+        "_effectId": 10000002,
+        "_effectAbilityId": 1000002,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     },
     {
-        "_effectGroupId": 100003,
-        "_effectAbilityId": 10003,
-        "_abilityConditionType": 103
+        "_effectId": 10000003,
+        "_effectAbilityId": 1000003,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     },
     {
-        "_effectGroupId": 100004,
-        "_effectAbilityId": 10004,
-        "_abilityConditionType": 104
+        "_effectId": 10000004,
+        "_effectAbilityId": 1000004,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     },
     {
-        "_effectGroupId": 100005,
-        "_effectAbilityId": 10005,
-        "_abilityConditionType": 105
+        "_effectId": 10000005,
+        "_effectAbilityId": 1000005,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     },
     {
-        "_effectGroupId": 100006,
-        "_effectAbilityId": 10006,
-        "_abilityConditionType": 106
+        "_effectId": 10000006,
+        "_effectAbilityId": 1000006,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     },
     {
-        "_effectGroupId": 100007,
-        "_effectAbilityId": 10007,
-        "_abilityConditionType": 107
+        "_effectId": 10000007,
+        "_effectAbilityId": 1000007,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     },
     {
-        "_effectGroupId": 100008,
-        "_effectAbilityId": 10008,
-        "_abilityConditionType": 108
+        "_effectId": 10000008,
+        "_effectAbilityId": 1000008,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
     }
 ]

@@ -15,6 +15,10 @@ namespace Ch120.Manager.Master
         // Daoクラスの名前リスト（新しく作成したDaoクラスはここに記述する）
         private static readonly string[] DAO_CLASS_NAME = {
             "CardMainDao",
+            "CountryMainDao",
+            "EffectMainDao",
+            "EffectAbilityDao",
+            "EffectGroupDao",
         };
 
         // TODO

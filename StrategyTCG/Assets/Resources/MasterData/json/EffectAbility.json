@@ -1,58 +1,82 @@
 ﻿[
     {
-        "_effectAbilityId": 10001,
-        "_abilityName": "織田信長",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1100003,
+        "_abilityName": "山札３枚ドロー",
+        "_abilityType": 100001,
+        "_userType": 1,
+        "_abilityParameter1": 3,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 10002,
-        "_abilityName": "伊能忠敬",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1000002,
+        "_abilityName": "HP100回復",
+        "_abilityType": 400001,
+        "_userType": 1,
+        "_abilityParameter1": 100,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 10003,
-        "_abilityName": "緊急事態宣言",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1000003,
+        "_abilityName": "軍事力+50",
+        "_abilityType": 510001,
+        "_userType": 1,
+        "_abilityParameter1": 50,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 10004,
-        "_abilityName": "生類憐みの令",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1000004,
+        "_abilityName": "山札から政策カードを1枚取得",
+        "_abilityType": 105001,
+        "_userType": 1,
+        "_abilityParameter1": 1,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 10005,
-        "_abilityName": "八ツ橋",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1000005,
+        "_abilityName": "トラッシュから2枚選び山札に戻す",
+        "_abilityType": 200001,
+        "_userType": 1,
+        "_abilityParameter1": 2,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 10006,
-        "_abilityName": "ゼロ戦",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1000006,
+        "_abilityName": "次相手ターン時にユニットへの攻撃を防ぐ",
+        "_abilityType": 610002,
+        "_userType": 1,
+        "_abilityParameter1": 0,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 10007,
-        "_abilityName": "軍艦島",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1000007,
+        "_abilityName": "被ダメージ-50",
+        "_abilityType": 610001,
+        "_userType": 1,
+        "_abilityParameter1": 50,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 10008,
-        "_abilityName": "東京スカイツリー",
-        "_abilityType": null,
-        "_abilityParameter": null,
-        "_abilityProbability": null
+        "_effectAbilityId": 1000008,
+        "_abilityName": "相手ユニット1枚に5ダメージ",
+        "_abilityType": 620001,
+        "_userType": 1,
+        "_abilityParameter1": 5,
+        "_abilityParameter2": 1,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
     }
 ]
