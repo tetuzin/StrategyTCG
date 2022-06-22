@@ -2,48 +2,56 @@
     {
         "_effectId": 10000001,
         "_effectAbilityId": 1100003,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
         "_effectId": 10000002,
         "_effectAbilityId": 1000002,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
         "_effectId": 10000003,
         "_effectAbilityId": 1000003,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
         "_effectId": 10000004,
         "_effectAbilityId": 1000004,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
         "_effectId": 10000005,
         "_effectAbilityId": 1000005,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
         "_effectId": 10000006,
         "_effectAbilityId": 1000006,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
         "_effectId": 10000007,
         "_effectAbilityId": 1000007,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
         "_effectId": 10000008,
         "_effectAbilityId": 1000008,
+        "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     }

@@ -74,6 +74,7 @@ namespace UK.Manager.Card
         public void TrashCard(bool isPlayer, CardUnit cardUnit)
         {
             // TODO トラッシュにカードを描画
+            CardBattleField battleField = GetCardBattleField(isPlayer);
 
             // 手札カードの削除
             RemoveCard(isPlayer, cardUnit);

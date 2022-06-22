@@ -10,6 +10,7 @@ namespace UK.Model.EffectGroup
     {
         [SerializeField] private int _effectId = default;
         [SerializeField] private int _effectAbilityId = default;
+        [SerializeField] private int _order = default;
         [SerializeField] private int _abilityConditionType = default;
         [SerializeField] private int _abilityConditionParameter = default;
 
@@ -22,6 +23,11 @@ namespace UK.Model.EffectGroup
         {
             get { return _effectAbilityId; }
             set { _effectAbilityId = value; }
+        }
+        public int Order
+        {
+            get { return _order; }
+            set { _order = value; }
         }
         public int AbilityConditionType
         {

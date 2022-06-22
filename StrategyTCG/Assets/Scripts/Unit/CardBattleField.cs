@@ -20,6 +20,7 @@ namespace UK.Unit.Field
         [SerializeField, Tooltip("人物カード配置プレハブ")] private CardPlacement[] _personPlaces = default;
         [SerializeField, Tooltip("建造物カード配置プレハブ")] private CardPlacement[] _buildingPlaces = default;
         [SerializeField, Tooltip("デッキプレハブ")] private DeckUnit _deckUnit = default;
+        [SerializeField, Tooltip("トラッシュプレハブ")] private DeckUnit _trashUnit = default;
         [SerializeField, Tooltip("手札オブジェクト")] private HandUnit _handUnit = default;
 
         // ---------- プレハブ ----------

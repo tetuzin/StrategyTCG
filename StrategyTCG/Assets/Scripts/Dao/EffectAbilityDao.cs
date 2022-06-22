@@ -11,6 +11,12 @@ namespace UK.Dao
 {
     public class EffectAbilityDao : BaseDao<EffectAbilityModel>
     {
+        // IDと一致するデータを取得
+        public EffectAbilityModel GetModelById(int effectAbilityId)
+        {
+            return Get().Find(x => x.EffectAbilityId == effectAbilityId);
+        }
+        
         // Jsonファイルのあるパス名を返す
         override protected string GetJsonPath()
         {

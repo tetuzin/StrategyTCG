@@ -70,10 +70,10 @@ namespace UK.Unit.Place
             CardUnit cardUnit = CardManager.Instance.IsSelectCardUnit;
 
             // カード種別が一致しているなら
-            if ((int)_fieldType != cardUnit.Model.CardType) { return; }
+            if ((int)_fieldType != cardUnit.CardModel.CardType) { return; }
 
             // カードを3Dで生成する
-            _card3DUnit = CardManager.Instance.Instantiate3DCardUnit(cardUnit.Model, _isPlayer);
+            _card3DUnit = CardManager.Instance.Instantiate3DCardUnit(cardUnit.CardModel, _isPlayer);
 
             // 手札ボタンの非活性化
             UIManager.Instance.SetHandButtonActive(false);

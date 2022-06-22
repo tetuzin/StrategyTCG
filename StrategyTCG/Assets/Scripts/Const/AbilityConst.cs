@@ -1,8 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace UK.Const.Ability
 {
     public class AbilityConst
     {
-
+        public Dictionary<AbilityType, System.Action> AbilityDictionary = new Dictionary<AbilityType, System.Action>();
     }
 
     // カード効果

@@ -10,7 +10,12 @@ using Ch120.Utils.Resource;
 using UK.Manager.Card;
 using UK.Manager.UI;
 using UK.Manager.Popup;
+
 using UK.Model.CardMain;
+using UK.Model.EffectMain;
+using UK.Model.EffectGroup;
+using UK.Model.EffectAbility;
+
 using UK.Utils.Card;
 using UK.Const.Card.UseType;
 
@@ -39,9 +44,9 @@ namespace UK.Unit.Card
             get { return _isSelect; }
             set { _isSelect = value; }
         }
-        public CardMainModel Model
+        public CardMainModel CardModel
         {
-            get { return _model; }
+            get { return _cardModel; }
         }
         public bool IsPlayer
         {
@@ -54,7 +59,13 @@ namespace UK.Unit.Card
         // CanvasのRectTransform
         private RectTransform _canvasRect = default;
         // カードモデル
-        private CardMainModel _model = default;
+        private CardMainModel _cardModel = default;
+        // カード効果
+        private EffectMainModel _effectModel = default;
+        // カード効果グループ
+        private EffectGroupModel _effectGroup = default;
+        // カード効果能力
+        private EffectAbilityModel _effectAbility = default;
         // 現在のHP
         private int _curHp = default;
         // 現在の攻撃力
@@ -87,15 +98,17 @@ namespace UK.Unit.Card
         // 初期化
         public void Initialize(CardMainModel model, RectTransform canvasRect, bool isPlayer)
         {
-            _model = model;
+            _cardModel = model;
             _canvasRect = canvasRect;
             _isPlayer = isPlayer;
-            SetCardImage(_model.Image);
-            SetCardNameText(_model.CardName);
-            SetCardTypeIcon(_model.CardType);
-            SetAtkText(_model.Attack);
-            SetHpText(_model.Hp);
-            SetCostText(_model.Cost);
+            _effectModel = CardUtils.GetEffectMainModel(_cardModel.EffectId);
+
+            SetCardImage(_cardModel.Image);
+            SetCardNameText(_cardModel.CardName);
+            SetCardTypeIcon(_cardModel.CardType);
+            SetAtkText(_cardModel.Attack);
+            SetHpText(_cardModel.Hp);
+            SetCostText(_cardModel.Cost);
 
             // カードボタン処理
             _cardButton.onClick.RemoveAllListeners();
@@ -105,7 +118,7 @@ namespace UK.Unit.Card
                 if (!CardManager.Instance.IsSelect())
                 {
                     // カード使用タイプを取得
-                    CardUseType cardUseType = CardUtils.GetCardUseType(_model);
+                    CardUseType cardUseType = CardUtils.GetCardUseType(_cardModel);
 
                     // 配置タイプのカード
                     if (cardUseType == CardUseType.PLACEMENT)
@@ -154,14 +167,16 @@ namespace UK.Unit.Card
                     CardManager.Instance.TrashCard(_isPlayer, this);
                 }
             );
-            PopupManager.Instance.SetConsumptionPopup(_model, actions);
+            PopupManager.Instance.SetConsumptionPopup(_cardModel, actions);
             PopupManager.Instance.ShowConsumptionPopup();
         }
 
         // カード効果発動
         public void EffectActivation()
         {
-            Debug.Log(_model.CardName + "の効果発動!");
+            // TODO カード効果発動
+            CardUtils.CardEffectActivation(_effectModel);
+            Debug.Log(_cardModel.CardName + "の効果発動!");
         }
 
         // カードを非活性化

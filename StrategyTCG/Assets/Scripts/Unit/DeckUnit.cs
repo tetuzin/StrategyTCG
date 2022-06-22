@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using UK.Model.CardMain;
 
@@ -10,6 +11,9 @@ namespace UK.Unit.Deck
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
+
+        [SerializeField, Tooltip("画像")] private Image _image = default;
+
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
 

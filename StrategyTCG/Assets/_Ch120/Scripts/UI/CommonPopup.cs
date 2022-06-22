@@ -63,11 +63,13 @@ namespace Ch120.Popup.Common
         // ボタンイベントの設定
         protected override void SetButtonEvents()
         {
+            _decisionButton.onClick.RemoveAllListeners();
             _decisionButton.onClick.AddListener(() => {
                 UnityAction action = GetAction(DECISION_BUTTON_EVENT);
                 action();
                 Close();
             });
+            _cancelButton.onClick.RemoveAllListeners();
             _cancelButton.onClick.AddListener(() => {
                 UnityAction action = GetAction(CANCEL_BUTTON_EVENT);
                 action();

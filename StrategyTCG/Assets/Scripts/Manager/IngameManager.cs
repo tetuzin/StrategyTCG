@@ -26,6 +26,10 @@ namespace UK.Manager.Ingame
         {
             get { return _curTiming; }
         }
+        public int CurTurn
+        {
+            get { return _curTurn; }
+        }
 
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
@@ -34,6 +38,7 @@ namespace UK.Manager.Ingame
         private PlayerUnit _playerUnit = default;
         private PlayerUnit _opponentUnit = default;
         private TimingType _curTiming = default;
+        private int _curTurn = default;
 
         // ---------- Unity組込関数 ----------
         
@@ -50,6 +55,8 @@ namespace UK.Manager.Ingame
         {
             // TODO
             Debug.Log("InitializeIngame");
+
+            _curTurn = 1;
 
             // TODO お互いのユニットを読み込む
             _playerUnit = GetPlayerUnit();
@@ -149,6 +156,8 @@ namespace UK.Manager.Ingame
             // タイミング：プレイヤーターンエンド
             _curTiming = TimingType.END_TURN_PLAYER;
 
+            UpdateCurTurn();
+
             // UI非表示
             UIManager.Instance.SetActiveActionUI(false);
             UIManager.Instance.SetActiveHandGroup(false);
@@ -204,6 +213,8 @@ namespace UK.Manager.Ingame
 
             // TODO ターンエンドアニメーション
 
+            UpdateCurTurn();
+
             StartPlayerTurn();
         }
 
@@ -212,6 +223,15 @@ namespace UK.Manager.Ingame
         {
             bool isFirst = Random.Range(0, 2) == 0;
             _isFirst = isFirst;
+        }
+
+        // ターン数の加算
+        private void UpdateCurTurn()
+        {
+            if (!_isFirst)
+            {
+                _curTurn++;
+            }
         }
 
 
@@ -238,11 +258,15 @@ namespace UK.Manager.Ingame
         {
             List<CardMainModel> deck = new List<CardMainModel>();
             List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 5; i++)
             {
-                deck.Add(list[4]);
+                deck.Add(list[0]);
                 deck.Add(list[1]);
+                deck.Add(list[2]);
                 deck.Add(list[3]);
+                deck.Add(list[4]);
+                deck.Add(list[5]);
+                deck.Add(list[6]);
                 deck.Add(list[7]);
             }
             return deck;
