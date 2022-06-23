@@ -79,6 +79,36 @@ namespace UK.Unit.Field
             _buildingNum = 0;
         }
 
+        // TODO ターン開始時の場の更新処理
+        public void UpdateFieldByStartTurn()
+        {
+            // カード配置後の経過ターンを加算する処理
+            foreach (CardPlacement place in _personPlaces)
+            {
+                if (place.GetCard3DUnit() == null) { continue; }
+
+                if (place.GetCard3DUnit().GetCardUnit() == null) { continue; }
+
+                CardUnit unit = place.GetCard3DUnit().GetCardUnit();
+                unit.UpdateTurn();
+            }
+            foreach (CardPlacement place in _buildingPlaces)
+            {
+                if (place.GetCard3DUnit() == null) { continue; }
+
+                if (place.GetCard3DUnit().GetCardUnit() == null) { continue; }
+
+                CardUnit unit = place.GetCard3DUnit().GetCardUnit();
+                unit.UpdateTurn();
+            }
+        }
+
+        // TODO ターン終了時の場の更新処理
+        public void UpdateFieldByEndTurn()
+        {
+            
+        }
+
         // 上からカードを引いて手札に加える
         public List<CardMainModel> DrawDeck(int num = 1)
         {

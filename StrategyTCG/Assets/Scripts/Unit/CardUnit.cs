@@ -52,6 +52,14 @@ namespace UK.Unit.Card
         {
             get { return _isPlayer; }
         }
+        public int Turn
+        {
+            get { return _turn; }
+        }
+        public bool IsDestroy
+        {
+            get { return _isDestroy; }
+        }
 
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
@@ -74,6 +82,13 @@ namespace UK.Unit.Card
         private bool _isSelect = default;
         // プレイヤーフラグ
         private bool _isPlayer = default;
+        // 出現してからのターン数
+        private int _turn = default;
+        // 破壊フラグ
+        private bool _isDestroy = default;
+        // カード効果発動回数
+        private int _cntEffect = default;
+
 
         // ---------- Unity組込関数 ----------
 
@@ -102,6 +117,9 @@ namespace UK.Unit.Card
             _canvasRect = canvasRect;
             _isPlayer = isPlayer;
             _effectModel = CardUtils.GetEffectMainModel(_cardModel.EffectId);
+            _turn = 0;
+            _isDestroy = false;
+            _cntEffect = 0;
 
             SetCardImage(_cardModel.Image);
             SetCardNameText(_cardModel.CardName);
@@ -171,12 +189,39 @@ namespace UK.Unit.Card
             PopupManager.Instance.ShowConsumptionPopup();
         }
 
+        // カード配置時処理
+        public void Placement()
+        {
+            _turn = 1;
+        }
+
+        // カード配置後の経過ターンを加算
+        public void UpdateTurn()
+        {
+            if (_turn <= 0) { return; }
+            _turn++;
+        }
+
+        // TODO カード破壊(HP0)
+        public void Destroy()
+        {
+            if (_curHp <= 0)
+            {
+                _isDestroy = true;
+            }
+        }
+
         // カード効果発動
         public void EffectActivation()
         {
-            // TODO カード効果発動
-            CardUtils.CardEffectActivation(_effectModel);
-            Debug.Log(_cardModel.CardName + "の効果発動!");
+            bool activate = CardUtils.CardEffectActivation(_effectModel, this);
+            if (activate) { _cntEffect++; }
+        }
+
+        // カード効果を発動させたことがあるか
+        public bool CheckEffectActivation()
+        {
+            return _cntEffect > 0;
         }
 
         // カードを非活性化

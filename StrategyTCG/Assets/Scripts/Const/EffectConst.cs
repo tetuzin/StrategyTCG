@@ -106,8 +106,8 @@ namespace UK.Const.Effect
         SPECIFY_TURN_FORCED = 8010,         // 場に出してからNターン目に強制で
         PLAYER_TURN_MANY_SELECT = 8011,     // 自分のターンに何度でも任意で
         PLAYER_TURN_MANY_FORCED = 8012,     // 自分のターンに何度でも強制で
-        OPPONENT_TURN_MANY_SELECT = 8013,   // 自分のターンに何度でも任意で
-        OPPONENT_TURN_MANY_FORCED = 8014,   // 自分のターンに何度でも強制で
+        OPPONENT_TURN_MANY_SELECT = 8013,   // 相手のターンに何度でも任意で
+        OPPONENT_TURN_MANY_FORCED = 8014,   // 相手のターンに何度でも強制で
         CARD_DESTORY_SELECT = 8015,         // カードが破壊されたとき任意で
         CARD_DESTORY_FORCED = 8016,         // カードが破壊されたとき強制で
     }

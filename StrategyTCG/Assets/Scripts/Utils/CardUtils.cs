@@ -20,6 +20,8 @@ using UK.Const.Card.UseType;
 using UK.Const.Effect;
 using UK.Const.Ability;
 
+using UK.Unit.Card;
+
 namespace UK.Utils.Card
 {
     public class CardUtils
@@ -54,27 +56,47 @@ namespace UK.Utils.Card
             return abilityList;
         }
 
+        // カード効果発動チェック
+        public static bool CheckEffectActivation(EffectMainModel model, CardUnit unit)
+        {
+            // 発動条件タイミングのチェック
+            if (!CheckEffectTiming(model)){ return false; }
+
+            // 発動条件トリガーのチェック
+            if (!CheckEffectTrigger(model, unit)){ return false; }
+
+            // 発動条件のチェック
+            if (!CheckEffectCondition(model.EffectConditionType, model.EffectConditionParameter))
+                { return false; }
+
+            return true;
+        }
+
         // カード効果発動処理
-        public static void CardEffectActivation(EffectMainModel model)
+        public static bool CardEffectActivation(EffectMainModel model, CardUnit unit)
         {
             List<EffectGroupModel> effectList = GetEffectGroupModelList(model.EffectId);
             List<EffectAbilityModel> abilityList = GetEffectAbilityModelList(model.EffectId);
 
-            // 発動条件タイミングのチェック
-            if (!CheckEffectTiming(model)){ return; }
+            // カード効果発動チェック
+            if (!CheckEffectActivation(model, unit)){ return false; }
 
-            // 発動条件トリガーのチェック
-            if (!CheckEffectTrigger(model)){ return; }
-
-            // 発動条件のチェック
-            if (!CheckEffectCondition(model.EffectConditionType, model.EffectConditionParameter)){ return; }
+            // TODO 能力使用確認（任意能力用）
 
             // 能力発動
             for (int i = 0; i < abilityList.Count; i++)
             {
+                // 発動条件のチェック
+                if (!CheckEffectCondition(
+                    effectList[i].AbilityConditionType, 
+                    effectList[i].AbilityConditionParameter)
+                ){ continue; }
+
                 // カード効果の関数を呼び出し
+                Debug.Log(model.EffectName + "の効果発動[" + (i+1) + "]");
                 EffectActivate(abilityList[i]);
             }
+            return true;
         }
 
         // 効果発動タイミングチェック
@@ -84,11 +106,11 @@ namespace UK.Utils.Card
 
             switch(timingType)
             {
-                case TimingType.ALL_TIMING:
+                case TimingType.ALL_TIMING:// いつでも
                     Debug.Log(model.EffectName + "効果発動タイミング : TRUE");
                     return true;
-                    
-                case TimingType.SPECIFY_TURN:
+
+                case TimingType.SPECIFY_TURN:// Nターン目
                     int turnNum = model.EffectTimingParameter;
                     int curTurn = IngameManager.Instance.CurTurn;
                     if (turnNum == curTurn)
@@ -101,7 +123,7 @@ namespace UK.Utils.Card
                         return false;
                     }
 
-                default:
+                default:// その他のタイミング
                     TimingType CurTiming = IngameManager.Instance.CurTiming;
                     if (timingType == CurTiming)
                     {
@@ -116,19 +138,81 @@ namespace UK.Utils.Card
             }
         }
 
-        // TODO 効果発動トリガーチェック
-        public static bool CheckEffectTrigger(EffectMainModel model)
+        // 効果発動トリガーチェック
+        public static bool CheckEffectTrigger(EffectMainModel model, CardUnit unit)
         {
+            TriggerType triggerType = (TriggerType)model.EffectTriggerType;
+
+            switch(triggerType)
+            {
+                case TriggerType.NONE:
+                    Debug.Log(model.EffectName + "効果発動トリガー : FALSE");
+                    return false;
+
+                case TriggerType.ALWAYS:// 常時発動
+                    Debug.Log(model.EffectName + "効果発動トリガー : TRUE");
+                    return true;
+
+                case TriggerType.PLACEMENT_SELECT:// カード配置時に任意で
+                case TriggerType.PLACEMENT_FORCED:// カード配置時に強制で
+                case TriggerType.USE_SELECT:// カード使用時に任意で
+                case TriggerType.USE_FORCED:// カード使用時に強制で
+                    Debug.Log(model.EffectName + "効果発動トリガー : TRUE");
+                    return true;
+
+                case TriggerType.PLAYER_TURN_SELECT:// 自分のターンに任意で
+                case TriggerType.PLAYER_TURN_FORCED:// 自分のターンに強制で
+                    Debug.Log(model.EffectName + "効果発動トリガー : " + (CheckPlayerTurn() && !unit.CheckEffectActivation()));
+                    return CheckPlayerTurn() && !unit.CheckEffectActivation();
+                
+                case TriggerType.OPPONENT_TURN_SELECT:// 相手のターンに任意で
+                case TriggerType.OPPONENT_TURN_FORCED:// 相手のターンに強制で
+                    Debug.Log(model.EffectName + "効果発動トリガー : " + (!CheckPlayerTurn() && !unit.CheckEffectActivation()));
+                    return !CheckPlayerTurn() && !unit.CheckEffectActivation();
+
+                case TriggerType.SPECIFY_TURN_SELECT:// 場に出してからNターン目に任意で
+                case TriggerType.SPECIFY_TURN_FORCED:// 場に出してからNターン目に強制で
+                    int turnNum = model.EffectTriggerParameter;
+                    Debug.Log(model.EffectName + "効果発動トリガー : " + (turnNum == unit.Turn));
+                    return turnNum == unit.Turn;
+
+                case TriggerType.PLAYER_TURN_MANY_SELECT:// 自分のターンに何度でも任意で
+                case TriggerType.PLAYER_TURN_MANY_FORCED:// 自分のターンに何度でも強制で
+                    Debug.Log(model.EffectName + "効果発動トリガー : " + CheckPlayerTurn());
+                    return CheckPlayerTurn();
+                
+                case TriggerType.OPPONENT_TURN_MANY_SELECT:// 相手のターンに何度でも任意で
+                case TriggerType.OPPONENT_TURN_MANY_FORCED:// 相手のターンに何度でも強制で
+                    Debug.Log(model.EffectName + "効果発動トリガー : " + !CheckPlayerTurn());
+                    return !CheckPlayerTurn();
+
+                case TriggerType.CARD_DESTORY_SELECT:// カードが破壊されたとき任意で
+                case TriggerType.CARD_DESTORY_FORCED:// カードが破壊されたとき強制で
+                    Debug.Log(model.EffectName + "効果発動トリガー : " + unit.IsDestroy);
+                    return unit.IsDestroy;
+
+                default:// その他のトリガー
+                    Debug.Log(model.EffectName + "効果発動トリガー : FALSE");
+                    return false;
+            }
             return true;
         }
 
-        // TODO 効果発動条件チェック
+        // TODO 未完成 効果発動条件チェック
         public static bool CheckEffectCondition(int type, int param)
         {
-            return true;
+            ConditionType conditionType = (ConditionType)type;
+
+            switch(conditionType)
+            {
+                case ConditionType.NONE:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
-        // TODO カード効果発動
+        // TODO 未完成 カード効果発動
         public static void EffectActivate(EffectAbilityModel model)
         {
             AbilityType abilityType = (AbilityType)model.AbilityType;
@@ -141,6 +225,22 @@ namespace UK.Utils.Card
                     break;
                 default:
                     break;
+            }
+        }
+
+        // プレイヤーのターンかどうか
+        public static bool CheckPlayerTurn()
+        {
+            TimingType CurTiming = IngameManager.Instance.CurTiming;
+            switch(CurTiming)
+            {
+                case TimingType.START_TURN_PLAYER:
+                case TimingType.TURN_PLAYER:
+                case TimingType.END_TURN_PLAYER:
+                case TimingType.END_ATTACK_PLAYER:
+                    return true;
+                default:
+                    return false;
             }
         }
 

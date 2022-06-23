@@ -42,6 +42,13 @@ namespace UK.Unit.Card3D
             // 2Dオブジェクトの設定
             _cardUnit.SetCardActive(false);
         }
+
+        // カードユニットの取得
+        public CardUnit GetCardUnit()
+        {
+            return _cardUnit;
+        }
+        
         // ---------- Private関数 ----------
         // ---------- protected関数 ---------
     }

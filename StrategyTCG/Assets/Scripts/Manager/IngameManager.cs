@@ -22,6 +22,14 @@ namespace UK.Manager.Ingame
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
 
+        public PlayerUnit PlayerUnit
+        {
+            get { return _playerUnit; }
+        }
+        public PlayerUnit OpponentUnit
+        {
+            get { return _opponentUnit; }
+        }
         public TimingType CurTiming
         {
             get { return _curTiming; }
@@ -131,6 +139,9 @@ namespace UK.Manager.Ingame
             UIManager.Instance.SwitchTurnText(true);
             UIManager.Instance.SetActiveHandGroup(true);
 
+            // 場の更新処理
+            CardManager.Instance.GetCardBattleField(GameConst.PLAYER).UpdateFieldByStartTurn();
+
             // タイミング：プレイヤーターン
             _curTiming = TimingType.TURN_PLAYER;
         }
@@ -180,6 +191,9 @@ namespace UK.Manager.Ingame
 
             // UI表示
             UIManager.Instance.SwitchTurnText(false);
+
+            // 場の更新処理
+            CardManager.Instance.GetCardBattleField(GameConst.OPPONENT).UpdateFieldByStartTurn();
 
             // タイミング：相手ターン
             _curTiming = TimingType.TURN_OPPONENT;
@@ -231,6 +245,19 @@ namespace UK.Manager.Ingame
             if (!_isFirst)
             {
                 _curTurn++;
+            }
+        }
+
+        // プレイヤーユニットの取得
+        public PlayerUnit GetPlayerUnit(bool isPlayer)
+        {
+            if (isPlayer)
+            {
+                return _playerUnit;
+            }
+            else
+            {
+                return _opponentUnit;
             }
         }
 

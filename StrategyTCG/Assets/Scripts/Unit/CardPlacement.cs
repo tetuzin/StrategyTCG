@@ -87,6 +87,7 @@ namespace UK.Unit.Place
             _card3DUnit.gameObject.transform.localPosition = new Vector3(0.0f, 0.2f, 0.0f);
             _card3DUnit.gameObject.transform.localRotation = Quaternion.Euler(90.0f, -90.0f, 0.0f);
             _card3DUnit.gameObject.transform.localScale = new Vector3(0.14f, 0.14f, 1.0f);
+            cardUnit.Placement();
 
             _isPlacement = true;
         }
