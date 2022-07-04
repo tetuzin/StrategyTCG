@@ -12,20 +12,20 @@ namespace UK.Const.Effect
 
         // パラメータ系
         // 資金系
-        FUND_HIGHER_PLAYER = 1001,       // 自分の資金がN以上になったら
-        FUND_HIGHER_OPPONENT = 1002,     // 相手の資金がN以上になったら
-        FUND_LOWER_PLAYER = 1003,        // 自分の資金がN以下になったら
-        FUND_LOWER_OPPONENT = 1004,      // 相手の資金がN以下になったら
+        FUND_HIGHER_PLAYER = 1001,       // 自分の資金がN以上なら
+        FUND_HIGHER_OPPONENT = 1002,     // 相手の資金がN以上なら
+        FUND_LOWER_PLAYER = 1003,        // 自分の資金がN以下なら
+        FUND_LOWER_OPPONENT = 1004,      // 相手の資金がN以下なら
         // 軍事力系
-        POWER_HIGHER_PLAYER = 1101,      // 自分の軍事力がN以上になったら
-        POWER_HIGHER_OPPONENT = 1102,    // 相手の軍事力がN以上になったら
-        POWER_LOWER_PLAYER = 1103,       // 自分の軍事力がN以下になったら
-        POWER_LOWER_OPPONENT = 1104,     // 相手の軍事力がN以下になったら
+        POWER_HIGHER_PLAYER = 1101,      // 自分の軍事力がN以上なら
+        POWER_HIGHER_OPPONENT = 1102,    // 相手の軍事力がN以上なら
+        POWER_LOWER_PLAYER = 1103,       // 自分の軍事力がN以下なら
+        POWER_LOWER_OPPONENT = 1104,     // 相手の軍事力がN以下なら
         // 国民数系
-        PEOPLENUM_HIGHER_PLAYER = 1201,      // 自分の国民数がN以上になったら
-        PEOPLENUM_HIGHER_OPPONENT = 1202,    // 相手の国民数がN以上になったら
-        PEOPLENUM_LOWER_PLAYER = 1203,       // 自分の国民数がN以下になったら
-        PEOPLENUM_LOWER_OPPONENT = 1204,     // 相手の国民数がN以下になったら
+        PEOPLENUM_HIGHER_PLAYER = 1201,      // 自分の国民数がN以上なら
+        PEOPLENUM_HIGHER_OPPONENT = 1202,    // 相手の国民数がN以上なら
+        PEOPLENUM_LOWER_PLAYER = 1203,       // 自分の国民数がN以下なら
+        PEOPLENUM_LOWER_OPPONENT = 1204,     // 相手の国民数がN以下なら
         // HP系
         HP_HIGHER_PLAYER = 1301,            // 自分のHPがN以上なら
         HP_HIGHER_OPPONENT = 1302,          // 相手のHPがN以上なら
@@ -69,6 +69,10 @@ namespace UK.Const.Effect
         PLACE_BUILDING_HIGHER_OPPONENT = 3202,      // 相手の場の建造物カードがN枚以上なら
         PLACE_BUILDING_LOWER_PLAYER = 3203,         // 自分の場の建造物カードがN枚以下なら
         PLACE_BUILDING_LOWER_OPPONENT = 3204,       // 相手の場の建造物カードがN枚以下なら
+        // その他
+        PLACE_PLAYER_FIELD_NAME = 3301,             // 自分の場にカード名「XXXX」があるなら
+        PLACE_OPPONENT_FIELD_NAME = 3302,           // 相手の場にカード名「XXXX」があるなら
+        PLACE_ALL_FIELD_NAME = 3303,                // 場にカード名「XXXX」があるなら
     }
 
     // 効果発動条件タイミング
@@ -119,5 +123,6 @@ namespace UK.Const.Effect
 
         USE_PLAYER = 1,     // 自分
         USE_OPPONENT = 2,   // 相手
+        USE_ALL = 3,        // 全員
     }
 }

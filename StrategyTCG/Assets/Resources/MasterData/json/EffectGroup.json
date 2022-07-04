@@ -1,56 +1,203 @@
 ﻿[
     {
-        "_effectId": 10000001,
-        "_effectAbilityId": 1100003,
+        "_effectId": 100001030,
+        "_effectAbilityId": 10000103,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
-        "_effectId": 10000002,
-        "_effectAbilityId": 1000002,
+        "_effectId": 100001050,
+        "_effectAbilityId": 53000305,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
-        "_effectId": 10000003,
-        "_effectAbilityId": 1000003,
+        "_effectId": 100001050,
+        "_effectAbilityId": 10000105,
+        "_order": 1,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 100002060,
+        "_effectAbilityId": 10000206,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
-        "_effectId": 10000004,
-        "_effectAbilityId": 1000004,
+        "_effectId": 100003020,
+        "_effectAbilityId": 10000302,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
-        "_effectId": 10000005,
-        "_effectAbilityId": 1000005,
+        "_effectId": 101003010,
+        "_effectAbilityId": 10100301,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
-        "_effectId": 10000006,
-        "_effectAbilityId": 1000006,
+        "_effectId": 102002010,
+        "_effectAbilityId": 10200201,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
-        "_effectId": 10000007,
-        "_effectAbilityId": 1000007,
+        "_effectId": 102002020,
+        "_effectAbilityId": 10200202,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0
     },
     {
-        "_effectId": 10000008,
-        "_effectAbilityId": 1000008,
+        "_effectId": 104001010,
+        "_effectAbilityId": 10400101,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 105001010,
+        "_effectAbilityId": 10500101,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 400001010,
+        "_effectAbilityId": 40000101,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 410001000,
+        "_effectAbilityId": 41000100,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 410001050,
+        "_effectAbilityId": 41000105,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 510001030,
+        "_effectAbilityId": 51000103,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 510001050,
+        "_effectAbilityId": 51000105,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 510001060,
+        "_effectAbilityId": 51000106,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 510001150,
+        "_effectAbilityId": 52000305,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 510001150,
+        "_effectAbilityId": 51000115,
+        "_order": 1,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 510002020,
+        "_effectAbilityId": 51000202,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 520001020,
+        "_effectAbilityId": 52000102,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 530001030,
+        "_effectAbilityId": 53000103,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 530001031,
+        "_effectAbilityId": 53000103,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 530001050,
+        "_effectAbilityId": 53000105,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 540001020,
+        "_effectAbilityId": 54000102,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 550001030,
+        "_effectAbilityId": 55000103,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 610001020,
+        "_effectAbilityId": 61000102,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 610003030,
+        "_effectAbilityId": 61000303,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 621001010,
+        "_effectAbilityId": 62100101,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
+        "_effectId": 710002050,
+        "_effectAbilityId": 71000205,
         "_order": 0,
         "_abilityConditionType": 0,
         "_abilityConditionParameter": 0

@@ -1,7 +1,7 @@
 ﻿[
     {
-        "_effectAbilityId": 1100003,
-        "_abilityName": "山札３枚ドロー",
+        "_effectAbilityId": 10000103,
+        "_abilityName": "山札3枚ドロー",
         "_abilityType": 100001,
         "_userType": 1,
         "_abilityParameter1": 3,
@@ -10,8 +10,88 @@
         "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 1000002,
-        "_abilityName": "HP100回復",
+        "_effectAbilityId": 10000105,
+        "_abilityName": "山札5枚ドロー",
+        "_abilityType": 100001,
+        "_userType": 1,
+        "_abilityParameter1": 5,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 10000206,
+        "_abilityName": "手札6枚になるように山札ドロー",
+        "_abilityType": 100002,
+        "_userType": 1,
+        "_abilityParameter1": 6,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 10000302,
+        "_abilityName": "お互いに手札を山札に戻し切り、新たに2枚ドロー",
+        "_abilityType": 100003,
+        "_userType": 3,
+        "_abilityParameter1": 2,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 10100301,
+        "_abilityName": "山札から「軍人」を2枚配置",
+        "_abilityType": 101003,
+        "_userType": 1,
+        "_abilityParameter1": 2,
+        "_abilityParameter2": 1001001,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 10200201,
+        "_abilityName": "山札から人物2枚配置",
+        "_abilityType": 102002,
+        "_userType": 1,
+        "_abilityParameter1": 1,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 10200202,
+        "_abilityName": "山札から人物2枚配置",
+        "_abilityType": 102002,
+        "_userType": 1,
+        "_abilityParameter1": 2,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 10400101,
+        "_abilityName": "山札から物資1枚取得",
+        "_abilityType": 104001,
+        "_userType": 1,
+        "_abilityParameter1": 1,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 10500101,
+        "_abilityName": "山札から政策1枚取得",
+        "_abilityType": 105001,
+        "_userType": 1,
+        "_abilityParameter1": 1,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 40000101,
+        "_abilityName": "プレイヤーHP100回復",
         "_abilityType": 400001,
         "_userType": 1,
         "_abilityParameter1": 100,
@@ -20,7 +100,37 @@
         "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 1000003,
+        "_effectAbilityId": 41000100,
+        "_abilityName": "選択ユニットのHP全回復",
+        "_abilityType": 410001,
+        "_userType": 1,
+        "_abilityParameter1": 0,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 41000105,
+        "_abilityName": "選択ユニットのHP5回復",
+        "_abilityType": 410001,
+        "_userType": 1,
+        "_abilityParameter1": 5,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 51000103,
+        "_abilityName": "軍事力+30",
+        "_abilityType": 510001,
+        "_userType": 1,
+        "_abilityParameter1": 30,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 51000105,
         "_abilityName": "軍事力+50",
         "_abilityType": 510001,
         "_userType": 1,
@@ -30,19 +140,29 @@
         "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 1000004,
-        "_abilityName": "山札から政策カードを1枚取得",
-        "_abilityType": 105001,
+        "_effectAbilityId": 51000106,
+        "_abilityName": "軍事力+60",
+        "_abilityType": 510001,
         "_userType": 1,
-        "_abilityParameter1": 1,
+        "_abilityParameter1": 60,
         "_abilityParameter2": 0,
         "_abilityParameter3": 0,
         "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 1000005,
-        "_abilityName": "トラッシュから2枚選び山札に戻す",
-        "_abilityType": 200001,
+        "_effectAbilityId": 51000115,
+        "_abilityName": "軍事力+150",
+        "_abilityType": 510001,
+        "_userType": 1,
+        "_abilityParameter1": 150,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 51000202,
+        "_abilityName": "軍事力*2",
+        "_abilityType": 510002,
         "_userType": 1,
         "_abilityParameter1": 2,
         "_abilityParameter2": 0,
@@ -50,19 +170,39 @@
         "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 1000006,
-        "_abilityName": "次相手ターン時にユニットへの攻撃を防ぐ",
-        "_abilityType": 610002,
+        "_effectAbilityId": 52000102,
+        "_abilityName": "国民数+2",
+        "_abilityType": 520001,
         "_userType": 1,
-        "_abilityParameter1": 0,
+        "_abilityParameter1": 2,
         "_abilityParameter2": 0,
         "_abilityParameter3": 0,
         "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 1000007,
-        "_abilityName": "被ダメージ-50",
-        "_abilityType": 610001,
+        "_effectAbilityId": 52000305,
+        "_abilityName": "国民数-5",
+        "_abilityType": 520003,
+        "_userType": 1,
+        "_abilityParameter1": 5,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 53000103,
+        "_abilityName": "資金+30",
+        "_abilityType": 530001,
+        "_userType": 1,
+        "_abilityParameter1": 30,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 53000105,
+        "_abilityName": "資金+50",
+        "_abilityType": 530001,
         "_userType": 1,
         "_abilityParameter1": 50,
         "_abilityParameter2": 0,
@@ -70,12 +210,72 @@
         "_abilityProbability": 100
     },
     {
-        "_effectAbilityId": 1000008,
-        "_abilityName": "相手ユニット1枚に5ダメージ",
-        "_abilityType": 620001,
+        "_effectAbilityId": 53000305,
+        "_abilityName": "資金-50",
+        "_abilityType": 530003,
         "_userType": 1,
-        "_abilityParameter1": 5,
+        "_abilityParameter1": 50,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 54000102,
+        "_abilityName": "ターン毎資金+20",
+        "_abilityType": 540001,
+        "_userType": 1,
+        "_abilityParameter1": 20,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 55000103,
+        "_abilityName": "攻撃力+3",
+        "_abilityType": 550001,
+        "_userType": 1,
+        "_abilityParameter1": 3,
         "_abilityParameter2": 1,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 61000102,
+        "_abilityName": "プレイヤー被ダメ-20",
+        "_abilityType": 610001,
+        "_userType": 1,
+        "_abilityParameter1": 20,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 61000303,
+        "_abilityName": "ユニット被ダメ-1",
+        "_abilityType": 610003,
+        "_userType": 1,
+        "_abilityParameter1": 1,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 62100101,
+        "_abilityName": "相手の人物1枚に10ダメージ",
+        "_abilityType": 621001,
+        "_userType": 2,
+        "_abilityParameter1": 10,
+        "_abilityParameter2": 1,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 100
+    },
+    {
+        "_effectAbilityId": 71000205,
+        "_abilityName": "相手の場のカード5枚破壊",
+        "_abilityType": 710002,
+        "_userType": 2,
+        "_abilityParameter1": 5,
+        "_abilityParameter2": 0,
         "_abilityParameter3": 0,
         "_abilityProbability": 100
     }

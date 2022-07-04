@@ -1,7 +1,7 @@
 ﻿[
     {
-        "_effectId": 10000001,
-        "_effectName": "緊急事態宣言",
+        "_effectId": 100001030,
+        "_effectName": "山札3枚ドロー（使用時）",
         "_effectConditionType": 0,
         "_effectConditionParameter": 0,
         "_effectTimingType": 9003,
@@ -11,80 +11,289 @@
         "_effectText": "山札を上から３枚引き、手札に加える。"
     },
     {
-        "_effectId": 10000002,
-        "_effectName": "伊能忠敬",
-        "_effectConditionType": 0,
-        "_effectConditionParameter": 0,
+        "_effectId": 100001050,
+        "_effectName": "資金50以上なら、資金-50後に山札5枚ドロー（配置時）",
+        "_effectConditionType": 1001,
+        "_effectConditionParameter": 50,
         "_effectTimingType": 9003,
         "_effectTimingParameter": 0,
-        "_effectTriggerType": 8002,
+        "_effectTriggerType": 8001,
         "_effectTriggerParameter": 0,
-        "_effectText": "伊能忠敬"
+        "_effectText": "自分の資金が50以上あるなら、このカードを場に配置したときに発動する。資金を50減少した後、山札を上から5枚引き手札に加える。"
     },
     {
-        "_effectId": 10000003,
-        "_effectName": "織田信長",
-        "_effectConditionType": 0,
-        "_effectConditionParameter": 0,
-        "_effectTimingType": 9003,
-        "_effectTimingParameter": 0,
-        "_effectTriggerType": 8002,
-        "_effectTriggerParameter": 0,
-        "_effectText": "緊急事態宣言"
-    },
-    {
-        "_effectId": 10000004,
-        "_effectName": "生類憐みの令",
+        "_effectId": 100002060,
+        "_effectName": "手札6枚になるように山札ドロー（使用時）",
         "_effectConditionType": 0,
         "_effectConditionParameter": 0,
         "_effectTimingType": 9003,
         "_effectTimingParameter": 0,
         "_effectTriggerType": 8004,
         "_effectTriggerParameter": 0,
-        "_effectText": "生類憐みの令"
+        "_effectText": "自分の手札が6枚になるように山札を上から引く。"
     },
     {
-        "_effectId": 10000005,
-        "_effectName": "八ツ橋",
+        "_effectId": 100003020,
+        "_effectName": "お互いに手札を山札に戻し切り、新たに2枚ドロー（使用時）",
         "_effectConditionType": 0,
         "_effectConditionParameter": 0,
         "_effectTimingType": 9003,
         "_effectTimingParameter": 0,
         "_effectTriggerType": 8004,
         "_effectTriggerParameter": 0,
-        "_effectText": "八ツ橋"
+        "_effectText": "お互いのプレイヤーは手札をすべて山札に戻し、切る。その後、お互いに山札を上から2枚引き手札にする。"
     },
     {
-        "_effectId": 10000006,
-        "_effectName": "ゼロ戦",
+        "_effectId": 101003010,
+        "_effectName": "山札から「軍人」を2枚配置（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードを場に配置したときに発動する。自分の山札を見て、人物カード「軍人」を2枚まで選び、自分の場に出す。その後、山札を切る。"
+    },
+    {
+        "_effectId": 102002010,
+        "_effectName": "山札から人物1枚取得（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードを場に配置したとき発動する。自分の山札を見て、人物カードを2枚選び、自分の場に出す。その後、山札を切る。"
+    },
+    {
+        "_effectId": 102002020,
+        "_effectName": "山札から人物2枚取得（使用時）",
         "_effectConditionType": 0,
         "_effectConditionParameter": 0,
         "_effectTimingType": 9003,
         "_effectTimingParameter": 0,
         "_effectTriggerType": 8004,
         "_effectTriggerParameter": 0,
-        "_effectText": "ゼロ戦"
+        "_effectText": "山札を見て、人物カードを1枚選び、自分の場に出す。その後、山札を切る。"
     },
     {
-        "_effectId": 10000007,
-        "_effectName": "軍艦島",
+        "_effectId": 104001010,
+        "_effectName": "山札から物資1枚取得（使用時）",
         "_effectConditionType": 0,
         "_effectConditionParameter": 0,
         "_effectTimingType": 9003,
         "_effectTimingParameter": 0,
-        "_effectTriggerType": 8002,
+        "_effectTriggerType": 8004,
         "_effectTriggerParameter": 0,
-        "_effectText": "軍艦島"
+        "_effectText": "山札を見て、物資カードを1枚選び、手札に加える。その後、山札を切る。"
     },
     {
-        "_effectId": 10000008,
-        "_effectName": "東京スカイツリー",
+        "_effectId": 105001010,
+        "_effectName": "山札から政策1枚取得（配置時）",
         "_effectConditionType": 0,
         "_effectConditionParameter": 0,
         "_effectTimingType": 9003,
         "_effectTimingParameter": 0,
-        "_effectTriggerType": 8002,
+        "_effectTriggerType": 8001,
         "_effectTriggerParameter": 0,
-        "_effectText": "東京スカイツリー"
+        "_effectText": "このカードを場に配置したとき発動する。自分の山札を見て、政策カードを1枚選び、手札に加える。その後、山札を切る。"
+    },
+    {
+        "_effectId": 400001010,
+        "_effectName": "プレイヤーHP100回復（使用時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "プレイヤー（自分）のHPを100回復する。"
+    },
+    {
+        "_effectId": 410001000,
+        "_effectName": "選択ユニットのHP全回復（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードを場に配置したとき発動する。自分の人物カードを1枚選び、そのカードのHPをすべて回復する。"
+    },
+    {
+        "_effectId": 410001050,
+        "_effectName": "選択ユニットのHP5回復（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "自分の人物カードを1枚選び、そのカードのHPを5回復する。"
+    },
+    {
+        "_effectId": 510001030,
+        "_effectName": "軍事力+30（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードを場に配置したとき発動する。自分の軍事力を30増加させる。"
+    },
+    {
+        "_effectId": 510001050,
+        "_effectName": "軍事力+50（使用時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "自分の軍事力を50増加させる。"
+    },
+    {
+        "_effectId": 510001060,
+        "_effectName": "軍事力+60（使用時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "自分の軍事力を60増加させる。"
+    },
+    {
+        "_effectId": 510001150,
+        "_effectName": "国民数5以上なら、国民数-5軍事力+150（使用時）",
+        "_effectConditionType": 1201,
+        "_effectConditionParameter": 5,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードは自分の国民数が5以上でなければ使えない。自分の国民数を5減少させる。その後、自分の軍事力を150増加させる。"
+    },
+    {
+        "_effectId": 510002020,
+        "_effectName": "軍事力*2（使用時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "自分の軍事力を2倍にする。"
+    },
+    {
+        "_effectId": 520001020,
+        "_effectName": "国民数+2（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードを場に配置したとき発動する。自分の国民数を2増加させる。"
+    },
+    {
+        "_effectId": 530001030,
+        "_effectName": "資金+30（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードを場に配置したとき発動する。自分の資金を30増加させる。"
+    },
+    {
+        "_effectId": 530001031,
+        "_effectName": "自分の場に「ホワイトハウス」があるなら、資金+30（配置時）",
+        "_effectConditionType": 3301,
+        "_effectConditionParameter": 1024002,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "自分の場に「ホワイトハウス」があるなら、このカードを場に配置したときに発動する。自分の資金を30増加させる。"
+    },
+    {
+        "_effectId": 530001050,
+        "_effectName": "資金+50（配置時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8001,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードを場に配置したとき発動する。自分の資金を50増加させる。"
+    },
+    {
+        "_effectId": 540001020,
+        "_effectName": "ターン毎資金+20（常時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8000,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードが場にある限り、自分の1ターンごとに得られる資金量が20増加する。"
+    },
+    {
+        "_effectId": 550001030,
+        "_effectName": "攻撃力+3（使用時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "選択したユニットの攻撃力を3増加させる。"
+    },
+    {
+        "_effectId": 610001020,
+        "_effectName": "プレイヤー被ダメ-20（常時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8000,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードが場にある限り、プレイヤー（自分）が受けるダメージは-20される。"
+    },
+    {
+        "_effectId": 610003030,
+        "_effectName": "ユニット被ダメ-1（常時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8000,
+        "_effectTriggerParameter": 0,
+        "_effectText": "このカードが場にある限り、自分のカードが受けるダメージは-3される。"
+    },
+    {
+        "_effectId": 621001010,
+        "_effectName": "相手の人物1枚に10ダメージ（使用時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "相手の場の人物カードを1枚選び、10ダメージを与える。"
+    },
+    {
+        "_effectId": 710002050,
+        "_effectName": "相手の場のカード5枚破壊（使用時）",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 9003,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 8004,
+        "_effectTriggerParameter": 0,
+        "_effectText": "相手の場に出ている人物カードと建造物カードを合計５枚まで選び、破壊する。"
     }
 ]

@@ -88,8 +88,8 @@ namespace UK.Manager.Ingame
             _curTiming = TimingType.NONE;
 
             // TODO お互いのデッキを読み込む(現状、仮)
-            List<CardMainModel> playerDeck = CreateDeck();
-            List<CardMainModel> opponentDeck = CreateDeck();
+            List<CardMainModel> playerDeck = CreatePlayerDeck();
+            List<CardMainModel> opponentDeck = CreateOpponentDeck();
 
             // お互いのデッキをDeckUnitに設定
             CardManager.Instance.SetPlayerDeck(playerDeck);
@@ -280,22 +280,101 @@ namespace UK.Manager.Ingame
             AttackOpponent();
         }
 
-        // 開発テスト用関数：山札生成
-        private List<CardMainModel> CreateDeck()
+        // 開発テスト用関数：プレイヤーの山札生成
+        private List<CardMainModel> CreatePlayerDeck()
         {
             List<CardMainModel> deck = new List<CardMainModel>();
             List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
-            for(int i = 0; i < 5; i++)
-            {
-                deck.Add(list[0]);
-                deck.Add(list[1]);
-                deck.Add(list[2]);
-                deck.Add(list[3]);
-                deck.Add(list[4]);
-                deck.Add(list[5]);
-                deck.Add(list[6]);
-                deck.Add(list[7]);
-            }
+            deck.Add(list[0]);
+            deck.Add(list[0]);
+            deck.Add(list[0]);
+            deck.Add(list[0]);
+            deck.Add(list[1]);
+            deck.Add(list[1]);
+            deck.Add(list[1]);
+            deck.Add(list[2]);
+            deck.Add(list[3]);
+            deck.Add(list[4]);
+            deck.Add(list[4]);
+            deck.Add(list[4]);
+            deck.Add(list[5]);
+            deck.Add(list[5]);
+            deck.Add(list[5]);
+            deck.Add(list[6]);
+            deck.Add(list[6]);
+            deck.Add(list[6]);
+            deck.Add(list[7]);
+            deck.Add(list[7]);
+            deck.Add(list[8]);
+            deck.Add(list[8]);
+            deck.Add(list[9]);
+            deck.Add(list[9]);
+            deck.Add(list[9]);
+            deck.Add(list[9]);
+            deck.Add(list[10]);
+            deck.Add(list[10]);
+            deck.Add(list[11]);
+            deck.Add(list[11]);
+            deck.Add(list[12]);
+            deck.Add(list[12]);
+            deck.Add(list[13]);
+            deck.Add(list[13]);
+            deck.Add(list[14]);
+            deck.Add(list[14]);
+            deck.Add(list[15]);
+            deck.Add(list[15]);
+            deck.Add(list[16]);
+            deck.Add(list[16]);
+            return deck;
+        }
+
+        // 開発テスト用関数：相手の山札生成
+        private List<CardMainModel> CreateOpponentDeck()
+        {
+            List<CardMainModel> deck = new List<CardMainModel>();
+            List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
+            deck.Add(list[0]);
+            deck.Add(list[0]);
+            deck.Add(list[0]);
+            deck.Add(list[0]);
+            deck.Add(list[1]);
+            deck.Add(list[1]);
+            deck.Add(list[1]);
+            deck.Add(list[17]);
+            deck.Add(list[18]);
+            deck.Add(list[19]);
+            deck.Add(list[19]);
+            deck.Add(list[19]);
+            deck.Add(list[20]);
+            deck.Add(list[20]);
+            deck.Add(list[20]);
+            deck.Add(list[21]);
+            deck.Add(list[21]);
+            deck.Add(list[21]);
+            deck.Add(list[22]);
+            deck.Add(list[22]);
+            deck.Add(list[23]);
+            deck.Add(list[23]);
+            deck.Add(list[24]);
+            deck.Add(list[24]);
+            deck.Add(list[24]);
+            deck.Add(list[24]);
+            deck.Add(list[25]);
+            deck.Add(list[25]);
+            deck.Add(list[26]);
+            deck.Add(list[26]);
+            deck.Add(list[27]);
+            deck.Add(list[27]);
+            deck.Add(list[28]);
+            deck.Add(list[28]);
+            deck.Add(list[29]);
+            deck.Add(list[29]);
+            deck.Add(list[30]);
+            deck.Add(list[30]);
+            deck.Add(list[31]);
+            deck.Add(list[31]);
+            deck.Add(list[31]);
+            deck.Add(list[31]);
             return deck;
         }
 
