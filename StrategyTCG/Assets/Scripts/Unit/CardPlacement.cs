@@ -60,6 +60,9 @@ namespace UK.Unit.Place
         // カードを配置する
         public void SetCardPlacement()
         {
+            // すでにカードが配置されているなら
+            if (_isPlacement) { return; }
+
             // カードが選択されていないなら
             if (!CardManager.Instance.IsSelect()) { return; }
 
