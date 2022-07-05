@@ -193,6 +193,7 @@ namespace UK.Unit.Card
         public void Placement()
         {
             _turn = 1;
+            EffectActivation();
         }
 
         // カード配置後の経過ターンを加算

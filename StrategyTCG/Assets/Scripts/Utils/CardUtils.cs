@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Ch120.Manager.Master;
 
 using UK.Manager.Card;
 using UK.Manager.Ingame;
+using UK.Manager.Popup;
 
 using UK.Model.CardMain;
 using UK.Model.EffectMain;
@@ -75,15 +77,41 @@ namespace UK.Utils.Card
         // カード効果発動処理
         public static bool CardEffectActivation(EffectMainModel model, CardUnit unit)
         {
+            // カード効果が無い場合
+            if (model.EffectId == 0) { return false; }
+            
             List<EffectGroupModel> effectList = GetEffectGroupModelList(model.EffectId);
             List<EffectAbilityModel> abilityList = GetEffectAbilityModelList(model.EffectId);
 
             // カード効果発動チェック
             if (!CheckEffectActivation(model, unit)){ return false; }
 
-            // TODO 能力使用確認（任意能力用）
+            // 能力使用確認（任意能力用）
+            if (CheckSelectEffectTrigger(model))
+            {
+                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                actions.Add(
+                    Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
+                    () => {
+                        // 能力発動
+                        CardAbilityActivate(effectList, abilityList);
+                    }
+                );
+                PopupManager.Instance.SetCheckEffectPopup(unit.CardModel, actions);
+                PopupManager.Instance.ShowCheckEffectPopup();
+                return true;
+            }
+            else
+            {
+                // 能力発動
+                CardAbilityActivate(effectList, abilityList);
+                return true;
+            }
+        }
 
-            // 能力発動
+        // カード能力発動
+        public static void CardAbilityActivate(List<EffectGroupModel> effectList, List<EffectAbilityModel> abilityList)
+        {
             for (int i = 0; i < abilityList.Count; i++)
             {
                 // 発動条件のチェック
@@ -93,10 +121,9 @@ namespace UK.Utils.Card
                 ){ continue; }
 
                 // カード効果の関数を呼び出し
-                Debug.Log(model.EffectName + "の効果発動[" + (i+1) + "]");
+                Debug.Log(abilityList[i].AbilityName + "の効果発動[" + (i+1) + "]");
                 EffectActivate(abilityList[i]);
             }
-            return true;
         }
 
         // 効果発動タイミングチェック
@@ -206,8 +233,10 @@ namespace UK.Utils.Card
             switch(conditionType)
             {
                 case ConditionType.NONE:
+                    Debug.Log("効果発動トリガー : TRUE");
                     return true;
                 default:
+                    Debug.Log("効果発動トリガー : FALSE");
                     return false;
             }
         }
@@ -303,6 +332,27 @@ namespace UK.Utils.Card
                 
                 default:
                     return "未分類";
+            }
+        }
+
+        // カード効果発動が任意かどうか
+        public static bool CheckSelectEffectTrigger(EffectMainModel model)
+        {
+            switch((TriggerType)model.EffectTriggerType)
+            {
+                case TriggerType.PLACEMENT_SELECT:
+                case TriggerType.USE_SELECT:
+                case TriggerType.PLAYER_TURN_SELECT:
+                case TriggerType.OPPONENT_TURN_SELECT:
+                case TriggerType.SPECIFY_TURN_SELECT:
+                case TriggerType.PLAYER_TURN_MANY_SELECT:
+                case TriggerType.OPPONENT_TURN_MANY_SELECT:
+                case TriggerType.CARD_DESTORY_SELECT:
+                    Debug.Log("発動が任意カード");
+                    return true;
+                default:
+                    Debug.Log("発動が強制カード");
+                    return false;
             }
         }
     }

@@ -1,5 +1,16 @@
 ﻿[
     {
+        "_effectId": 0,
+        "_effectName": "効果なし",
+        "_effectConditionType": 0,
+        "_effectConditionParameter": 0,
+        "_effectTimingType": 0,
+        "_effectTimingParameter": 0,
+        "_effectTriggerType": 0,
+        "_effectTriggerParameter": 0,
+        "_effectText": "効果なし。"
+    },
+    {
         "_effectId": 100001030,
         "_effectName": "山札3枚ドロー（使用時）",
         "_effectConditionType": 0,

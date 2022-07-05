@@ -1,5 +1,15 @@
 ﻿[
     {
+        "_effectAbilityId": 0,
+        "_abilityName": "能力なし",
+        "_abilityType": 0,
+        "_userType": 0,
+        "_abilityParameter1": 0,
+        "_abilityParameter2": 0,
+        "_abilityParameter3": 0,
+        "_abilityProbability": 0
+    },
+    {
         "_effectAbilityId": 10000103,
         "_abilityName": "山札3枚ドロー",
         "_abilityType": 100001,

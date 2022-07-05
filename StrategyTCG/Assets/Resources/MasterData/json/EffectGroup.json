@@ -1,5 +1,12 @@
 ﻿[
     {
+        "_effectId": 0,
+        "_effectAbilityId": 0,
+        "_order": 0,
+        "_abilityConditionType": 0,
+        "_abilityConditionParameter": 0
+    },
+    {
         "_effectId": 100001030,
         "_effectAbilityId": 10000103,
         "_order": 0,
