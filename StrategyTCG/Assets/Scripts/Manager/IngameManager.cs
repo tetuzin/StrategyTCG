@@ -12,6 +12,7 @@ using UK.Manager.Card;
 using UK.Model.CardMain;
 using UK.Dao;
 using UK.Unit.Player;
+using UK.Utils.Card;
 
 namespace UK.Manager.Ingame
 {
@@ -88,8 +89,10 @@ namespace UK.Manager.Ingame
             _curTiming = TimingType.NONE;
 
             // TODO お互いのデッキを読み込む(現状、仮)
-            List<CardMainModel> playerDeck = CreatePlayerDeck();
-            List<CardMainModel> opponentDeck = CreateOpponentDeck();
+            // List<CardMainModel> playerDeck = CreatePlayerDeck();
+            // List<CardMainModel> opponentDeck = CreateOpponentDeck();
+            List<CardMainModel> playerDeck = CreateOpponentDeck();
+            List<CardMainModel> opponentDeck = CreatePlayerDeck();
 
             // お互いのデッキをDeckUnitに設定
             CardManager.Instance.SetPlayerDeck(playerDeck);
@@ -382,7 +385,7 @@ namespace UK.Manager.Ingame
         private PlayerUnit GetPlayerUnit()
         {
             PlayerUnit unit = new PlayerUnit();
-            unit.Atk = 100;
+            unit.Power = 100;
             unit.PeopleNum = 5;
             unit.MaxHp = 1000;
             unit.CurHp = 1000;

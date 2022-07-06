@@ -8,6 +8,7 @@ using Ch120.Manager.Master;
 using UK.Manager.Card;
 using UK.Manager.Ingame;
 using UK.Manager.Popup;
+using UK.Manager.UI;
 
 using UK.Model.CardMain;
 using UK.Model.EffectMain;
@@ -23,6 +24,8 @@ using UK.Const.Effect;
 using UK.Const.Ability;
 
 using UK.Unit.Card;
+
+using UK.Utils.Unit;
 
 namespace UK.Utils.Card
 {
@@ -252,6 +255,23 @@ namespace UK.Utils.Card
                     bool isPlayer = GetUserType(model.UserType);
                     CardManager.Instance.DeckDraw(isPlayer, model.AbilityParameter1);
                     break;
+                
+                // ユニットパラメータ変更系
+                case AbilityType.POWER_UP:
+                case AbilityType.POWER_DOUBLE:
+                case AbilityType.POWER_DOWN:
+                case AbilityType.PEOPLENUM_UP:
+                case AbilityType.PEOPLENUM_DOUBLE:
+                case AbilityType.PEOPLENUM_DOWN:
+                case AbilityType.FUND_UP:
+                case AbilityType.FUND_DOUBLE:
+                case AbilityType.FUND_DOWN:
+                case AbilityType.TURN_FUND_UP:
+                case AbilityType.TURN_FUND_DOUBLE:
+                case AbilityType.TURN_FUND_DOWN:
+                    UnitUtils.UpdateParameter(model);
+                    break;
+
                 default:
                     break;
             }

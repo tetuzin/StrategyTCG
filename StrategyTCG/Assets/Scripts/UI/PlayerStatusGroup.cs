@@ -18,7 +18,7 @@ namespace UK.UI.StatusGroup
 
         [SerializeField, Tooltip("HPゲージ")] private CommonGauge _hpGauge = default;
         [SerializeField, Tooltip("プレイヤー名")] private TextMeshProUGUI _nameText = default;
-        [SerializeField, Tooltip("軍事力")] private TextMeshProUGUI _atkText = default;
+        [SerializeField, Tooltip("軍事力")] private TextMeshProUGUI _powerText = default;
         [SerializeField, Tooltip("国民数")] private TextMeshProUGUI _peopleNumText = default;
         [SerializeField, Tooltip("資金")] private TextMeshProUGUI _fundText = default;
         [SerializeField, Tooltip("ターン毎の獲得資金額")] private TextMeshProUGUI _turnNumText = default;
@@ -56,7 +56,7 @@ namespace UK.UI.StatusGroup
             _playerUnit = unit;
             _isPlayer = isPlayer;
             SetNameText(_playerUnit.Name);
-            SetAtkText(_playerUnit.Atk);
+            SetPowerText(_playerUnit.Power);
             SetPeopleNumText(_playerUnit.PeopleNum);
             SetFundText(_playerUnit.Fund);
             SetTurnNumText(_playerUnit.TurnFund);
@@ -87,9 +87,9 @@ namespace UK.UI.StatusGroup
         }
 
         // 軍事力テキストの設定
-        public void SetAtkText(int atk)
+        public void SetPowerText(int power)
         {
-            _atkText.text = atk.ToString();
+            _powerText.text = power.ToString();
         }
 
         // 国民数テキストの設定

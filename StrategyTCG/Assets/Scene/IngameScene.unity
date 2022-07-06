@@ -5709,7 +5709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpGauge: {fileID: 1784651845}
   _nameText: {fileID: 991377}
-  _atkText: {fileID: 124016373}
+  _powerText: {fileID: 124016373}
   _peopleNumText: {fileID: 1735691307}
   _fundText: {fileID: 1791713559}
   _turnNumText: {fileID: 1781344708}
@@ -6346,6 +6346,18 @@ PrefabInstance:
     - target: {fileID: 758047457331935366, guid: 8e205688b26d9c3469a31b8eeaa2c6a1, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141962178919643728, guid: 8e205688b26d9c3469a31b8eeaa2c6a1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141962178919643728, guid: 8e205688b26d9c3469a31b8eeaa2c6a1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141962178919643728, guid: 8e205688b26d9c3469a31b8eeaa2c6a1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2539579045762567918, guid: 8e205688b26d9c3469a31b8eeaa2c6a1, type: 3}
       propertyPath: m_Pivot.x
@@ -7193,7 +7205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpGauge: {fileID: 158602077}
   _nameText: {fileID: 1686527264}
-  _atkText: {fileID: 2010208245}
+  _powerText: {fileID: 2010208245}
   _peopleNumText: {fileID: 2100668498}
   _fundText: {fileID: 187720938}
   _turnNumText: {fileID: 1626258518}

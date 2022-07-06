@@ -26,10 +26,10 @@ namespace UK.Unit.Player
             get { return _curHp; }
             set { _curHp = value; }
         }
-        public int Atk
+        public int Power
         {
-            get { return _atk; }
-            set { _atk = value; }
+            get { return _power; }
+            set { _power = value; }
         }
         public int PeopleNum
         {
@@ -53,7 +53,7 @@ namespace UK.Unit.Player
         private string _name = default;
         private int _maxHp = default;
         private int _curHp = default;
-        private int _atk = default;
+        private int _power = default;
         private int _peopleNum = default;
         private int _fund = default;
         private int _turnFund = default;

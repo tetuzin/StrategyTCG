@@ -102,14 +102,7 @@ namespace UK.Manager.Card
         // 場を取得
         public CardBattleField GetCardBattleField(bool isPlayer)
         {
-            if (isPlayer)
-            {
-                return _playerField;
-            }
-            else
-            {
-                return _opponentField;
-            }
+            return isPlayer ? _playerField : _opponentField;
         }
 
         // 山札をドロー
