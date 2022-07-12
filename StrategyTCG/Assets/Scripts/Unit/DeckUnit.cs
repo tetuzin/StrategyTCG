@@ -97,6 +97,12 @@ namespace UK.Unit.Deck
             UpdateCardNum();
         }
 
+        // カードリストを取得
+        public List<CardMainModel> GetDeckCardList()
+        {
+            return _deckCard;
+        }
+
         // ---------- Private関数 ----------
 
         // デッキのカード枚数を更新する

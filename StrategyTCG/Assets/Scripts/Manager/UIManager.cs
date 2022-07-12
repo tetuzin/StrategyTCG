@@ -7,8 +7,11 @@ using UnityEngine.Events;
 using TMPro;
 
 using Ch120.Singleton;
+using Ch120.Popup.Common;
 
 using UK.Const.Game;
+using UK.Manager.Popup;
+using UK.Manager.Card;
 using UK.Unit.Card;
 using UK.Unit.Player;
 using UK.UI.StatusGroup;
@@ -31,6 +34,7 @@ namespace UK.Manager.UI
         [SerializeField, Tooltip("ターン終了ボタン")] private Button _turnEndButton = default;
         [SerializeField, Tooltip("手札表示・非表示ボタン")] private Button _handViewButton = default;
         [SerializeField, Tooltip("手札ボタン")] private Button _handButton = default;
+        [SerializeField, Tooltip("山札閲覧ボタン")] private Button _deckShowButton = default;
 
         [Header("テキスト")]
         [SerializeField, Tooltip("ターンテキスト")] private TextMeshProUGUI _turnText = default;
@@ -52,15 +56,27 @@ namespace UK.Manager.UI
         // UIの初期化
         virtual public void Initialize()
         {
-            Debug.Log("UIManager.Initialize");
             InitializeButton();
+            
             _handButton.gameObject.SetActive(false);
             SwitchTurnText(true);
             SetActiveActionUI(false);
+
             SetHandViewButton(() => {
                 _isShowHandView = !_isShowHandView;
                 _handCardGroup.alpha = _isShowHandView ? 1 : 0;
             });
+
+            SetDeckShowButton(() => {
+                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                actions.Add(CommonPopup.DECISION_BUTTON_EVENT, () => {});
+                actions.Add(CommonPopup.CANCEL_BUTTON_EVENT, () => {});
+                PopupManager.Instance.SetDeckCardViewPopup(
+                    CardManager.Instance.GetCardBattleField(GameConst.PLAYER).GetDeckUnit(), actions
+                );
+                PopupManager.Instance.ShowDeckCardViewPopup();
+            });
+
             SetActiveHandGroup(false);
         }
 
@@ -70,6 +86,7 @@ namespace UK.Manager.UI
             _turnEndButton.onClick.RemoveAllListeners();
             _handButton.onClick.RemoveAllListeners();
             _handViewButton.onClick.RemoveAllListeners();
+            _deckShowButton.onClick.RemoveAllListeners();
         }
 
         // Canvasを取得
@@ -102,6 +119,13 @@ namespace UK.Manager.UI
         {
             _handViewButton.onClick.RemoveAllListeners();
             _handViewButton.onClick.AddListener(action);
+        }
+
+        // 山札閲覧ボタンにイベントを設定する
+        public void SetDeckShowButton(UnityAction action)
+        {
+            _deckShowButton.onClick.RemoveAllListeners();
+            _deckShowButton.onClick.AddListener(action);
         }
 
         // ターンテキストを切り替える

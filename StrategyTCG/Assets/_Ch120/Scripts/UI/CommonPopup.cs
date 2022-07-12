@@ -37,24 +37,32 @@ namespace Ch120.Popup.Common
         // タイトル文言の設定
         private void SetTitleText(string text)
         {
+            if (_titleText == default) return;
+
             _titleText.text = text;
         }
 
         // メイン文言の設定
         private void SetMainText(string text)
         {
+            if (_mainText == default) return;
+
             _mainText.text = text;
         }
 
         // 決定ボタン文言の設定
         private void SetDecisionText(string text)
         {
+            if (_decisionText == default) return;
+
             _decisionText.text = text;
         }
 
         // キャンセルボタン文言の設定
         private void SetCancelText(string text)
         {
+            if (_cancelText == default) return;
+            
             _cancelText.text = text;
         }
 
@@ -63,18 +71,25 @@ namespace Ch120.Popup.Common
         // ボタンイベントの設定
         protected override void SetButtonEvents()
         {
-            _decisionButton.onClick.RemoveAllListeners();
-            _decisionButton.onClick.AddListener(() => {
-                UnityAction action = GetAction(DECISION_BUTTON_EVENT);
-                action();
-                Close();
-            });
-            _cancelButton.onClick.RemoveAllListeners();
-            _cancelButton.onClick.AddListener(() => {
-                UnityAction action = GetAction(CANCEL_BUTTON_EVENT);
-                action();
-                Close();
-            });
+            if (_decisionButton != default)
+            {
+                _decisionButton.onClick.RemoveAllListeners();
+                _decisionButton.onClick.AddListener(() => {
+                    UnityAction action = GetAction(DECISION_BUTTON_EVENT);
+                    action();
+                    Close();
+                });
+            }
+            
+            if (_cancelButton != default)
+            {
+                _cancelButton.onClick.RemoveAllListeners();
+                _cancelButton.onClick.AddListener(() => {
+                    UnityAction action = GetAction(CANCEL_BUTTON_EVENT);
+                    action();
+                    Close();
+                });
+            }
         }
 
         // データの設定

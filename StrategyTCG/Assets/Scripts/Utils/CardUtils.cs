@@ -252,8 +252,7 @@ namespace UK.Utils.Card
             {
                 // 山札をN枚ドロー
                 case AbilityType.DECK_CARD_DRAW:
-                    bool isPlayer = GetUserType(model.UserType);
-                    CardManager.Instance.DeckDraw(isPlayer, model.AbilityParameter1);
+                    CardManager.Instance.DeckDraw(GetUserType(model.UserType), model.AbilityParameter1);
                     break;
                 
                 // ユニットパラメータ変更系
@@ -270,6 +269,25 @@ namespace UK.Utils.Card
                 case AbilityType.TURN_FUND_DOUBLE:
                 case AbilityType.TURN_FUND_DOWN:
                     UnitUtils.UpdateParameter(model);
+                    break;
+
+                case AbilityType.DECK_CARD_GET:
+                case AbilityType.DECK_CARD_GET_NAME:
+                case AbilityType.DECK_CARD_PLACE_NAME:
+                case AbilityType.DECK_PEASON_GET:
+                case AbilityType.DECK_PEASON_PLACE:
+                case AbilityType.DECK_BUILDING_GET:
+                case AbilityType.DECK_BUILDING_PLACE:
+                case AbilityType.DECK_GOODS_GET:
+                case AbilityType.DECK_GOODS_PLACE:
+                case AbilityType.DECK_POLICY_GET:
+                case AbilityType.DECK_POLICY_PLACE:
+                    Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                    PopupManager.Instance.SetDeckCardViewPopup(
+                        CardManager.Instance.GetCardBattleField(GetUserType(model.UserType)).GetDeckUnit(),
+                        actions
+                    );
+                    PopupManager.Instance.ShowDeckCardViewPopup();
                     break;
 
                 default:

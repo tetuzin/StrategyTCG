@@ -34,6 +34,7 @@ namespace UK.Unit.Card
         [SerializeField, Tooltip("カード種別アイコン")] private GameObject _cardTypeIcon = default;
         [SerializeField, Tooltip("カード種別アイコン配列")] private GameObject[] _cardTypeIcons = default;
         [SerializeField, Tooltip("カード背面画像")] private GameObject _cardBackImage = default;
+        [SerializeField, Tooltip("カード選択時フレーム")] private GameObject _cardSelectFrame = default;
         [SerializeField, Tooltip("カード選択用ボタン")] private Button _cardButton = default;
 
         // ---------- プレハブ ----------
@@ -59,6 +60,11 @@ namespace UK.Unit.Card
         public bool IsDestroy
         {
             get { return _isDestroy; }
+        }
+        public int Index
+        {
+            get { return _index; }
+            set { _index = value; }
         }
 
         // ---------- クラス変数宣言 ----------
@@ -88,6 +94,8 @@ namespace UK.Unit.Card
         private bool _isDestroy = default;
         // カード効果発動回数
         private int _cntEffect = default;
+        // リスト内のカードインデックス
+        private int _index = default;
 
 
         // ---------- Unity組込関数 ----------
@@ -151,6 +159,8 @@ namespace UK.Unit.Card
                     }
                 }
             });
+
+            _cardSelectFrame.SetActive(false);
         }
 
         // カード使用（配置）
@@ -230,6 +240,27 @@ namespace UK.Unit.Card
         {
             _cardButton.gameObject.SetActive(b);
             SetActiveBackImage(b);
+        }
+
+        // 簡易選択用ボタンイベントの設定
+        public void SetSelectButtonEvent(UnityAction action)
+        {
+            _cardButton.onClick.RemoveAllListeners();
+            _cardButton.onClick.AddListener(() => {
+                action();
+            });
+        }
+
+        // 選択フレームの表示・非表示
+        public void SetActiveSelectFrame(bool b)
+        {
+            _cardSelectFrame.SetActive(b);
+        }
+
+        // カードボタンの活性化・非活性化
+        public void SetActiveCardButton(bool b)
+        {
+            _cardButton.gameObject.SetActive(b);
         }
 
         // ---------- Private関数 ----------

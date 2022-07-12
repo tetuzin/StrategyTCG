@@ -7,6 +7,8 @@ using Ch120.Singleton;
 using Ch120.Popup.Common;
 
 using UK.Model.CardMain;
+using UK.Popup.DeckCardView;
+using UK.Unit.Deck;
 
 namespace UK.Manager.Popup
 {
@@ -17,6 +19,7 @@ namespace UK.Manager.Popup
 
         [SerializeField, Tooltip("カード消費ポップアップ")] private CommonPopup _consumptionPopup = default;
         [SerializeField, Tooltip("カード効果発動確認ポップアップ")] private CommonPopup _checkEffectPopup = default;
+        [SerializeField, Tooltip("山札カード一覧ポップアップ")] private DeckCardViewPopup _deckCardViewPopup = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -62,6 +65,24 @@ namespace UK.Manager.Popup
                 cancelText = "やめる"
             };
             _checkEffectPopup.InitPopup(actions, paramter);
+        }
+
+        // 山札カード一覧ポップアップ表示
+        public void ShowDeckCardViewPopup()
+        {
+            _deckCardViewPopup.Open();
+        }
+
+        // 山札カード一覧ポップアップ設定
+        public void SetDeckCardViewPopup(DeckUnit deckUnit, Dictionary<string, UnityAction> actions)
+        {
+            var paramter = new {
+                titleText = "山札カード一覧",
+                decisionText = "決定",
+                cancelText = "やめる"
+            };
+            _deckCardViewPopup.InitPopup(actions, paramter);
+            _deckCardViewPopup.SetDeckView(deckUnit);
         }
 
         // ---------- Private関数 ----------
