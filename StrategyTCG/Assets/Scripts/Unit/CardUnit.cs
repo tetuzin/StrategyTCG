@@ -263,6 +263,15 @@ namespace UK.Unit.Card
             _cardButton.gameObject.SetActive(b);
         }
 
+        // カードをグレーアウトにする
+        public void SetGrayCard()
+        {
+            _cardButton.onClick.RemoveAllListeners();
+            SetActiveBackImage(true);
+            Image image = _cardBackImage.GetComponent<Image>();
+            image.color = new Color32(0, 0, 0, 130);
+        }
+
         // ---------- Private関数 ----------
 
         // カード画像の設定
