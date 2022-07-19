@@ -117,6 +117,14 @@ namespace UK.Unit.Field
             return cardList;
         }
 
+        // 選択したカードを山札から取得し手札に加える
+        public List<CardMainModel> GetDeckCard(List<CardMainModel> getCardList)
+        {
+            List<CardMainModel> cardList = _deckUnit.SelectDraw(getCardList);
+            _handUnit.AddHandCard(cardList);
+            return cardList;
+        }
+
         // 人物カード配列を返す
         public CardPlacement[] GetPersonPlaces()
         {

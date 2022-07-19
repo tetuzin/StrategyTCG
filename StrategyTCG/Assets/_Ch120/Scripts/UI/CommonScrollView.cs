@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +26,9 @@ namespace Ch120.ScrollView
         // 初期化
         public void Initialize()
         {
-
+            AllRemove();
+            SetVerticalPosition();
+            SetHorizontalPosition();
         }
 
         // オブジェクトの追加
@@ -33,6 +36,15 @@ namespace Ch120.ScrollView
         {
             obj.transform.SetParent(_content.transform);
             obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        }
+        
+        // オブジェクトの全削除
+        public void AllRemove()
+        {
+            foreach (Transform c in _content.transform)
+            {
+                Destroy (c.gameObject);
+            }
         }
 
         // 縦スクロールの設定
@@ -48,13 +60,13 @@ namespace Ch120.ScrollView
         }
 
         // 縦スクロールの位置設定
-        public void SetVerticalPosition(float position = 1.0f)
+        public void SetVerticalPosition(float position = 0.0f)
         {
             _scrollRect.verticalNormalizedPosition = position;
         }
 
         // 横スクロールの位置設定
-        public void SetHorizontalPosition(float position = 1.0f)
+        public void SetHorizontalPosition(float position = 0.0f)
         {
             _scrollRect.horizontalNormalizedPosition = position;
         }

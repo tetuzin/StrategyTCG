@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -90,7 +91,7 @@ namespace UK.Utils.Card
             if (!CheckEffectActivation(model, unit)){ return false; }
 
             // 能力使用確認（任意能力用）
-            if (CheckSelectEffectTrigger(model))
+            if (CheckSelectEffectTrigger((TriggerType)model.EffectTriggerType))
             {
                 Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
                 actions.Add(
@@ -285,7 +286,9 @@ namespace UK.Utils.Card
                     Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
                     PopupManager.Instance.SetDeckCardViewPopup(
                         CardManager.Instance.GetCardBattleField(GetUserType(model.UserType)).GetDeckUnit(),
-                        actions
+                        actions,
+                        GetActiveCardList(abilityType),
+                        model.AbilityParameter1
                     );
                     PopupManager.Instance.ShowDeckCardViewPopup();
                     break;
@@ -293,6 +296,36 @@ namespace UK.Utils.Card
                 default:
                     break;
             }
+        }
+        
+        // 表示するカード種別リストの取得
+        public static List<CardType> GetActiveCardList(AbilityType abilityType)
+        {
+            List<CardType> activeCardList = new List<CardType>();
+            switch (abilityType)
+            {
+                case AbilityType.DECK_CARD_GET:
+                case AbilityType.DECK_CARD_GET_NAME:
+                case AbilityType.DECK_CARD_PLACE_NAME:
+                    break;
+                case AbilityType.DECK_PEASON_GET:
+                case AbilityType.DECK_PEASON_PLACE:
+                    activeCardList.Add(CardType.PERSON);
+                    break;
+                case AbilityType.DECK_BUILDING_GET:
+                case AbilityType.DECK_BUILDING_PLACE:
+                    activeCardList.Add(CardType.BUILDING);
+                    break;
+                case AbilityType.DECK_GOODS_GET:
+                case AbilityType.DECK_GOODS_PLACE:
+                    activeCardList.Add(CardType.GOODS);
+                    break;
+                case AbilityType.DECK_POLICY_GET:
+                case AbilityType.DECK_POLICY_PLACE:
+                    activeCardList.Add(CardType.POLICY);
+                    break;
+            }
+            return activeCardList;
         }
 
         // プレイヤーのターンかどうか
@@ -374,9 +407,9 @@ namespace UK.Utils.Card
         }
 
         // カード効果発動が任意かどうか
-        public static bool CheckSelectEffectTrigger(EffectMainModel model)
+        public static bool CheckSelectEffectTrigger(TriggerType triggerType)
         {
-            switch((TriggerType)model.EffectTriggerType)
+            switch(triggerType)
             {
                 case TriggerType.PLACEMENT_SELECT:
                 case TriggerType.USE_SELECT:

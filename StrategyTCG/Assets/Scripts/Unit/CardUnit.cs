@@ -263,6 +263,11 @@ namespace UK.Unit.Card
             _cardButton.gameObject.SetActive(b);
         }
 
+        public void SetRemoveCardButtonEvent()
+        {
+            _cardButton.onClick.RemoveAllListeners();
+        }
+
         // カードをグレーアウトにする
         public void SetGrayCard()
         {

@@ -8,7 +8,7 @@ using TMPro;
 
 using Ch120.Singleton;
 using Ch120.Popup.Common;
-
+using UK.Const.Card.Type;
 using UK.Const.Game;
 using UK.Manager.Popup;
 using UK.Manager.Card;
@@ -72,7 +72,10 @@ namespace UK.Manager.UI
                 actions.Add(CommonPopup.DECISION_BUTTON_EVENT, () => {});
                 actions.Add(CommonPopup.CANCEL_BUTTON_EVENT, () => {});
                 PopupManager.Instance.SetDeckCardViewPopup(
-                    CardManager.Instance.GetCardBattleField(GameConst.PLAYER).GetDeckUnit(), actions
+                    CardManager.Instance.GetCardBattleField(GameConst.PLAYER).GetDeckUnit(),
+                    actions,
+                    new List<CardType>(),
+                    0
                 );
                 PopupManager.Instance.ShowDeckCardViewPopup();
             });

@@ -7,7 +7,6 @@ namespace UK.Const.Game
         public static readonly bool PLAYER = true;
         // 相手
         public static readonly bool OPPONENT = false;
-
         // 自分の場における人物カードの最大数
         public static readonly int MAX_PERSON_CARD = 5;
         // 自分の場における建造物カードの最大数

@@ -1,19 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
 using Ch120.Popup;
-using Ch120.Popup.Common;
 using Ch120.ScrollView;
 
+using UK.Const.Game;
 using UK.Const.Card.Type;
+using UK.Const.Effect;
 using UK.Manager.Card;
 using UK.Manager.Popup;
 using UK.Model.CardMain;
 using UK.Unit.Card;
 using UK.Unit.Deck;
+using UK.Utils.Card;
 
 namespace UK.Popup.DeckCardView
 {
@@ -39,13 +40,15 @@ namespace UK.Popup.DeckCardView
         // ---------- Public関数 ----------
 
         // 山札一覧の設定
-        public void SetDeckView(DeckUnit deckUnit, List<CardType> activeCardList = default, int selectCardNum = default)
+        public void SetDeckView(DeckUnit deckUnit, List<CardType> activeCardList = default, int selectCardNum = 0)
         {
-            activeCardList = new List<CardType>();
-            activeCardList.Add(CardType.PERSON);
-
+            Debug.Log("selectCardNum = " + selectCardNum);
             _selectCardNum = selectCardNum;
 
+            if (_selectCardNum > 0)
+            {
+                SetModalEvent(() => {});
+            }
 
             // リストの初期化
             _deckCardList = new List<CardMainModel>(deckUnit.GetDeckCardList());
@@ -72,8 +75,21 @@ namespace UK.Popup.DeckCardView
                         cardUnit.SetGrayCard();
                     }
                 }
+                else
+                {
+                    cardUnit.SetRemoveCardButtonEvent();
+                    _decisionButton.gameObject.SetActive(false);
+                }
 
                 _scrollView.AddContent(cardUnit.gameObject);
+            }
+        }
+
+        public void SetActiveCancelButton(TriggerType triggerType)
+        {
+            if (!CardUtils.CheckSelectEffectTrigger(triggerType))
+            {
+                _cancelButton.gameObject.SetActive(false);
             }
         }
 
@@ -82,6 +98,7 @@ namespace UK.Popup.DeckCardView
         // スクロールビューの初期化
         private void InitializeScrollView()
         {
+            _scrollView.Initialize();
             _scrollView.SetVerticalScroll(false);
             _scrollView.SetHorizontalScroll(true);
         }
@@ -94,7 +111,7 @@ namespace UK.Popup.DeckCardView
         }
 
         // 選択中カードの取得
-        private List<CardMainModel> GetSelectCardUnit()
+        private List<CardMainModel> GetSelectCardModel()
         {
             List<CardMainModel> selectCardList = new List<CardMainModel>();
             for (int i = 0; i < _isSelectDeckCardList.Length; i++)
@@ -147,22 +164,32 @@ namespace UK.Popup.DeckCardView
                     int num = GetSelectCardNum();
                     if (_selectCardNum == num)
                     {
-                        // TODO 選択したカードを取得
+                        List<CardMainModel> getCardList = GetSelectCardModel();
+
+                        if (true)
+                        {
+                            // 選択したカードを取得(手札)
+                            CardManager.Instance.GetDeckCard(GameConst.PLAYER, getCardList);
+                            Close();
+                        }
+                        else
+                        {
+                            // TODO 選択したカードを取得(フィールド)
+                        }
                     }
                     else
                     {
                         // ちゃんと選択するように注意ポップアップを表示する
                         string text = "";
-                        if (_selectCardNum > num)
+                        if (_selectCardNum < num)
                         {
-                            text = "合計" + num + "枚になるように選択してください。";
+                            text = "合計" + _selectCardNum + "枚になるように選択してください。";
                         }
                         else
                         {
-                            text = "あと" +  (num - _selectCardNum) + "枚選択してください。";
+                            text = "あと" +  (_selectCardNum - num) + "枚選択してください。";
                         }
-                        Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
-                        PopupManager.Instance.SetSimpleTextPopup(text, actions);
+                        PopupManager.Instance.SetSimpleTextPopup(text, new Dictionary<string, UnityAction>());
                         PopupManager.Instance.ShowSimpleTextPopup();
                     }
                 }
@@ -170,8 +197,23 @@ namespace UK.Popup.DeckCardView
 
             _cancelButton.onClick.RemoveAllListeners();
             _cancelButton.onClick.AddListener(() => {
-                // TODO 選択を本当にやめるか確認するポップアップを表示する
-                // 強制発動なら閉じるボタンは非表示にする
+                if (_selectCardNum != default)
+                {
+                    // 選択を本当にやめるか確認するポップアップを表示する
+                    Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                    actions.Add(
+                        Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
+                        () =>
+                        {
+                            Close();
+                        });
+                    PopupManager.Instance.SetEffectCancelPopup(actions);
+                    PopupManager.Instance.ShowEffectCancelPopup();
+                }
+                else
+                {
+                    Close();
+                }
             });
         }
 

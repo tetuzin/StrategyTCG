@@ -78,6 +78,20 @@ namespace UK.Unit.Deck
             return card;
         }
 
+        public List<CardMainModel> SelectDraw(List<CardMainModel> getCardList)
+        {
+            List<CardMainModel> drawCardList = new List<CardMainModel>();
+            foreach (CardMainModel searchModel in getCardList)
+            {
+                CardMainModel model = _deckCard.Find(x => x == searchModel);
+                int index = _deckCard.IndexOf(model);
+                _deckCard.RemoveAt(index);
+                SetCardNum(_deckCard.Count);
+                drawCardList.Add(model);
+            }
+            return drawCardList;
+        }
+
         // デッキのカード枚数を取得する
         public int GetMaxCardNum()
         {
@@ -116,7 +130,7 @@ namespace UK.Unit.Deck
         {
             Vector3 vector = this.gameObject.transform.localScale;
             vector.y = (height / 10) * 150 / 100;
-            this.gameObject.transform.localScale = vector;
+            gameObject.transform.localScale = vector;
         }
 
         // ---------- protected関数 ---------
