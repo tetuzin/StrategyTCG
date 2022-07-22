@@ -8,6 +8,7 @@ using TMPro;
 
 using Ch120.Singleton;
 using Ch120.Popup.Common;
+using UK.Const.Ability;
 using UK.Const.Card.Type;
 using UK.Const.Game;
 using UK.Manager.Popup;
@@ -74,7 +75,13 @@ namespace UK.Manager.UI
                 PopupManager.Instance.SetDeckCardViewPopup(
                     CardManager.Instance.GetCardBattleField(GameConst.PLAYER).GetDeckUnit(),
                     actions,
-                    new { activeCardList = new List<CardType>(), abilityParameter = 0 }
+                    new
+                    {
+                        ability = AbilityType.NONE,
+                        activeCardList = new List<CardType>(),
+                        abilityParameter = 0,
+                        cardId =0
+                    }
                 );
                 PopupManager.Instance.ShowDeckCardViewPopup();
             });

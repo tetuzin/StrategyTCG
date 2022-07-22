@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Ch120.Const.Game;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -250,6 +251,17 @@ namespace UK.Utils.Card
                 // 山札をN枚ドロー
                 case AbilityType.DECK_CARD_DRAW:
                     CardManager.Instance.DeckDraw(GetUserType(model.UserType), model.AbilityParameter1);
+                    break;
+                
+                // 手札がN枚になるように山札をドロー
+                case AbilityType.DECK_CARD_DRAW_HAND:
+                    int handNum = CardManager.Instance.GetCardBattleField(GetUserType(model.UserType))
+                        .GetHandUnit().HandCard.Count;
+
+                    if (model.AbilityParameter1 > handNum)
+                    {
+                        CardManager.Instance.DeckDraw(GetUserType(model.UserType), (model.AbilityParameter1 - handNum));
+                    }
                     break;
                 
                 // ユニットパラメータ変更系

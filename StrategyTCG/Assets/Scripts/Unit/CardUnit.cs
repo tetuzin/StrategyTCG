@@ -189,10 +189,10 @@ namespace UK.Unit.Card
             actions.Add(
                 Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                 () => {
-                    // カード効果発動
-                    EffectActivation();
                     // カードをトラッシュへ
                     CardManager.Instance.TrashCard(_isPlayer, this);
+                    // カード効果発動
+                    EffectActivation();
                 }
             );
             PopupManager.Instance.SetConsumptionPopup(_cardModel, actions);

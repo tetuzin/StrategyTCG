@@ -85,6 +85,7 @@ namespace UK.Manager.Card
         {
             CardBattleField battleField = GetCardBattleField(isPlayer);
             battleField.GetHandUnit().RemoveHandCard(cardUnit);
+            GetCardBattleField(isPlayer).GetHandUnit().RemoveHandCard(cardUnit.CardModel);
         }
         
         // 自分のデッキを設定
