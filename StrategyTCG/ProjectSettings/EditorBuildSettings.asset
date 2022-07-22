@@ -4,6 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
+<<<<<<< HEAD
   m_Scenes:
   - enabled: 1
     path: Assets/_Ch120/Scenes/InitializeScene.unity
@@ -11,4 +12,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/IngameScene.unity
     guid: 5d2e8878db931254faada81984bbe95a
+=======
+  m_Scenes: []
+>>>>>>> 8c895c29 ([add] project files commit)
   m_configObjects: {}
