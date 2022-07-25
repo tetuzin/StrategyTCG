@@ -338,8 +338,6 @@ namespace UK.Manager.Ingame
             List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
             deck.Add(list[0]);
             deck.Add(list[0]);
-            deck.Add(list[0]);
-            deck.Add(list[0]);
             deck.Add(list[1]);
             deck.Add(list[1]);
             deck.Add(list[1]);

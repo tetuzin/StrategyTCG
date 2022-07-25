@@ -22,7 +22,7 @@ using UK.Const.Effect;
 using UK.Const.Ability;
 
 using UK.Unit.Card;
-
+using UK.Unit.Field;
 using UK.Utils.Unit;
 
 namespace UK.Utils.Card
@@ -250,18 +250,34 @@ namespace UK.Utils.Card
             {
                 // 山札をN枚ドロー
                 case AbilityType.DECK_CARD_DRAW:
-                    CardManager.Instance.DeckDraw(GetUserType(model.UserType), model.AbilityParameter1);
+                    EffectActionByUserType((bool b) =>
+                    {
+                        CardManager.Instance.DeckDraw(b, model.AbilityParameter1);
+                    }, (UserType)model.UserType);
                     break;
                 
                 // 手札がN枚になるように山札をドロー
                 case AbilityType.DECK_CARD_DRAW_HAND:
-                    int handNum = CardManager.Instance.GetCardBattleField(GetUserType(model.UserType))
-                        .GetHandUnit().HandCard.Count;
-
-                    if (model.AbilityParameter1 > handNum)
+                    EffectActionByUserType((bool b) =>
                     {
-                        CardManager.Instance.DeckDraw(GetUserType(model.UserType), (model.AbilityParameter1 - handNum));
-                    }
+                        int handNum = CardManager.Instance.GetCardBattleField(b).GetHandUnit().HandCard.Count;
+
+                        if (model.AbilityParameter1 > handNum)
+                        {
+                            CardManager.Instance.DeckDraw(b, (model.AbilityParameter1 - handNum));
+                        }
+                    }, (UserType)model.UserType);
+                    break;
+                
+                // 手札を全て山札に戻し、山札をN枚ドロー
+                case AbilityType.DECK_SHUFFLE_DRAW:
+                    EffectActionByUserType((bool b) =>
+                    {
+                        CardBattleField battleField = CardManager.Instance.GetCardBattleField(b);
+                        battleField.BackAllHandCard();
+                        battleField.GetDeckUnit().Shuffle();
+                        CardManager.Instance.DeckDraw(b, model.AbilityParameter1);
+                    }, (UserType)model.UserType);
                     break;
                 
                 // ユニットパラメータ変更系
@@ -299,15 +315,38 @@ namespace UK.Utils.Card
                         abilityParameter = model.AbilityParameter1,
                         cardId = model.AbilityParameter2
                     };
-                    Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
-                    PopupManager.Instance.SetDeckCardViewPopup(
-                        CardManager.Instance.GetCardBattleField(GetUserType(model.UserType)).GetDeckUnit(),
-                        actions,
-                        popupParam
-                    );
-                    PopupManager.Instance.ShowDeckCardViewPopup();
+                    EffectActionByUserType((bool b) =>
+                    {
+                        Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                        PopupManager.Instance.SetDeckCardViewPopup(
+                            CardManager.Instance.GetCardBattleField(b).GetDeckUnit(),
+                            actions,
+                            popupParam
+                        );
+                        PopupManager.Instance.ShowDeckCardViewPopup();
+                    }, (UserType)model.UserType);
                     break;
 
+                default:
+                    break;
+            }
+        }
+        
+        // カード効果を受けるプレイヤーを判断し実行
+        public static void EffectActionByUserType(UnityAction<bool> effectAction, UserType userType)
+        {
+            switch (userType)
+            {
+                case UserType.USE_PLAYER:
+                    effectAction(UK.Const.Game.GameConst.PLAYER);
+                    break;
+                case UserType.USE_OPPONENT:
+                    effectAction(UK.Const.Game.GameConst.OPPONENT);
+                    break;
+                case UserType.USE_ALL:
+                    effectAction(UK.Const.Game.GameConst.PLAYER);
+                    effectAction(UK.Const.Game.GameConst.OPPONENT);
+                    break;
                 default:
                     break;
             }

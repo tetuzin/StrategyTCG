@@ -77,7 +77,8 @@ namespace UK.Unit.Deck
             SetCardNum(_deckCard.Count);
             return card;
         }
-
+        
+        // 指定したカードをひく
         public List<CardMainModel> SelectDraw(List<CardMainModel> getCardList)
         {
             List<CardMainModel> drawCardList = new List<CardMainModel>();
@@ -90,6 +91,12 @@ namespace UK.Unit.Deck
                 drawCardList.Add(model);
             }
             return drawCardList;
+        }
+        
+        // カードを山札に加える
+        public void AddCard(CardMainModel cardModel)
+        {
+            _deckCard.Add(cardModel);
         }
 
         // デッキのカード枚数を取得する

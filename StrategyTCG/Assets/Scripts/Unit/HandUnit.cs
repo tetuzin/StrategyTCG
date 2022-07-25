@@ -22,17 +22,15 @@ namespace UK.Unit.Hand
         {
             get { return _isPlayer; }
         }
-        public List<CardMainModel> HandCard
+        public List<CardUnit> HandCard
         {
-            get { return _handCard; }
-            set { _handCard = value; }
+            get { return _handCardUnit; }
+            set { _handCardUnit = value; }
         }
 
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
-
-        // 手札
-        private List<CardMainModel> _handCard = default;
+        
         // ユニットリスト（手札）
         private List<CardUnit> _handCardUnit = default;
         // プレイヤーフラグ
@@ -45,7 +43,6 @@ namespace UK.Unit.Hand
         public void Initialize(bool isPlayer)
         {
             _isPlayer = isPlayer;
-            _handCard = new List<CardMainModel>();
             _handCardUnit = new List<CardUnit>();
         }
 
@@ -66,21 +63,6 @@ namespace UK.Unit.Hand
                 CardUnit cardUnit = CardManager.Instance.Instantiate2DCardUnit(cardModel, _isPlayer);
                 SetCardPanel(cardUnit);
                 _handCardUnit.Add(cardUnit);
-                _handCard.Add(cardModel);
-            }
-        }
-
-        // 手札を削除
-        public void RemoveHandCard(CardMainModel model)
-        {
-            CardMainModel result = _handCard.Find(n => n == model);
-            if (result != null)
-            {
-                _handCard.Remove(result);
-            }
-            else
-            {
-                Debug.LogWarning("_handCardListに指定の値は存在しません。");
             }
         }
 
@@ -89,6 +71,15 @@ namespace UK.Unit.Hand
         {
             _handCardUnit.Remove(cardUnit);
             Destroy(cardUnit.gameObject);// TODO Destroy
+        }
+        
+        // 手札を全て削除
+        public void RemoveAllHandCard()
+        {
+            foreach (CardUnit cardUnit in _handCardUnit)
+            {
+                RemoveHandCard(cardUnit);
+            }
         }
 
         // ---------- Private関数 ----------

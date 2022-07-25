@@ -9,6 +9,7 @@ using UK.Unit.Card;
 using UK.Unit.Hand;
 using UK.Unit.Deck;
 using UK.Unit.Place;
+using UK.Utils.Card;
 
 namespace UK.Unit.Field
 {
@@ -147,6 +148,23 @@ namespace UK.Unit.Field
         public HandUnit GetHandUnit()
         {
             return _handUnit;
+        }
+        
+        // TODO 手札を山札に戻す
+        public void BackHandCard(CardUnit cardUnit)
+        {
+            _handUnit.RemoveHandCard(cardUnit);
+            _deckUnit.AddCard(cardUnit.CardModel);
+        }
+        
+        // TODO 手札を全て山札に戻す
+        public void BackAllHandCard()
+        {
+            List<CardUnit> handUnit = new List<CardUnit>(_handUnit.HandCard);
+            foreach (CardUnit cardUnit in handUnit)
+            {
+                BackHandCard(cardUnit);
+            }
         }
 
         // 人物カードを追加配置する
