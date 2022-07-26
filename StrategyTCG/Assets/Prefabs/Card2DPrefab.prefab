@@ -552,7 +552,7 @@ MonoBehaviour:
   - {fileID: 5039028794753396124, guid: 8340a3caab1819f42a6b80b9194338d2, type: 3}
   - {fileID: 3895509291515837320, guid: 335be59b8b85a3a4da095dbc39a5ee67, type: 3}
   _cardBackImage: {fileID: 3965411821661139351}
-  _cardSelectFrame: {fileID: 348861391791923392}
+  _cardSelectFrame: {fileID: 5387393833517521337}
   _cardButton: {fileID: 8221140392058522405}
 --- !u!1 &3726841362752466936
 GameObject:

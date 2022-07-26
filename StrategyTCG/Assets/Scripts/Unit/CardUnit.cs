@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using DG.Tweening;
 
 using Ch120.Utils.Resource;
 
@@ -34,7 +35,7 @@ namespace UK.Unit.Card
         [SerializeField, Tooltip("カード種別アイコン")] private GameObject _cardTypeIcon = default;
         [SerializeField, Tooltip("カード種別アイコン配列")] private GameObject[] _cardTypeIcons = default;
         [SerializeField, Tooltip("カード背面画像")] private GameObject _cardBackImage = default;
-        [SerializeField, Tooltip("カード選択時フレーム")] private GameObject _cardSelectFrame = default;
+        [SerializeField, Tooltip("カード選択時フレーム")] private Image _cardSelectFrame = default;
         [SerializeField, Tooltip("カード選択用ボタン")] private Button _cardButton = default;
 
         // ---------- プレハブ ----------
@@ -96,6 +97,10 @@ namespace UK.Unit.Card
         private int _cntEffect = default;
         // リスト内のカードインデックス
         private int _index = default;
+        // 点滅フラグ
+        private bool _isBlink = default;
+        // 点滅用Tweener
+        private Tweener _blinkTweener = default;
 
 
         // ---------- Unity組込関数 ----------
@@ -160,7 +165,8 @@ namespace UK.Unit.Card
                 }
             });
 
-            _cardSelectFrame.SetActive(false);
+            _cardSelectFrame.gameObject.SetActive(false);
+            InitBlinkFrame();
         }
 
         // カード使用（配置）
@@ -254,7 +260,7 @@ namespace UK.Unit.Card
         // 選択フレームの表示・非表示
         public void SetActiveSelectFrame(bool b)
         {
-            _cardSelectFrame.SetActive(b);
+            _cardSelectFrame.gameObject.SetActive(b);
         }
 
         // カードボタンの活性化・非活性化
@@ -275,6 +281,27 @@ namespace UK.Unit.Card
             SetActiveBackImage(true);
             Image image = _cardBackImage.GetComponent<Image>();
             image.color = new Color32(0, 0, 0, 130);
+        }
+        
+        // カード背面画像の表示を設定
+        public void SetActiveBackImage(bool b)
+        {
+            _cardBackImage.SetActive(b);
+        }
+
+        // フレーム点滅の表示・非表示
+        public void SetBlinkFrame(bool b)
+        {
+            _isBlink = b;
+            _cardSelectFrame.gameObject.SetActive(b);
+            if (_isBlink)
+            {
+                _blinkTweener.Play();
+            }
+            else
+            {
+                _blinkTweener.Pause();
+            }
         }
 
         // ---------- Private関数 ----------
@@ -326,11 +353,12 @@ namespace UK.Unit.Card
         {
             _costText.text = cost.ToString();
         }
-
-        // カード背面画像の表示を設定
-        public void SetActiveBackImage(bool b)
+        
+        // フレーム点滅の初期化
+        private void InitBlinkFrame()
         {
-            _cardBackImage.SetActive(b);
+            _blinkTweener = _cardSelectFrame.DOFade(endValue: 0.0f, duration: 0.5f).SetLoops(-1,LoopType.Yoyo);
+            _blinkTweener.Pause();
         }
 
         // ---------- protected関数 ---------
