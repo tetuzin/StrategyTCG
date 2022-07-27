@@ -86,11 +86,11 @@ namespace UK.Const.Ability
 
         CARD_DAMAGE = 620001,           // ユニットX体にNダメージ
         CARD_PEASON_DAMAGE = 621001,    // 人物ユニットX体にNダメージ
-        CARD_BUILDING_DAMAGE = 622001,  // 建造物ユニットX体にNダメージ
 
         // カード破壊系
-        DESTORY_FIELD_CARD = 710001,       // 自分の場のカードをN枚選択して破壊する
-        DESTROY_ALL_FIELD_CARD = 710002,   // 場のカードをN枚選択して破壊する
+        DESTORY_FIELD_CARD = 710001,       // 場のカードをN枚選択して破壊する
+        DESTORY_FIELD_PERSON_CARD = 710002,       // 場の人物カードをN枚選択して破壊する
+        DESTORY_FIELD_BUILDING_CARD = 710003,       // 場の建造物カードをN枚選択して破壊する
 
         // その他
     }

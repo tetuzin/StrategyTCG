@@ -5,11 +5,13 @@ using UnityEngine;
 using Ch120.Singleton;
 
 using UK.Const.Game;
+using UK.Manager.Popup;
 using UK.Manager.UI;
 using UK.Model.CardMain;
 using UK.Unit.Card;
 using UK.Unit.Card3D;
 using UK.Unit.Field;
+using UnityEngine.Events;
 
 namespace UK.Manager.Card
 {
@@ -130,6 +132,78 @@ namespace UK.Manager.Card
         public void PlaceDeckCard()
         {
             
+        }
+        
+        // 場のカードをグレーアウト
+        public void GrayOutPlaceCard()
+        {
+            GetCardBattleField(GameConst.PLAYER).SetGrayOutPlaceCard(
+                GetCardBattleField(GameConst.PLAYER).GetPlaceCardList()
+            );
+            GetCardBattleField(GameConst.OPPONENT).SetGrayOutPlaceCard(
+                GetCardBattleField(GameConst.OPPONENT).GetPlaceCardList()
+            );
+        }
+        
+        // TODO 場のカードの描画をリセット
+        public void ResetPlaceCard()
+        {
+            GetCardBattleField(GameConst.PLAYER).ResetPlaceCard();
+            GetCardBattleField(GameConst.OPPONENT).ResetPlaceCard();
+
+            UIManager.Instance.SetActiveActionUI(true);
+        }
+        
+        // TODO 場のカードをN枚選択して返す
+        public void SelectPlaceCard(List<CardUnit> cardList, int selectCount, UnityAction<List<CardUnit>> action)
+        {
+            // 選択できないカードはグレーアウト。選択できるものはフレームを点滅
+            GrayOutPlaceCard();
+            UIManager.Instance.SetActiveActionUI(false);
+            GetCardBattleField(true).SetBlinkPlaceCard(cardList);
+
+            // 選択しているカードをリストに追加
+            List<CardUnit> selectCardList = new List<CardUnit>();
+            foreach (CardUnit cardUnit in cardList)
+            {
+                cardUnit.SetSelectButtonEvent(() =>
+                {
+                    if (selectCardList.Contains(cardUnit))
+                    {
+                        selectCardList.Remove(cardUnit);
+                        cardUnit.SetBlinkFrame(true);
+                    }
+                    else
+                    {
+                        selectCardList.Add(cardUnit);
+                        cardUnit.SetBlinkFrame(false);
+                        cardUnit.SetActiveSelectFrame(true);
+                    }
+                });
+            }
+            
+            // 選択決定ボタンの処理設定
+            UIManager.Instance.SetActiveCardSelectButton(true);
+            UIManager.Instance.SetCardSelectButton(() =>
+            {
+                if (selectCount == selectCardList.Count)
+                {
+                    action(selectCardList);
+                    ResetPlaceCard();
+                    UIManager.Instance.SetActiveActionUI(true);
+                    foreach (CardUnit cardUnit in cardList)
+                    {
+                        cardUnit.InitSelectButtonEvent();
+                        cardUnit.SetCardActive(false);
+                    }
+                }
+                else
+                {
+                    string text = "合計" + selectCount + "枚になるように選択してください。";
+                    PopupManager.Instance.SetSimpleTextPopup(text, null);
+                    PopupManager.Instance.ShowSimpleTextPopup();
+                }
+            });
         }
 
         // 選択しているカードがあるか

@@ -138,7 +138,7 @@ namespace UK.Manager.Ingame
             CardManager.Instance.DeckDraw(GameConst.PLAYER);
 
             // UI表示
-            UIManager.Instance.SetActiveActionUI(true);
+            UIManager.Instance.SetActiveTurnEndButton(true);
             UIManager.Instance.SwitchTurnText(true);
             UIManager.Instance.SetActiveHandGroup(true);
 
@@ -173,7 +173,7 @@ namespace UK.Manager.Ingame
             UpdateCurTurn();
 
             // UI非表示
-            UIManager.Instance.SetActiveActionUI(false);
+            UIManager.Instance.SetActiveTurnEndButton(false);
             UIManager.Instance.SetActiveHandGroup(false);
 
             StartOpponentTurn();

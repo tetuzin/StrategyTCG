@@ -115,7 +115,7 @@
         "_abilityType": 410001,
         "_userType": 1,
         "_abilityParameter1": 0,
-        "_abilityParameter2": 0,
+        "_abilityParameter2": 1,
         "_abilityParameter3": 0,
         "_abilityProbability": 100
     },
@@ -125,7 +125,7 @@
         "_abilityType": 410001,
         "_userType": 1,
         "_abilityParameter1": 5,
-        "_abilityParameter2": 0,
+        "_abilityParameter2": 1,
         "_abilityParameter3": 0,
         "_abilityProbability": 100
     },
@@ -265,7 +265,7 @@
         "_abilityType": 610003,
         "_userType": 1,
         "_abilityParameter1": 1,
-        "_abilityParameter2": 0,
+        "_abilityParameter2": 1,
         "_abilityParameter3": 0,
         "_abilityProbability": 100
     },
@@ -284,8 +284,8 @@
         "_abilityName": "相手の場のカード5枚破壊",
         "_abilityType": 710002,
         "_userType": 2,
-        "_abilityParameter1": 5,
-        "_abilityParameter2": 0,
+        "_abilityParameter1": 0,
+        "_abilityParameter2": 5,
         "_abilityParameter3": 0,
         "_abilityProbability": 100
     }

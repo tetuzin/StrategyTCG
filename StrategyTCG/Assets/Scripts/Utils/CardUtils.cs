@@ -20,7 +20,7 @@ using UK.Const.Card.Type;
 using UK.Const.Card.UseType;
 using UK.Const.Effect;
 using UK.Const.Ability;
-
+using UK.Manager.UI;
 using UK.Unit.Card;
 using UK.Unit.Field;
 using UK.Utils.Unit;
@@ -326,12 +326,181 @@ namespace UK.Utils.Card
                         PopupManager.Instance.ShowDeckCardViewPopup();
                     }, (UserType)model.UserType);
                     break;
+                
+                // 人物カードのHPを回復
+                case AbilityType.CARD_HP_HEAL:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlacePersonCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                cardUnit.Heal(model.AbilityParameter1);
+                            }
+                        }
+                    );
+                    break;
+                
+                // 人物カードのATKを変更
+                case AbilityType.ATK_UP:
+                case AbilityType.ATK_DOUBLE:
+                case AbilityType.ATK_DOWN:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlacePersonCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                // TODO カードユニット攻撃力UP
+                                Debug.Log("カードユニット攻撃力UP：" + cardUnit.CardModel.CardName);
+                            }
+                        }
+                    );
+                    break;
+                
+                // 人物カードのHPを変更
+                case AbilityType.HP_UP:
+                case AbilityType.HP_DOUBLE:
+                case AbilityType.HP_DOWN:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlacePersonCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                // TODO カードユニットHP
+                                Debug.Log("カードユニットHP：" + cardUnit.CardModel.CardName);
+                            }
+                        }
+                    );
+                    break;
+                
+                // 人物カードの受けるダメージを軽減
+                case AbilityType.CARD_DAMAGE_DOWN:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlacePersonCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                // TODO カードユニット軽減
+                                Debug.Log("カードユニット軽減：" + cardUnit.CardModel.CardName);
+                            }
+                        }
+                    );
+                    break;
+                
+                // カードを破壊
+                case AbilityType.DESTORY_FIELD_CARD:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlaceCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                cardUnit.Destroy();
+                            }
+                        }
+                    );
+                    break;
+                    
+                // 人物カードを破壊
+                case AbilityType.DESTORY_FIELD_PERSON_CARD:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlacePersonCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                cardUnit.Destroy();
+                            }
+                        }
+                    );
+                    break;
+
+                // 建造物カードを破壊
+                case AbilityType.DESTORY_FIELD_BUILDING_CARD:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlaceBuildingCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                cardUnit.Destroy();
+                            }
+                        }
+                    );
+                    break;
 
                 default:
                     break;
             }
         }
         
+        // UserType別に場のカードリストを返す
+        public static List<CardUnit> GetPlaceCardList(UserType userType)
+        {
+            switch (userType)
+            {
+                case UserType.USE_PLAYER:
+                    return CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.PLAYER).GetPlaceCardList();
+                case UserType.USE_OPPONENT:
+                    return CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.OPPONENT).GetPlaceCardList();
+                case UserType.USE_ALL:
+                    List<CardUnit> cardList = new List<CardUnit>();
+                    cardList.AddRange(CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.PLAYER).GetPlaceCardList());
+                    cardList.AddRange(CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.OPPONENT).GetPlaceCardList());
+                    return cardList;
+                default:
+                    return new List<CardUnit>();
+            }
+        }
+        
+        // UserType別に場の人物カードリストを返す
+        public static List<CardUnit> GetPlacePersonCardList(UserType userType)
+        {
+            switch (userType)
+            {
+                case UserType.USE_PLAYER:
+                    return CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.PLAYER).GetPlacePersonCardList();
+                case UserType.USE_OPPONENT:
+                    return CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.OPPONENT).GetPlacePersonCardList();
+                case UserType.USE_ALL:
+                    List<CardUnit> cardList = new List<CardUnit>();
+                    cardList.AddRange(CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.PLAYER).GetPlacePersonCardList());
+                    cardList.AddRange(CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.OPPONENT).GetPlacePersonCardList());
+                    return cardList;
+                default:
+                    return new List<CardUnit>();
+            }
+        }
+        
+        // UserType別に場の人物カードリストを返す
+        public static List<CardUnit> GetPlaceBuildingCardList(UserType userType)
+        {
+            switch (userType)
+            {
+                case UserType.USE_PLAYER:
+                    return CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.PLAYER).GetPlaceBuildingCardList();
+                case UserType.USE_OPPONENT:
+                    return CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.OPPONENT).GetPlaceBuildingCardList();
+                case UserType.USE_ALL:
+                    List<CardUnit> cardList = new List<CardUnit>();
+                    cardList.AddRange(CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.PLAYER).GetPlaceBuildingCardList());
+                    cardList.AddRange(CardManager.Instance.GetCardBattleField(UK.Const.Game.GameConst.OPPONENT).GetPlaceBuildingCardList());
+                    return cardList;
+                default:
+                    return new List<CardUnit>();
+            }
+        }
+
         // カード効果を受けるプレイヤーを判断し実行
         public static void EffectActionByUserType(UnityAction<bool> effectAction, UserType userType)
         {
@@ -380,6 +549,34 @@ namespace UK.Utils.Card
                     break;
             }
             return activeCardList;
+        }
+        
+        // 条件に一致するカードのみ返す
+        public static List<CardUnit> GetMatchCardUnit(List<CardUnit> cardList, List<CardType> conditionList = default)
+        {
+            List<CardUnit> matchCardList = new List<CardUnit>();
+
+            if (conditionList == default || conditionList.Count <= 0)
+            {
+                matchCardList = cardList;
+                return matchCardList;
+            }
+
+            foreach (CardUnit cardUnit in cardList)
+            {
+                foreach (CardType condition in conditionList)
+                {
+                    CardType cardType = (CardType)cardUnit.CardModel.CardType;
+                    if (cardType == condition)
+                    {
+                        if (!matchCardList.Contains(cardUnit))
+                        {
+                            matchCardList.Add(cardUnit);
+                        }
+                    }
+                }
+            }
+            return matchCardList;
         }
 
         // プレイヤーのターンかどうか

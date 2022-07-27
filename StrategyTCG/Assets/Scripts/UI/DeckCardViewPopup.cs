@@ -93,7 +93,7 @@ namespace UK.Popup.DeckCardView
                             }
                             else
                             {
-                                cardUnit.SetGrayCard();
+                                cardUnit.SetGrayOut(true);
                             }
                             break;
                         
@@ -109,12 +109,12 @@ namespace UK.Popup.DeckCardView
                             }
                             else
                             {
-                                cardUnit.SetGrayCard();
+                                cardUnit.SetGrayOut(true);
                             }
                             break;
                         
                         default:
-                            cardUnit.SetGrayCard();
+                            cardUnit.SetGrayOut(true);
                             break;
                     }
                 }

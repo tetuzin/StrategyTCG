@@ -94,17 +94,29 @@ namespace UK.Unit.Place
 
             _isPlacement = true;
         }
+        
+        // カード配置判定
+        public bool IsPlacement()
+        {
+            return _isPlacement;
+        }
 
-        // カードユニットを設定
+        // 3Dカードユニットを設定
         public void SetCard3DUnit(Card3DUnit card3DUnit)
         {
             _card3DUnit = card3DUnit;
         }
 
-        // カードユニットを取得
+        // 3Dカードユニットを取得
         public Card3DUnit GetCard3DUnit()
         {
             return _card3DUnit;
+        }
+        
+        // カードユニットを取得
+        public CardUnit GetCardUnit()
+        {
+            return _card3DUnit.GetCardUnit();
         }
 
         // ---------- Private関数 ----------

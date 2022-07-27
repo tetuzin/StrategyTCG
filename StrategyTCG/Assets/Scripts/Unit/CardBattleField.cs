@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,6 @@ using UK.Unit.Card;
 using UK.Unit.Hand;
 using UK.Unit.Deck;
 using UK.Unit.Place;
-using UK.Utils.Card;
 
 namespace UK.Unit.Field
 {
@@ -150,14 +148,14 @@ namespace UK.Unit.Field
             return _handUnit;
         }
         
-        // TODO 手札を山札に戻す
+        // 手札を山札に戻す
         public void BackHandCard(CardUnit cardUnit)
         {
             _handUnit.RemoveHandCard(cardUnit);
             _deckUnit.AddCard(cardUnit.CardModel);
         }
         
-        // TODO 手札を全て山札に戻す
+        // 手札を全て山札に戻す
         public void BackAllHandCard()
         {
             List<CardUnit> handUnit = new List<CardUnit>(_handUnit.HandCard);
@@ -172,6 +170,87 @@ namespace UK.Unit.Field
         {
             _personUnits[_personNum] = cardUnit;
             _personNum++;
+        }
+        
+        // 場に出ている人物カードのリストを取得
+        public List<CardUnit> GetPlacePersonCardList()
+        {
+            List<CardUnit> placeCardList = new List<CardUnit>();
+            foreach (CardPlacement personPlace in _personPlaces)
+            {
+                if (personPlace.IsPlacement())
+                {
+                    placeCardList.Add(personPlace.GetCardUnit());
+                }
+            }
+            return placeCardList;
+        }
+        
+        // 場に出ている建造物カードのリストを取得
+        public List<CardUnit> GetPlaceBuildingCardList()
+        {
+            List<CardUnit> placeCardList = new List<CardUnit>();
+            foreach (CardPlacement buildingPlace in _buildingPlaces)
+            {
+                if (buildingPlace.IsPlacement())
+                {
+                    placeCardList.Add(buildingPlace.GetCardUnit());
+                }
+            }
+            return placeCardList;
+        }
+        
+        // 場に出ているカードのリストを取得
+        public List<CardUnit> GetPlaceCardList()
+        {
+            List<CardUnit> placeCardList = new List<CardUnit>();
+            placeCardList.AddRange(GetPlacePersonCardList());
+            placeCardList.AddRange(GetPlaceBuildingCardList());
+            return placeCardList;
+        }
+        
+        // 場に出ているカードのグレーアウト
+        public void SetGrayOutPlaceCard(List<CardUnit> placeCardList)
+        {
+            foreach (CardUnit cardUnit in placeCardList)
+            {
+                cardUnit.SetBlinkFrame(false);
+                cardUnit.SetGrayOut(true);
+            }
+        }
+        
+        // 場に出ているカードの点滅
+        public void SetBlinkPlaceCard(List<CardUnit> placeCardList)
+        {
+            foreach (CardUnit cardUnit in placeCardList)
+            {
+                cardUnit.SetGrayOut(false, isButtonEvent:true);
+                cardUnit.SetBlinkFrame(true);
+            }
+        }
+        
+        // 場に出ているカードの描画を初期化
+        public void ResetPlaceCard()
+        {
+            foreach (CardPlacement personPlace in _personPlaces)
+            {
+                if (personPlace.IsPlacement())
+                {
+                    CardUnit cardUnit = personPlace.GetCardUnit();
+                    cardUnit.SetGrayOut(false);
+                    cardUnit.SetBlinkFrame(false);
+                }
+            }
+            
+            foreach (CardPlacement buildingPlace in _buildingPlaces)
+            {
+                if (buildingPlace.IsPlacement())
+                {
+                    CardUnit cardUnit = buildingPlace.GetCardUnit();
+                    cardUnit.SetGrayOut(false);
+                    cardUnit.SetBlinkFrame(false);
+                }
+            }
         }
 
         // ---------- Private関数 ----------

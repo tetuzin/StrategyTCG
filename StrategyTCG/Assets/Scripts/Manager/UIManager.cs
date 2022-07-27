@@ -28,14 +28,15 @@ namespace UK.Manager.UI
         [SerializeField, Tooltip("キャンバス")] private Canvas _canvas = default;
 
         [Header("キャンバスグループ")]
-        [SerializeField, Tooltip("プレイヤーアクション実行用UI")] private CanvasGroup _playerActionGroup = default;
         [SerializeField, Tooltip("手札表示・手札使用UI")] private CanvasGroup _handCardGroup = default;
+        [SerializeField, Tooltip("全てのアクションUI")] private CanvasGroup _actionGroup = default;
 
         [Header("ボタン")]
         [SerializeField, Tooltip("ターン終了ボタン")] private Button _turnEndButton = default;
         [SerializeField, Tooltip("手札表示・非表示ボタン")] private Button _handViewButton = default;
         [SerializeField, Tooltip("手札ボタン")] private Button _handButton = default;
         [SerializeField, Tooltip("山札閲覧ボタン")] private Button _deckShowButton = default;
+        [SerializeField, Tooltip("カード選択決定ボタン")] private Button _cardSelectButton = default;
 
         [Header("テキスト")]
         [SerializeField, Tooltip("ターンテキスト")] private TextMeshProUGUI _turnText = default;
@@ -61,7 +62,8 @@ namespace UK.Manager.UI
             
             _handButton.gameObject.SetActive(false);
             SwitchTurnText(true);
-            SetActiveActionUI(false);
+            SetActiveTurnEndButton(false);
+            SetActiveCardSelectButton(false);
 
             SetHandViewButton(() => {
                 _isShowHandView = !_isShowHandView;
@@ -96,6 +98,7 @@ namespace UK.Manager.UI
             _handButton.onClick.RemoveAllListeners();
             _handViewButton.onClick.RemoveAllListeners();
             _deckShowButton.onClick.RemoveAllListeners();
+            _cardSelectButton.onClick.RemoveAllListeners();
         }
 
         // Canvasを取得
@@ -105,15 +108,23 @@ namespace UK.Manager.UI
         }
 
         // プレイヤーが操作するUIの表示・非表示
-        public void SetActiveActionUI(bool b)
+        public void SetActiveTurnEndButton(bool b)
         {
-            _playerActionGroup.alpha = b ? 1 : 0;
+            _turnEndButton.gameObject.SetActive(b);
         }
 
         // プレイヤーが操作するUIの活性化・非活性化
         public void SetActiveHandGroup(bool b)
         {
             _handCardGroup.interactable = b;
+        }
+        
+        // 全てのアクションUIの表示・非表示
+        public void SetActiveActionUI(bool b)
+        {
+            _actionGroup.alpha = b ? 1 : 0;
+            _actionGroup.interactable = b;
+            _actionGroup.blocksRaycasts = b;
         }
 
         // ターン終了ボタンにイベントを設定する
@@ -135,6 +146,19 @@ namespace UK.Manager.UI
         {
             _deckShowButton.onClick.RemoveAllListeners();
             _deckShowButton.onClick.AddListener(action);
+        }
+
+        // カード選択決定ボタンにイベントを設定
+        public void SetCardSelectButton(UnityAction action)
+        {
+            _cardSelectButton.onClick.RemoveAllListeners();
+            _cardSelectButton.onClick.AddListener(action);
+        }
+
+        // カード選択決定ボタンの表示・非表示
+        public void SetActiveCardSelectButton(bool b)
+        {
+            _cardSelectButton.gameObject.SetActive(b);
         }
 
         // ターンテキストを切り替える

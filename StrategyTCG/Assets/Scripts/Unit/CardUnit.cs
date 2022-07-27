@@ -37,6 +37,7 @@ namespace UK.Unit.Card
         [SerializeField, Tooltip("カード背面画像")] private GameObject _cardBackImage = default;
         [SerializeField, Tooltip("カード選択時フレーム")] private Image _cardSelectFrame = default;
         [SerializeField, Tooltip("カード選択用ボタン")] private Button _cardButton = default;
+        [SerializeField, Tooltip("カードグレーアウト用画像")] private GameObject _cardGrayOutImage = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -83,6 +84,8 @@ namespace UK.Unit.Card
         private EffectAbilityModel _effectAbility = default;
         // 現在のHP
         private int _curHp = default;
+        // 現在の最大HP
+        private int _curMaxHp = default;
         // 現在の攻撃力
         private int _curAtk = default;
         // 選択フラグ
@@ -134,39 +137,22 @@ namespace UK.Unit.Card
             _isDestroy = false;
             _cntEffect = 0;
 
+            _curHp = _cardModel.Hp;
+            _curMaxHp = _cardModel.Hp;
+            _curAtk = _cardModel.Attack;
+
             SetCardImage(_cardModel.Image);
             SetCardNameText(_cardModel.CardName);
             SetCardTypeIcon(_cardModel.CardType);
             SetAtkText(_cardModel.Attack);
-            SetHpText(_cardModel.Hp);
-            SetCostText(_cardModel.Cost);
+            SetHpText(_curHp);
+            SetCostText(_curAtk);
 
-            // カードボタン処理
-            _cardButton.onClick.RemoveAllListeners();
-            _cardButton.onClick.AddListener(() => {
-
-                // 選択中のカードがあるか
-                if (!CardManager.Instance.IsSelect())
-                {
-                    // カード使用タイプを取得
-                    CardUseType cardUseType = CardUtils.GetCardUseType(_cardModel);
-
-                    // 配置タイプのカード
-                    if (cardUseType == CardUseType.PLACEMENT)
-                    {
-                        UseCardPlacement();
-                    }
-
-                    // 消費タイプのカード
-                    if (cardUseType == CardUseType.CONSUMPTION)
-                    {
-                        UseCardConsumption();
-                    }
-                }
-            });
+            // カードボタン処理初期化
+            InitSelectButtonEvent();
 
             _cardSelectFrame.gameObject.SetActive(false);
-            InitBlinkFrame();
+            _cardGrayOutImage.SetActive(false);
         }
 
         // カード使用（配置）
@@ -219,13 +205,30 @@ namespace UK.Unit.Card
             _turn++;
         }
 
-        // TODO カード破壊(HP0)
+        // TODO カード破壊
         public void Destroy()
         {
-            if (_curHp <= 0)
+            _isDestroy = true;
+            _curHp = 0;
+            Destroy(this);
+        }
+        
+        // TODO ダメージを受ける
+        public void Damage(int value)
+        {
+            
+        }
+        
+        // HP回復
+        public void Heal(int value)
+        {
+            Debug.Log(_cardModel.CardName + "のHPを" + value.ToString() + "回復！");
+            _curHp += value;
+            if (_curHp > _curMaxHp)
             {
-                _isDestroy = true;
+                _curHp = _curMaxHp;
             }
+            SetHpText(_curHp);
         }
 
         // カード効果発動
@@ -244,8 +247,14 @@ namespace UK.Unit.Card
         // カードを非活性化
         public void SetCardActive(bool b)
         {
-            _cardButton.gameObject.SetActive(b);
+            SetActiveCardButton(b);
             SetActiveBackImage(b);
+        }
+        
+        // カード選択ボタンの初期化
+        public void InitSelectButtonEvent()
+        {
+            SetSelectButtonEvent(OnClickSelectCard);
         }
 
         // 簡易選択用ボタンイベントの設定
@@ -269,20 +278,12 @@ namespace UK.Unit.Card
             _cardButton.gameObject.SetActive(b);
         }
 
+        // カードボタンのイベントを削除
         public void SetRemoveCardButtonEvent()
         {
             _cardButton.onClick.RemoveAllListeners();
         }
 
-        // カードをグレーアウトにする
-        public void SetGrayCard()
-        {
-            _cardButton.onClick.RemoveAllListeners();
-            SetActiveBackImage(true);
-            Image image = _cardBackImage.GetComponent<Image>();
-            image.color = new Color32(0, 0, 0, 130);
-        }
-        
         // カード背面画像の表示を設定
         public void SetActiveBackImage(bool b)
         {
@@ -296,12 +297,26 @@ namespace UK.Unit.Card
             _cardSelectFrame.gameObject.SetActive(b);
             if (_isBlink)
             {
-                _blinkTweener.Play();
+                Color color = _cardSelectFrame.color;
+                color.a = 1.0f;
+                _cardSelectFrame.color = color;
+                _blinkTweener = _cardSelectFrame.DOFade(endValue: 0.0f, duration: 0.5f).SetLoops(-1,LoopType.Yoyo);
+
             }
             else
             {
-                _blinkTweener.Pause();
+                _blinkTweener.Kill();
+                Color color = _cardSelectFrame.color;
+                color.a = 1.0f;
+                _cardSelectFrame.color = color;
             }
+        }
+        
+        // グレーアウトの表示・非表示
+        public void SetGrayOut(bool b, bool isButtonEvent = false)
+        {
+            SetActiveCardButton(isButtonEvent);
+            _cardGrayOutImage.SetActive(b);
         }
 
         // ---------- Private関数 ----------
@@ -353,12 +368,28 @@ namespace UK.Unit.Card
         {
             _costText.text = cost.ToString();
         }
-        
-        // フレーム点滅の初期化
-        private void InitBlinkFrame()
+
+        // カード選択処理
+        private void OnClickSelectCard()
         {
-            _blinkTweener = _cardSelectFrame.DOFade(endValue: 0.0f, duration: 0.5f).SetLoops(-1,LoopType.Yoyo);
-            _blinkTweener.Pause();
+            // 選択中のカードがあるか
+            if (!CardManager.Instance.IsSelect())
+            {
+                // カード使用タイプを取得
+                CardUseType cardUseType = CardUtils.GetCardUseType(_cardModel);
+
+                // 配置タイプのカード
+                if (cardUseType == CardUseType.PLACEMENT)
+                {
+                    UseCardPlacement();
+                }
+
+                // 消費タイプのカード
+                if (cardUseType == CardUseType.CONSUMPTION)
+                {
+                    UseCardConsumption();
+                }
+            }
         }
 
         // ---------- protected関数 ---------
