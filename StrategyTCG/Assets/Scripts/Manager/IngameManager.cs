@@ -89,10 +89,10 @@ namespace UK.Manager.Ingame
             _curTiming = TimingType.NONE;
 
             // TODO お互いのデッキを読み込む(現状、仮)
-            // List<CardMainModel> playerDeck = CreatePlayerDeck();
-            // List<CardMainModel> opponentDeck = CreateOpponentDeck();
-            List<CardMainModel> playerDeck = CreateOpponentDeck();
-            List<CardMainModel> opponentDeck = CreatePlayerDeck();
+            List<CardMainModel> playerDeck = CreatePlayerDeck();
+            List<CardMainModel> opponentDeck = CreateOpponentDeck();
+            // List<CardMainModel> playerDeck = CreateOpponentDeck();
+            // List<CardMainModel> opponentDeck = CreatePlayerDeck();
 
             // お互いのデッキをDeckUnitに設定
             CardManager.Instance.SetPlayerDeck(playerDeck);

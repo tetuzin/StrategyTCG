@@ -7,7 +7,7 @@ using TMPro;
 using DG.Tweening;
 
 using Ch120.Utils.Resource;
-
+using UK.Const.Ability;
 using UK.Manager.Card;
 using UK.Manager.UI;
 using UK.Manager.Popup;
@@ -229,6 +229,52 @@ namespace UK.Unit.Card
                 _curHp = _curMaxHp;
             }
             SetHpText(_curHp);
+        }
+        
+        // HP最大値の更新
+        public void UpdateHp(AbilityType abilityType, int value)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.HP_UP:
+                    _curMaxHp += value;
+                    _curHp += value;
+                    break;
+                case AbilityType.HP_DOUBLE:
+                    int damage = _curMaxHp - _curHp;
+                    _curMaxHp *= value;
+                    _curHp = _curMaxHp - damage;
+                    break;
+                case AbilityType.HP_DOWN:
+                    _curMaxHp -= value;
+                    _curHp -= value;
+                    break;
+                default:
+                    break;
+            }
+            SetHpText(_curHp);
+            
+            // TODO 死亡していないかチェック
+        }
+        
+        // 攻撃力の更新
+        public void UpdateAtk(AbilityType abilityType, int value)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.ATK_UP:
+                    _curAtk += value;
+                    break;
+                case AbilityType.ATK_DOUBLE:
+                    _curAtk *= value;
+                    break;
+                case AbilityType.ATK_DOWN:
+                    _curAtk -= value;
+                    break;
+                default:
+                    break;
+            }
+            SetAtkText(_curAtk);
         }
 
         // カード効果発動

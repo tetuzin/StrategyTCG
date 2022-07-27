@@ -353,8 +353,7 @@ namespace UK.Utils.Card
                         {
                             foreach (CardUnit cardUnit in selectCardList)
                             {
-                                // TODO カードユニット攻撃力UP
-                                Debug.Log("カードユニット攻撃力UP：" + cardUnit.CardModel.CardName);
+                                cardUnit.UpdateAtk(abilityType, model.AbilityParameter1);
                             }
                         }
                     );
@@ -371,8 +370,7 @@ namespace UK.Utils.Card
                         {
                             foreach (CardUnit cardUnit in selectCardList)
                             {
-                                // TODO カードユニットHP
-                                Debug.Log("カードユニットHP：" + cardUnit.CardModel.CardName);
+                                cardUnit.UpdateHp(abilityType, model.AbilityParameter1);
                             }
                         }
                     );
