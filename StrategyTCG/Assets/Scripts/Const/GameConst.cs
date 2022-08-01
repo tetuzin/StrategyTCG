@@ -13,6 +13,8 @@ namespace UK.Const.Game
         public static readonly int MAX_BUILDING_CARD = 5;
         // ゲーム開始時にひく手札の枚数
         public static readonly int START_HAND_CARD = 5;
+        // 人物カードが配置された際に増える毎ターン取得する資金の値
+        public static readonly int PLACEMENT_UP_TURN_FUND = 5;
     }
 }
 

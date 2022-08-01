@@ -8,6 +8,7 @@ using DG.Tweening;
 
 using Ch120.Utils.Resource;
 using UK.Const.Ability;
+using UK.Const.Card.Type;
 using UK.Manager.Card;
 using UK.Manager.UI;
 using UK.Manager.Popup;
@@ -17,9 +18,12 @@ using UK.Model.EffectMain;
 using UK.Model.EffectGroup;
 using UK.Model.EffectAbility;
 
+using UK.Unit.Player;
 using UK.Unit.EffectList;
 using UK.Utils.Card;
+using UK.Const.Game;
 using UK.Const.Card.UseType;
+using UK.Manager.Ingame;
 
 namespace UK.Unit.Card
 {
@@ -165,46 +169,19 @@ namespace UK.Unit.Card
             _cardGrayOutImage.SetActive(false);
         }
 
-        // カード使用（配置）
-        public void UseCardPlacement()
+        // カードを使用できるかチェック
+        public bool CheckUse()
         {
-            Vector3 position = this.gameObject.transform.localPosition;
-            CardManager.Instance.IsSelectCardUnit = this;
-
-            // 手札ボタンの設定
-            UIManager.Instance.SetHandButtonAction(() => {
-                _isSelect = false;
-                CardManager.Instance.IsSelectCardUnit = null;
-                this.gameObject.transform.localPosition = position;
-                _cardButton.gameObject.SetActive(true);
-            });
-            UIManager.Instance.SetHandButtonActive(true);
-            
-            _cardButton.gameObject.SetActive(false);
-            _isSelect = true;
-        }
-
-        // カード使用（消費）
-        public void UseCardConsumption()
-        {
-            Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
-            actions.Add(
-                Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
-                () => {
-                    // カードをトラッシュへ
-                    CardManager.Instance.TrashCard(_isPlayer, this);
-                    // カード効果発動
-                    EffectActivation();
-                }
-            );
-            PopupManager.Instance.SetConsumptionPopup(_cardModel, actions);
-            PopupManager.Instance.ShowConsumptionPopup();
+            int cost = _cardModel.Cost;
+            int fund = IngameManager.Instance.GetPlayerUnit(_isPlayer).Fund;
+            return fund >= cost;
         }
 
         // カード配置時処理
         public void Placement()
         {
             _turn = 1;
+            UseCard();
             EffectActivation();
         }
 
@@ -220,6 +197,13 @@ namespace UK.Unit.Card
         {
             _isDestroy = true;
             _curHp = 0;
+            if ((CardType)_cardModel.CardType == CardType.PERSON)
+            {
+                PlayerUnit unit = IngameManager.Instance.GetPlayerUnit(_isPlayer);
+                unit.Power -= _curAtk;
+                unit.PeopleNum--;
+                unit.TurnFund -= GameConst.PLACEMENT_UP_TURN_FUND;
+            }
             Destroy(this);
         }
         
@@ -276,28 +260,26 @@ namespace UK.Unit.Card
         // 攻撃力の更新
         public void UpdateAtk(AbilityType abilityType, int value)
         {
+            PlayerUnit unit = IngameManager.Instance.GetPlayerUnit(_isPlayer);
             switch (abilityType)
             {
                 case AbilityType.ATK_UP:
+                    unit.Power += value;
                     _curAtk += value;
                     break;
                 case AbilityType.ATK_DOUBLE:
+                    int _beforeAtk = _curAtk;
                     _curAtk *= value;
+                    unit.Power += (_curAtk - _beforeAtk);
                     break;
                 case AbilityType.ATK_DOWN:
+                    unit.Power -= value;
                     _curAtk -= value;
                     break;
                 default:
                     break;
             }
             SetAtkText(_curAtk);
-        }
-
-        // カード効果発動
-        public void EffectActivation()
-        {
-            bool activate = CardUtils.CardEffectActivation(_effectModel, this);
-            if (activate) { _cntEffect++; }
         }
 
         // カード効果を発動させたことがあるか
@@ -382,6 +364,77 @@ namespace UK.Unit.Card
         }
 
         // ---------- Private関数 ----------
+        
+        // カード使用（配置）
+        private void UseCardPlacement()
+        {
+            Vector3 position = this.gameObject.transform.localPosition;
+            CardManager.Instance.IsSelectCardUnit = this;
+
+            // 手札ボタンの設定
+            UIManager.Instance.SetHandButtonAction(() => {
+                _isSelect = false;
+                CardManager.Instance.IsSelectCardUnit = null;
+                this.gameObject.transform.localPosition = position;
+                _cardButton.gameObject.SetActive(true);
+            });
+            UIManager.Instance.SetHandButtonActive(true);
+            
+            _cardButton.gameObject.SetActive(false);
+            _isSelect = true;
+        }
+
+        // カード使用（消費）
+        private void UseCardConsumption()
+        {
+            Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+            actions.Add(
+                Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
+                () => {
+                    // カードをトラッシュへ
+                    CardManager.Instance.TrashCard(_isPlayer, this);
+                    DecreaseFund();
+                    // カード効果発動
+                    EffectActivation();
+                }
+            );
+            PopupManager.Instance.SetConsumptionPopup(_cardModel, actions);
+            PopupManager.Instance.ShowConsumptionPopup();
+        }
+        
+        // コストが足りないことを伝えるポップアップ表示
+        private void ShowNotUsePopup()
+        {
+            PopupManager.Instance.SetSimpleTextPopup("資金が足りず使用できません！");
+            PopupManager.Instance.ShowSimpleTextPopup();
+        }
+        
+        // コスト消費
+        private void DecreaseFund()
+        {
+            IngameManager.Instance.GetPlayerUnit(_isPlayer).Fund -= _cardModel.Cost;
+        }
+        
+        // カード使用
+        private void UseCard()
+        {
+            DecreaseFund();
+
+            if ((CardType)_cardModel.CardType == CardType.PERSON)
+            {
+                PlayerUnit unit = IngameManager.Instance.GetPlayerUnit(_isPlayer);
+                unit.Power += _curAtk;
+                unit.PeopleNum++;
+                unit.TurnFund += GameConst.PLACEMENT_UP_TURN_FUND;
+            }
+        }
+        
+        // カード効果発動
+        private void EffectActivation()
+        {
+            bool activate = CardUtils.CardEffectActivation(_effectModel, this);
+            if (activate) { _cntEffect++; }
+        }
 
         // カード画像の設定
         private void SetCardImage(string imageFile)
@@ -437,19 +490,26 @@ namespace UK.Unit.Card
             // 選択中のカードがあるか
             if (!CardManager.Instance.IsSelect())
             {
-                // カード使用タイプを取得
-                CardUseType cardUseType = CardUtils.GetCardUseType(_cardModel);
-
-                // 配置タイプのカード
-                if (cardUseType == CardUseType.PLACEMENT)
+                if (CheckUse())
                 {
-                    UseCardPlacement();
+                    // カード使用タイプを取得
+                    CardUseType cardUseType = CardUtils.GetCardUseType(_cardModel);
+
+                    // 配置タイプのカード
+                    if (cardUseType == CardUseType.PLACEMENT)
+                    {
+                        UseCardPlacement();
+                    }
+
+                    // 消費タイプのカード
+                    if (cardUseType == CardUseType.CONSUMPTION)
+                    {
+                        UseCardConsumption();
+                    }
                 }
-
-                // 消費タイプのカード
-                if (cardUseType == CardUseType.CONSUMPTION)
+                else
                 {
-                    UseCardConsumption();
+                    ShowNotUsePopup();
                 }
             }
         }

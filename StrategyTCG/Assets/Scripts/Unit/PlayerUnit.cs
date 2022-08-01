@@ -17,37 +17,65 @@ namespace UK.Unit.Player
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set
+            {
+                _name = value;
+                UIManager.Instance.GetStatusGroup(_isPlayer).SetNameText(_name);
+            }
         }
         public int MaxHp
         {
             get { return _maxHp; }
-            set { _maxHp = value; }
+            set
+            {
+                _maxHp = value;
+                UIManager.Instance.GetStatusGroup(_isPlayer).SetMaxHpText(_maxHp);
+            }
         }
         public int CurHp
         {
             get { return _curHp; }
-            set { _curHp = value; }
+            set
+            {
+                _curHp = value;
+                UIManager.Instance.GetStatusGroup(_isPlayer).SetCurHpText(_curHp);
+            }
         }
         public int Power
         {
             get { return _power; }
-            set { _power = value; }
+            set
+            {
+                _power = value;
+                UIManager.Instance.GetStatusGroup(_isPlayer).SetPowerText(_power);
+            }
         }
         public int PeopleNum
         {
             get { return _peopleNum; }
-            set { _peopleNum = value; }
+            set
+            {
+                _peopleNum = value;
+                UIManager.Instance.GetStatusGroup(_isPlayer).SetPeopleNumText(_peopleNum);
+            }
         }
         public int Fund
         {
             get { return _fund; }
-            set { _fund = value; }
+            set
+            {
+                _fund = value;
+                UIManager.Instance.GetStatusGroup(_isPlayer).SetFundText(_fund);
+            }
         }
         public int TurnFund
         {
             get { return _turnFund; }
-            set { _turnFund = value; }
+            set
+            {
+                _turnFund = value;
+                UIManager.Instance.GetStatusGroup(_isPlayer).SetTurnNumText(_turnFund);
+            }
         }
 
         public EffectUnitList EffectList
@@ -109,8 +137,14 @@ namespace UK.Unit.Player
             else
             {
                 // TODO ダメージを受ける処理
-                _curHp -= damage;
-                UIManager.Instance.GetStatusGroup(_isPlayer).SetCurHpText(_curHp);
+                if (_curHp > damage)
+                {
+                    CurHp -= damage;
+                }
+                else
+                {
+                    CurHp = 0;
+                }
                 Debug.Log(damage + "ダメージを与えた！");
             }
         }
@@ -120,12 +154,13 @@ namespace UK.Unit.Player
         {
             if (value <= 0) return;
 
-            _curHp += value;
-            if (_curHp > _maxHp)
+            int curHpValue = _curHp;
+            curHpValue += value;
+            if (curHpValue > _maxHp)
             {
-                _curHp = _maxHp;
+                curHpValue = _maxHp;
             }
-            UIManager.Instance.GetStatusGroup(_isPlayer).SetCurHpText(_curHp);
+            CurHp = curHpValue;
             Debug.Log(value + "HPを回復！");
         }
         

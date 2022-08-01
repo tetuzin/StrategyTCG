@@ -30,12 +30,6 @@ namespace UK.UI.StatusGroup
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
 
-        public PlayerUnit PlayerUnit
-        {
-            get { return _playerUnit; }
-            set { _playerUnit = value; }
-        }
-        
         public bool IsPlayer
         {
             get { return _isPlayer; }
@@ -43,8 +37,7 @@ namespace UK.UI.StatusGroup
 
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
-
-        private PlayerUnit _playerUnit = default;
+        
         private bool _isPlayer = default;
 
         // ---------- Unity組込関数 ----------
@@ -53,21 +46,20 @@ namespace UK.UI.StatusGroup
         // 初期化
         public void Initialize(PlayerUnit unit, bool isPlayer)
         {
-            _playerUnit = unit;
             _isPlayer = isPlayer;
-            SetNameText(_playerUnit.Name);
-            SetPowerText(_playerUnit.Power);
-            SetPeopleNumText(_playerUnit.PeopleNum);
-            SetFundText(_playerUnit.Fund);
-            SetTurnNumText(_playerUnit.TurnFund);
-            SetCurHpText(_playerUnit.CurHp);
-            SetMaxHpText(_playerUnit.MaxHp);
+            SetNameText(unit.Name);
+            SetPowerText(unit.Power);
+            SetPeopleNumText(unit.PeopleNum);
+            SetFundText(unit.Fund);
+            SetTurnNumText(unit.TurnFund);
+            SetCurHpText(unit.CurHp);
+            SetMaxHpText(unit.MaxHp);
             SetActiveHpText(_isPlayer);
             UK.Unit.Deck.DeckUnit deck = CardManager.Instance.GetCardBattleField(_isPlayer).GetDeckUnit();
             SetCurDeckNumText(deck.GetCardNum());
             SetMaxDeckNumText(deck.GetMaxCardNum());
 
-            _hpGauge.Initialize(_playerUnit.MaxHp, true);
+            _hpGauge.Initialize(unit.MaxHp, true);
         }
 
         // HPゲージの表示・非表示

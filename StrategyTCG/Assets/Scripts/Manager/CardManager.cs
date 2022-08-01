@@ -191,6 +191,7 @@ namespace UK.Manager.Card
                     action(selectCardList);
                     ResetPlaceCard();
                     UIManager.Instance.SetActiveActionUI(true);
+                    UIManager.Instance.SetActiveCardSelectButton(false);
                     foreach (CardUnit cardUnit in cardList)
                     {
                         cardUnit.InitSelectButtonEvent();

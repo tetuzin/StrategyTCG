@@ -12,7 +12,7 @@ using UK.Manager.Card;
 using UK.Model.CardMain;
 using UK.Dao;
 using UK.Unit.Player;
-using UK.Utils.Card;
+using UK.CpuCtrl;
 
 namespace UK.Manager.Ingame
 {

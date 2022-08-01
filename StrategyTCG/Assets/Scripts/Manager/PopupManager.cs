@@ -95,7 +95,7 @@ namespace UK.Manager.Popup
         }
 
         // シンプルテキストポップアップ設定
-        public void SetSimpleTextPopup(string text, Dictionary<string, UnityAction> actions)
+        public void SetSimpleTextPopup(string text, Dictionary<string, UnityAction> actions = null)
         {
             var parameter = new {
                 mainText = text
