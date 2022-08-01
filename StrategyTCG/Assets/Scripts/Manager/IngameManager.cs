@@ -68,8 +68,8 @@ namespace UK.Manager.Ingame
             _curTurn = 1;
 
             // TODO お互いのユニットを読み込む
-            _playerUnit = GetPlayerUnit();
-            _opponentUnit = GetPlayerUnit();
+            _playerUnit = CreatePlayerUnit(GameConst.PLAYER);
+            _opponentUnit = CreatePlayerUnit(GameConst.OPPONENT);
 
             UIManager.Instance.Initialize();
 
@@ -149,7 +149,7 @@ namespace UK.Manager.Ingame
             _curTiming = TimingType.TURN_PLAYER;
         }
 
-        // 相手の攻撃
+        // 自分の攻撃
         private void AttackPlayer()
         {
             Debug.Log("AttackPlayer");
@@ -157,7 +157,8 @@ namespace UK.Manager.Ingame
             // タイミング：相手の攻撃
             _curTiming = TimingType.END_ATTACK_PLAYER;
 
-            // TODO ターン最後の攻撃処理
+            // ターン最後の攻撃処理
+            DoAttack(_playerUnit, _opponentUnit);
 
             EndPlayerTurn();
         }
@@ -213,7 +214,8 @@ namespace UK.Manager.Ingame
             // タイミング：相手の攻撃
             _curTiming = TimingType.END_ATTACK_OPPONENT;
 
-            // TODO ターン最後の攻撃処理
+            // ターン最後の攻撃処理
+            DoAttack(_opponentUnit, _playerUnit);
 
             EndOpponentTurn();
         }
@@ -238,6 +240,7 @@ namespace UK.Manager.Ingame
         // プレイヤーの先手後手を決める
         private void decisionIsFirst()
         {
+            // TODO 確定した先手後手を画面上に大きく描画する
             bool isFirst = Random.Range(0, 2) == 0;
             _isFirst = isFirst;
         }
@@ -262,6 +265,30 @@ namespace UK.Manager.Ingame
             {
                 return _opponentUnit;
             }
+        }
+        
+        // UserTypeからプレイヤーユニットを返す
+        public PlayerUnit GetPlayerUnit(UserType userType)
+        {
+            switch (userType)
+            {
+                case UserType.USE_PLAYER:
+                    return GetPlayerUnit(GameConst.PLAYER);
+                case UserType.USE_OPPONENT:
+                    return GetPlayerUnit(GameConst.OPPONENT);
+                default:
+                    return null;
+            }
+        }
+        
+        // TODO 攻撃処理
+        private void DoAttack(PlayerUnit attackUnit, PlayerUnit defenseUnit)
+        {
+            // ダメージの算出
+            int atkValue = attackUnit.CalcAttackDamage();
+            int damage = defenseUnit.CalcDefenseDamage(atkValue);
+
+            defenseUnit.ReceiveDamage(damage);
         }
 
 
@@ -380,9 +407,10 @@ namespace UK.Manager.Ingame
         }
 
         // 開発テスト用関数：PlayerUnitの仮データを返す
-        private PlayerUnit GetPlayerUnit()
+        private PlayerUnit CreatePlayerUnit(bool isPlayer)
         {
             PlayerUnit unit = new PlayerUnit();
+            unit.Initialize(isPlayer);
             unit.Power = 100;
             unit.PeopleNum = 5;
             unit.MaxHp = 1000;

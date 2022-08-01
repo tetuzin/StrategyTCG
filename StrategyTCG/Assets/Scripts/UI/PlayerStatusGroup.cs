@@ -66,6 +66,8 @@ namespace UK.UI.StatusGroup
             UK.Unit.Deck.DeckUnit deck = CardManager.Instance.GetCardBattleField(_isPlayer).GetDeckUnit();
             SetCurDeckNumText(deck.GetCardNum());
             SetMaxDeckNumText(deck.GetMaxCardNum());
+
+            _hpGauge.Initialize(_playerUnit.MaxHp, true);
         }
 
         // HPゲージの表示・非表示
@@ -78,6 +80,12 @@ namespace UK.UI.StatusGroup
         public void SetActiveHpText(bool b)
         {
             _hpGauge.SetActiveGroupUI(b);
+        }
+        
+        // HPゲージの値を設定
+        public void SetHpGaugeValue(int value)
+        {
+            _hpGauge.SetCurSlider(value);
         }
 
         // 名前テキストの設定
@@ -114,6 +122,7 @@ namespace UK.UI.StatusGroup
         public void SetCurHpText(int curHp)
         {
             _curHpText.text = curHp.ToString();
+            SetHpGaugeValue(curHp);
         }
 
         // 最大値HPテキストの設定

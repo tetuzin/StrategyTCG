@@ -23,6 +23,7 @@ using UK.Const.Ability;
 using UK.Manager.UI;
 using UK.Unit.Card;
 using UK.Unit.Field;
+using UK.Unit.Player;
 using UK.Utils.Unit;
 
 namespace UK.Utils.Card
@@ -327,6 +328,11 @@ namespace UK.Utils.Card
                     }, (UserType)model.UserType);
                     break;
                 
+                // プレイヤーのHP回復
+                case AbilityType.PLAYER_HP_HEAL:
+                    IngameManager.Instance.GetPlayerUnit((UserType)model.UserType).HealHp(model.AbilityParameter1);
+                    break;
+                
                 // 人物カードのHPを回復
                 case AbilityType.CARD_HP_HEAL:
                     CardManager.Instance.SelectPlaceCard(
@@ -386,13 +392,13 @@ namespace UK.Utils.Card
                             foreach (CardUnit cardUnit in selectCardList)
                             {
                                 // TODO カードユニット軽減
-                                Debug.Log("カードユニット軽減：" + cardUnit.CardModel.CardName);
+                                cardUnit.EffectList.AddEffectUnit(model);
                             }
                         }
                     );
                     break;
                 
-                // カードを破壊
+                // TODO カードを破壊
                 case AbilityType.DESTORY_FIELD_CARD:
                     CardManager.Instance.SelectPlaceCard(
                         GetPlaceCardList((UserType)model.UserType),
@@ -407,7 +413,7 @@ namespace UK.Utils.Card
                     );
                     break;
                     
-                // 人物カードを破壊
+                // TODO 人物カードを破壊
                 case AbilityType.DESTORY_FIELD_PERSON_CARD:
                     CardManager.Instance.SelectPlaceCard(
                         GetPlacePersonCardList((UserType)model.UserType),
@@ -422,7 +428,7 @@ namespace UK.Utils.Card
                     );
                     break;
 
-                // 建造物カードを破壊
+                // TODO 建造物カードを破壊
                 case AbilityType.DESTORY_FIELD_BUILDING_CARD:
                     CardManager.Instance.SelectPlaceCard(
                         GetPlaceBuildingCardList((UserType)model.UserType),
@@ -435,6 +441,12 @@ namespace UK.Utils.Card
                             }
                         }
                     );
+                    break;
+                
+                // TODO プレイヤーにバフ持たせる系
+                case AbilityType.PLAYER_DAMAGE_DOWN:
+                case AbilityType.ALL_CARD_DAMAGE_DOWN:
+                    IngameManager.Instance.GetPlayerUnit((UserType)model.UserType).EffectList.AddEffectUnit(model);
                     break;
 
                 default:

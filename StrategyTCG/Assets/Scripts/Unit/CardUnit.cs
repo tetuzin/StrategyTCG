@@ -17,6 +17,7 @@ using UK.Model.EffectMain;
 using UK.Model.EffectGroup;
 using UK.Model.EffectAbility;
 
+using UK.Unit.EffectList;
 using UK.Utils.Card;
 using UK.Const.Card.UseType;
 
@@ -69,6 +70,11 @@ namespace UK.Unit.Card
             set { _index = value; }
         }
 
+        public EffectUnitList EffectList
+        {
+            get { return _effectList; }
+        }
+
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
@@ -104,7 +110,8 @@ namespace UK.Unit.Card
         private bool _isBlink = default;
         // 点滅用Tweener
         private Tweener _blinkTweener = default;
-
+        // 受けているカード効果のリスト
+        private EffectUnitList _effectList = default;
 
         // ---------- Unity組込関数 ----------
 
@@ -140,6 +147,9 @@ namespace UK.Unit.Card
             _curHp = _cardModel.Hp;
             _curMaxHp = _cardModel.Hp;
             _curAtk = _cardModel.Attack;
+
+            _effectList = new EffectUnitList();
+            _effectList.Initialize();
 
             SetCardImage(_cardModel.Image);
             SetCardNameText(_cardModel.CardName);
@@ -216,7 +226,13 @@ namespace UK.Unit.Card
         // TODO ダメージを受ける
         public void Damage(int value)
         {
+            // TODO ダメージの算出(受けている効果やバフなどを考慮する
             
+            // TODO ダメージを受ける
+            
+            // TODO 画面上にダメージを表示
+            
+            // TODO 被ダメ後の状態を反映させて再描画
         }
         
         // HP回復
