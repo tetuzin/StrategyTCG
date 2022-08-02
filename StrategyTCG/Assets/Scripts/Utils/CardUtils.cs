@@ -70,8 +70,11 @@ namespace UK.Utils.Card
             if (!CheckEffectTrigger(model, unit)){ return false; }
 
             // 発動条件のチェック
-            if (!CheckEffectCondition(model.EffectConditionType, model.EffectConditionParameter))
-                { return false; }
+            if (!CheckEffectCondition(
+                    model.EffectConditionType, 
+                    model.EffectConditionParameter,
+                    unit.IsPlayer
+                    )) return false;
 
             return true;
         }
@@ -96,7 +99,7 @@ namespace UK.Utils.Card
                     Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                     () => {
                         // 能力発動
-                        CardAbilityActivate(effectList, abilityList);
+                        CardAbilityActivate(effectList, abilityList, unit.IsPlayer);
                     }
                 );
                 PopupManager.Instance.SetCheckEffectPopup(unit.CardModel, actions);
@@ -106,20 +109,21 @@ namespace UK.Utils.Card
             else
             {
                 // 能力発動
-                CardAbilityActivate(effectList, abilityList);
+                CardAbilityActivate(effectList, abilityList, unit.IsPlayer);
                 return true;
             }
         }
 
         // カード能力発動
-        public static void CardAbilityActivate(List<EffectGroupModel> effectList, List<EffectAbilityModel> abilityList)
+        public static void CardAbilityActivate(List<EffectGroupModel> effectList, List<EffectAbilityModel> abilityList, bool isPlayer)
         {
             for (int i = 0; i < abilityList.Count; i++)
             {
                 // 発動条件のチェック
                 if (!CheckEffectCondition(
                     effectList[i].AbilityConditionType, 
-                    effectList[i].AbilityConditionParameter)
+                    effectList[i].AbilityConditionParameter,
+                    isPlayer)
                 ){ continue; }
 
                 // カード効果の関数を呼び出し
@@ -228,17 +232,30 @@ namespace UK.Utils.Card
         }
 
         // TODO 未完成 効果発動条件チェック
-        public static bool CheckEffectCondition(int type, int param)
+        public static bool CheckEffectCondition(int type, int param, bool isPlayer)
         {
             ConditionType conditionType = (ConditionType)type;
 
             switch(conditionType)
             {
                 case ConditionType.NONE:
-                    Debug.Log("効果発動トリガー : TRUE");
-                    return true;
+                    Debug.Log("効果発動条件 : TRUE");
+                    return true; 
+                
+                // 自分の資金がN以上なら
+                case ConditionType.FUND_HIGHER_PLAYER:
+                    return IngameManager.Instance.GetPlayerUnit(isPlayer).Fund >= param;
+                
+                // 自分の国民数がN以上なら
+                case ConditionType.PEOPLENUM_HIGHER_PLAYER:
+                    return IngameManager.Instance.GetPlayerUnit(isPlayer).PeopleNum >= param;
+                
+                // 自分の場にカード名「XXXX」があるなら
+                case ConditionType.PLACE_PLAYER_FIELD_NAME:
+                    return CardManager.Instance.GetCardBattleField(isPlayer).CheckPlacementCardById(param);
+                
                 default:
-                    Debug.Log("効果発動トリガー : FALSE");
+                    Debug.Log("効果発動条件 : FALSE");
                     return false;
             }
         }
@@ -398,7 +415,7 @@ namespace UK.Utils.Card
                     );
                     break;
                 
-                // TODO カードを破壊
+                // カードを破壊
                 case AbilityType.DESTORY_FIELD_CARD:
                     CardManager.Instance.SelectPlaceCard(
                         GetPlaceCardList((UserType)model.UserType),
@@ -413,7 +430,7 @@ namespace UK.Utils.Card
                     );
                     break;
                     
-                // TODO 人物カードを破壊
+                // 人物カードを破壊
                 case AbilityType.DESTORY_FIELD_PERSON_CARD:
                     CardManager.Instance.SelectPlaceCard(
                         GetPlacePersonCardList((UserType)model.UserType),
@@ -428,7 +445,7 @@ namespace UK.Utils.Card
                     );
                     break;
 
-                // TODO 建造物カードを破壊
+                // 建造物カードを破壊
                 case AbilityType.DESTORY_FIELD_BUILDING_CARD:
                     CardManager.Instance.SelectPlaceCard(
                         GetPlaceBuildingCardList((UserType)model.UserType),

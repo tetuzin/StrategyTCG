@@ -158,6 +158,7 @@ namespace UK.Manager.Card
         // TODO 場のカードをN枚選択して返す
         public void SelectPlaceCard(List<CardUnit> cardList, int selectCount, UnityAction<List<CardUnit>> action)
         {
+            Debug.Log(cardList.Count);
             // 選択できないカードはグレーアウト。選択できるものはフレームを点滅
             GrayOutPlaceCard();
             UIManager.Instance.SetActiveActionUI(false);

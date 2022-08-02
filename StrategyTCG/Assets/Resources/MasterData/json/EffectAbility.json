@@ -282,7 +282,7 @@
     {
         "_effectAbilityId": 71000205,
         "_abilityName": "相手の場のカード5枚破壊",
-        "_abilityType": 710002,
+        "_abilityType": 710001,
         "_userType": 2,
         "_abilityParameter1": 0,
         "_abilityParameter2": 5,

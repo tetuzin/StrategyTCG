@@ -258,6 +258,29 @@ namespace UK.Unit.Field
             }
             return null;
         }
+        
+        // 指定IDのカードが場に配置されているかどうか
+        public bool CheckPlacementCardById(int cardId)
+        {
+            foreach (CardPlacement personPlace in _personPlaces)
+            {
+                if (personPlace.IsPlacement())
+                {
+                    CardUnit cardUnit = personPlace.GetCardUnit();
+                    if (cardUnit.CardModel.CardId == cardId) return true;
+                }
+            }
+            
+            foreach (CardPlacement buildingPlace in _buildingPlaces)
+            {
+                if (buildingPlace.IsPlacement())
+                {
+                    CardUnit cardUnit = buildingPlace.GetCardUnit();
+                    if (cardUnit.CardModel.CardId == cardId) return true;
+                }
+            }
+            return false;
+        }
 
         // ---------- Private関数 ----------
         // ---------- protected関数 ---------

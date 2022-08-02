@@ -190,7 +190,6 @@ namespace UK.Unit.Card
         // カード配置後の経過ターンを加算
         public void UpdateTurn()
         {
-            Debug.Log("TRUN : " + _turn);
             if (_turn <= 0) { return; }
             _turn++;
         }

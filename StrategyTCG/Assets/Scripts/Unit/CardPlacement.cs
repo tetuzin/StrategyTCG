@@ -123,6 +123,8 @@ namespace UK.Unit.Place
         public void DestroyPlaceCard()
         {
             Destroy(_card3DUnit.gameObject);
+            _card3DUnit = null;
+            _isPlacement = false;
         }
 
         // ---------- Private関数 ----------
