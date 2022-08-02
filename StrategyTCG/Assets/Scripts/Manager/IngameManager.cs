@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Ch120.Singleton;
 using Ch120.Manager.Master;
@@ -48,6 +49,7 @@ namespace UK.Manager.Ingame
         private PlayerUnit _opponentUnit = default;
         private TimingType _curTiming = default;
         private int _curTurn = default;
+        private CpuController _cpu = default;
 
         // ---------- Unity組込関数 ----------
         
@@ -57,6 +59,19 @@ namespace UK.Manager.Ingame
         }
 
         // ---------- Public関数 ----------
+        
+        // 攻撃処理の取得
+        public UnityAction GetAttackAction(bool isPlayer)
+        {
+            return isPlayer ? AttackPlayer : AttackOpponent;
+        }
+        
+        // 操作を行っているプレイヤーかどうか判断する
+        public bool CheckPlayer(bool isPlayer)
+        {
+            return _playerUnit.IsPlayer == isPlayer;
+        }
+        
         // ---------- Private関数 ----------
 
         // ゲームの初期化
@@ -70,6 +85,10 @@ namespace UK.Manager.Ingame
             // TODO お互いのユニットを読み込む
             _playerUnit = CreatePlayerUnit(GameConst.PLAYER);
             _opponentUnit = CreatePlayerUnit(GameConst.OPPONENT);
+            
+            // CPUの準備
+            _cpu = new CpuController();
+            _cpu.Initialize(GameConst.OPPONENT);
 
             UIManager.Instance.Initialize();
 
@@ -203,7 +222,7 @@ namespace UK.Manager.Ingame
             _curTiming = TimingType.TURN_OPPONENT;
 
 
-            TestPlayOpponentTurn();
+            _cpu.PlayTurn();
         }
 
         // 相手の攻撃
@@ -281,7 +300,7 @@ namespace UK.Manager.Ingame
             }
         }
         
-        // TODO 攻撃処理
+        // 攻撃処理
         private void DoAttack(PlayerUnit attackUnit, PlayerUnit defenseUnit)
         {
             // ダメージの算出
@@ -297,18 +316,18 @@ namespace UK.Manager.Ingame
 
 
 
-        // 開発テスト用関数：相手ターン処理
-        private async void TestPlayOpponentTurn()
-        {
-            await System.Threading.Tasks.Task.Delay(1000);
-            Debug.Log("1");
-            await System.Threading.Tasks.Task.Delay(1000);
-            Debug.Log("2");
-            await System.Threading.Tasks.Task.Delay(1000);
-            Debug.Log("3");
-            await System.Threading.Tasks.Task.Delay(1000);
-            AttackOpponent();
-        }
+        // // 開発テスト用関数：相手ターン処理
+        // private async void TestPlayOpponentTurn()
+        // {
+        //     await System.Threading.Tasks.Task.Delay(1000);
+        //     Debug.Log("1");
+        //     await System.Threading.Tasks.Task.Delay(1000);
+        //     Debug.Log("2");
+        //     await System.Threading.Tasks.Task.Delay(1000);
+        //     Debug.Log("3");
+        //     await System.Threading.Tasks.Task.Delay(1000);
+        //     AttackOpponent();
+        // }
 
         // 開発テスト用関数：プレイヤーの山札生成
         private List<CardMainModel> CreatePlayerDeck()

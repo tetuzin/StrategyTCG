@@ -24,6 +24,7 @@ using UK.Utils.Card;
 using UK.Const.Game;
 using UK.Const.Card.UseType;
 using UK.Manager.Ingame;
+using UK.Unit.Place;
 
 namespace UK.Unit.Card
 {
@@ -162,9 +163,12 @@ namespace UK.Unit.Card
             SetHpText(_curHp);
             SetCostText(_curAtk);
 
-            // カードボタン処理初期化
-            InitSelectButtonEvent();
-
+            if (CheckOperationPlayer())
+            {
+                // カードボタン処理初期化
+                InitSelectButtonEvent();
+            }
+            
             _cardSelectFrame.gameObject.SetActive(false);
             _cardGrayOutImage.SetActive(false);
         }
@@ -300,6 +304,36 @@ namespace UK.Unit.Card
         {
             SetSelectButtonEvent(OnClickSelectCard);
         }
+        
+        // カード選択処理
+        public void OnClickSelectCard()
+        {
+            // 選択中のカードがあるか
+            if (!CardManager.Instance.IsSelect())
+            {
+                if (CheckUse())
+                {
+                    // カード使用タイプを取得
+                    CardUseType cardUseType = CardUtils.GetCardUseType(_cardModel);
+
+                    // 配置タイプのカード
+                    if (cardUseType == CardUseType.PLACEMENT)
+                    {
+                        UseCardPlacement();
+                    }
+
+                    // 消費タイプのカード
+                    if (cardUseType == CardUseType.CONSUMPTION)
+                    {
+                        UseCardConsumption();
+                    }
+                }
+                else
+                {
+                    ShowNotUsePopup();
+                }
+            }
+        }
 
         // 簡易選択用ボタンイベントの設定
         public void SetSelectButtonEvent(UnityAction action)
@@ -368,20 +402,32 @@ namespace UK.Unit.Card
         // カード使用（配置）
         private void UseCardPlacement()
         {
-            Vector3 position = this.gameObject.transform.localPosition;
-            CardManager.Instance.IsSelectCardUnit = this;
+            if (CheckOperationPlayer())
+            {
+                Vector3 position = gameObject.transform.localPosition;
+                CardManager.Instance.IsSelectCardUnit = this;
 
-            // 手札ボタンの設定
-            UIManager.Instance.SetHandButtonAction(() => {
-                _isSelect = false;
-                CardManager.Instance.IsSelectCardUnit = null;
-                this.gameObject.transform.localPosition = position;
-                _cardButton.gameObject.SetActive(true);
-            });
-            UIManager.Instance.SetHandButtonActive(true);
+                // 手札ボタンの設定
+                UIManager.Instance.SetHandButtonAction(() => {
+                    _isSelect = false;
+                    CardManager.Instance.IsSelectCardUnit = null;
+                    gameObject.transform.localPosition = position;
+                    _cardButton.gameObject.SetActive(true);
+                });
+                UIManager.Instance.SetHandButtonActive(true);
             
-            _cardButton.gameObject.SetActive(false);
-            _isSelect = true;
+                _cardButton.gameObject.SetActive(false);
+                _isSelect = true;
+            }
+            else
+            {
+                CardManager.Instance.IsSelectCardUnit = this;
+                CardPlacement placement = CardManager.Instance.GetCardBattleField(_isPlayer).GetPersonPlacement();
+                if (placement != null)
+                {
+                    placement.SetCardPlacement();
+                }
+            }
         }
 
         // カード使用（消費）
@@ -483,35 +529,11 @@ namespace UK.Unit.Card
         {
             _costText.text = cost.ToString();
         }
-
-        // カード選択処理
-        private void OnClickSelectCard()
+        
+        // 自分が操作しているかどうか
+        private bool CheckOperationPlayer()
         {
-            // 選択中のカードがあるか
-            if (!CardManager.Instance.IsSelect())
-            {
-                if (CheckUse())
-                {
-                    // カード使用タイプを取得
-                    CardUseType cardUseType = CardUtils.GetCardUseType(_cardModel);
-
-                    // 配置タイプのカード
-                    if (cardUseType == CardUseType.PLACEMENT)
-                    {
-                        UseCardPlacement();
-                    }
-
-                    // 消費タイプのカード
-                    if (cardUseType == CardUseType.CONSUMPTION)
-                    {
-                        UseCardConsumption();
-                    }
-                }
-                else
-                {
-                    ShowNotUsePopup();
-                }
-            }
+            return IngameManager.Instance.CheckPlayer(_isPlayer);
         }
 
         // ---------- protected関数 ---------

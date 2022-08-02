@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UK.Const.Card.Type;
 using UnityEngine;
 
+using UK.Const.Card.UseType;
 using UK.Manager.Card;
 using UK.Unit.Card;
 using UK.Model.CardMain;
+using UK.Utils.Card;
 
 namespace UK.Unit.Hand
 {
@@ -80,6 +83,34 @@ namespace UK.Unit.Hand
             {
                 RemoveHandCard(cardUnit);
             }
+        }
+        
+        // 配置使用のカードを取得
+        public List<CardUnit> GetPlacementCardList()
+        {
+            List<CardUnit> cardList = new List<CardUnit>();
+            foreach (CardUnit cardUnit in _handCardUnit)
+            {
+                if (CardUseType.PLACEMENT == CardUtils.GetCardUseType(cardUnit.CardModel))
+                {
+                    cardList.Add(cardUnit);
+                }
+            }
+            return cardList;
+        }
+        
+        // 人物カードを取得
+        public List<CardUnit> GetPersonCardList()
+        {
+            List<CardUnit> cardList = new List<CardUnit>();
+            foreach (CardUnit cardUnit in _handCardUnit)
+            {
+                if (CardType.PERSON == CardUtils.GetCardType(cardUnit.CardModel))
+                {
+                    cardList.Add(cardUnit);
+                }
+            }
+            return cardList;
         }
 
         // ---------- Private関数 ----------

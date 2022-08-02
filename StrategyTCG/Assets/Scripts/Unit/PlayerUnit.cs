@@ -83,6 +83,11 @@ namespace UK.Unit.Player
             get { return _effectList; }
         }
 
+        public bool IsPlayer
+        {
+            get { return _isPlayer; }
+        }
+
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 

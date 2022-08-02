@@ -135,7 +135,7 @@ namespace UK.Unit.Deck
         // デッキの高さを変更
         private void SetDeckHeightScale(int height)
         {
-            Vector3 vector = this.gameObject.transform.localScale;
+            Vector3 vector = gameObject.transform.localScale;
             vector.y = (height / 10) * 150 / 100;
             gameObject.transform.localScale = vector;
         }

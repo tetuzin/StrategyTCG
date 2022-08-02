@@ -66,11 +66,11 @@ namespace UK.Unit.Place
             // カードが選択されていないなら
             if (!CardManager.Instance.IsSelect()) { return; }
 
-            // この場が自分の場でないなら
-            if (!_isPlayer) { return; }
-
             // 選択中カードユニットを取得
             CardUnit cardUnit = CardManager.Instance.IsSelectCardUnit;
+            
+            // この場が自分の場でないなら
+            if (_isPlayer != cardUnit.IsPlayer) { return; }
 
             // カード種別が一致しているなら
             if ((int)_fieldType != cardUnit.CardModel.CardType) { return; }

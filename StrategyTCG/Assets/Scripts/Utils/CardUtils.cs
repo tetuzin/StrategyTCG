@@ -644,6 +644,12 @@ namespace UK.Utils.Card
                     return CardUseType.NONE;
             }
         }
+        
+        // カードタイプを取得
+        public static CardType GetCardType(CardMainModel model)
+        {
+            return (CardType)model.CardType;
+        }
 
         // カードタイプ名を取得
         public static string GetCardTypeName(int cardType)

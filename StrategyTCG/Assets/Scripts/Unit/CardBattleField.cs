@@ -253,6 +253,32 @@ namespace UK.Unit.Field
             }
         }
 
+        // 未配置の人物カードフィールドを返す
+        public CardPlacement GetPersonPlacement()
+        {
+            foreach (CardPlacement personPlace in _personPlaces)
+            {
+                if (!personPlace.IsPlacement())
+                {
+                    return personPlace;
+                }
+            }
+            return null;
+        }
+        
+        // 未配置の建造物カードフィールドを返す
+        public CardPlacement GetBuildingPlacement()
+        {
+            foreach (CardPlacement buildingPlace in _buildingPlaces)
+            {
+                if (!buildingPlace.IsPlacement())
+                {
+                    return buildingPlace;
+                }
+            }
+            return null;
+        }
+
         // ---------- Private関数 ----------
         // ---------- protected関数 ---------
     }
