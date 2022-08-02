@@ -208,27 +208,7 @@ namespace UK.Unit.Field
             placeCardList.AddRange(GetPlaceBuildingCardList());
             return placeCardList;
         }
-        
-        // 場に出ているカードのグレーアウト
-        public void SetGrayOutPlaceCard(List<CardUnit> placeCardList)
-        {
-            foreach (CardUnit cardUnit in placeCardList)
-            {
-                cardUnit.SetBlinkFrame(false);
-                cardUnit.SetGrayOut(true);
-            }
-        }
-        
-        // 場に出ているカードの点滅
-        public void SetBlinkPlaceCard(List<CardUnit> placeCardList)
-        {
-            foreach (CardUnit cardUnit in placeCardList)
-            {
-                cardUnit.SetGrayOut(false, isButtonEvent:true);
-                cardUnit.SetBlinkFrame(true);
-            }
-        }
-        
+
         // 場に出ているカードの描画を初期化
         public void ResetPlaceCard()
         {

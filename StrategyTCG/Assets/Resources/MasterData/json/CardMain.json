@@ -16,7 +16,7 @@
     {
         "_cardId": 1003001,
         "_cardName": "大砲",
-        "_cardType": 1,
+        "_cardType": 3,
         "_effectId": 621001010,
         "_rarity": 1,
         "_countryId": 100,

@@ -90,8 +90,8 @@ namespace UK.Unit.Place
             _card3DUnit.gameObject.transform.localPosition = new Vector3(0.0f, 0.2f, 0.0f);
             _card3DUnit.gameObject.transform.localRotation = Quaternion.Euler(90.0f, -90.0f, 0.0f);
             _card3DUnit.gameObject.transform.localScale = new Vector3(0.14f, 0.14f, 1.0f);
-            cardUnit.Placement();
-
+            _card3DUnit.GetCardUnit().Placement(this);
+            
             _isPlacement = true;
         }
         
@@ -117,6 +117,12 @@ namespace UK.Unit.Place
         public CardUnit GetCardUnit()
         {
             return _card3DUnit.GetCardUnit();
+        }
+        
+        // 配置されているカードを破棄
+        public void DestroyPlaceCard()
+        {
+            Destroy(_card3DUnit.gameObject);
         }
 
         // ---------- Private関数 ----------

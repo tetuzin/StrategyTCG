@@ -112,6 +112,20 @@ namespace UK.Unit.Hand
             }
             return cardList;
         }
+        
+        // 建造物カードを取得
+        public List<CardUnit> GetBuildingCardList()
+        {
+            List<CardUnit> cardList = new List<CardUnit>();
+            foreach (CardUnit cardUnit in _handCardUnit)
+            {
+                if (CardType.BUILDING == CardUtils.GetCardType(cardUnit.CardModel))
+                {
+                    cardList.Add(cardUnit);
+                }
+            }
+            return cardList;
+        }
 
         // ---------- Private関数 ----------
         // ---------- protected関数 ---------

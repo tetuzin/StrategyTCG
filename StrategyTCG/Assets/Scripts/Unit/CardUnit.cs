@@ -74,7 +74,6 @@ namespace UK.Unit.Card
             get { return _index; }
             set { _index = value; }
         }
-
         public EffectUnitList EffectList
         {
             get { return _effectList; }
@@ -89,10 +88,6 @@ namespace UK.Unit.Card
         private CardMainModel _cardModel = default;
         // カード効果
         private EffectMainModel _effectModel = default;
-        // カード効果グループ
-        private EffectGroupModel _effectGroup = default;
-        // カード効果能力
-        private EffectAbilityModel _effectAbility = default;
         // 現在のHP
         private int _curHp = default;
         // 現在の最大HP
@@ -117,6 +112,8 @@ namespace UK.Unit.Card
         private Tweener _blinkTweener = default;
         // 受けているカード効果のリスト
         private EffectUnitList _effectList = default;
+        // 配置されている場所
+        private CardPlacement _placement = default;
 
         // ---------- Unity組込関数 ----------
 
@@ -182,8 +179,9 @@ namespace UK.Unit.Card
         }
 
         // カード配置時処理
-        public void Placement()
+        public void Placement(CardPlacement placement)
         {
+            _placement = placement;
             _turn = 1;
             UseCard();
             EffectActivation();
@@ -192,12 +190,13 @@ namespace UK.Unit.Card
         // カード配置後の経過ターンを加算
         public void UpdateTurn()
         {
+            Debug.Log("TRUN : " + _turn);
             if (_turn <= 0) { return; }
             _turn++;
         }
 
         // TODO カード破壊
-        public void Destroy()
+        public void DestroyCard()
         {
             _isDestroy = true;
             _curHp = 0;
@@ -208,19 +207,30 @@ namespace UK.Unit.Card
                 unit.PeopleNum--;
                 unit.TurnFund -= GameConst.PLACEMENT_UP_TURN_FUND;
             }
-            Destroy(this);
+            _placement.DestroyPlaceCard();
+            Debug.Log(_cardModel.CardName + "は倒れた！");
         }
         
         // TODO ダメージを受ける
         public void Damage(int value)
         {
             // TODO ダメージの算出(受けている効果やバフなどを考慮する
+            int damage = value;
             
             // TODO ダメージを受ける
+            _curHp -= damage;
+            if (_curHp <= 0)
+            {
+                _curHp = 0;
+            }
             
             // TODO 画面上にダメージを表示
-            
+
             // TODO 被ダメ後の状態を反映させて再描画
+            SetHpText(_curHp);
+            Debug.Log(_cardModel.CardName + "は" + damage + "ダメージを受けた！");
+
+            if (_curHp == 0) DestroyCard();
         }
         
         // HP回復
@@ -422,7 +432,20 @@ namespace UK.Unit.Card
             else
             {
                 CardManager.Instance.IsSelectCardUnit = this;
-                CardPlacement placement = CardManager.Instance.GetCardBattleField(_isPlayer).GetPersonPlacement();
+                CardPlacement placement = null;
+                switch (CardUtils.GetCardType(_cardModel))
+                {
+                    case CardType.PERSON:
+                        placement = CardManager.Instance.GetCardBattleField(_isPlayer).GetPersonPlacement();
+                        break;
+                    
+                    case CardType.BUILDING:
+                        placement = CardManager.Instance.GetCardBattleField(_isPlayer).GetBuildingPlacement();
+                        break;
+                    
+                    default:
+                        break;
+                }
                 if (placement != null)
                 {
                     placement.SetCardPlacement();

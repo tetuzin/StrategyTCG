@@ -84,7 +84,7 @@ namespace UK.Const.Ability
         CARD_DAMAGE_DOWN = 610002,      // 選択したユニットが受けるダメージをN減少させる
         ALL_CARD_DAMAGE_DOWN = 610003,  // 自分のすべてのユニットが受けるダメージをN減少させる
 
-        CARD_DAMAGE = 620001,           // 人物ユニットX体にNダメージ
+        CARD_DAMAGE = 621001,           // 人物ユニットX体にNダメージ
 
         // カード破壊系
         DESTORY_FIELD_CARD = 710001,                // 場のカードをN枚選択して破壊する

@@ -11,6 +11,7 @@ using UK.Model.CardMain;
 using UK.Unit.Card;
 using UK.Unit.Card3D;
 using UK.Unit.Field;
+using UK.Utils.Card;
 using UnityEngine.Events;
 
 namespace UK.Manager.Card
@@ -137,10 +138,10 @@ namespace UK.Manager.Card
         // 場のカードをグレーアウト
         public void GrayOutPlaceCard()
         {
-            GetCardBattleField(GameConst.PLAYER).SetGrayOutPlaceCard(
+            CardUtils.SetGrayOutPlaceCard(
                 GetCardBattleField(GameConst.PLAYER).GetPlaceCardList()
             );
-            GetCardBattleField(GameConst.OPPONENT).SetGrayOutPlaceCard(
+            CardUtils.SetGrayOutPlaceCard(
                 GetCardBattleField(GameConst.OPPONENT).GetPlaceCardList()
             );
         }
@@ -160,7 +161,7 @@ namespace UK.Manager.Card
             // 選択できないカードはグレーアウト。選択できるものはフレームを点滅
             GrayOutPlaceCard();
             UIManager.Instance.SetActiveActionUI(false);
-            GetCardBattleField(true).SetBlinkPlaceCard(cardList);
+            CardUtils.SetBlinkPlaceCard(cardList);
 
             // 選択しているカードをリストに追加
             List<CardUnit> selectCardList = new List<CardUnit>();

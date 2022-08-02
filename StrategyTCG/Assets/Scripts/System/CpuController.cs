@@ -74,16 +74,28 @@ namespace UK.CpuCtrl
             //     };
             // }
 
+            // 人物カード配置
             List<CardUnit> cardList = GetHandUnit().GetPersonCardList();
-            if (cardList.Count != 0)
+            if (cardList.Count != 0 && GetBattleField().GetPersonPlacement() != null)
             {
                 return () =>
                 {
                     CardPlacementAction(ExtractCardUnit(cardList));
                     return Task.CompletedTask;
                 };
-                
             }
+            
+            // 建造物カード配置
+            cardList = GetHandUnit().GetBuildingCardList();
+            if (cardList.Count != 0 && GetBattleField().GetBuildingPlacement() != null)
+            {
+                return () =>
+                {
+                    CardPlacementAction(ExtractCardUnit(cardList));
+                    return Task.CompletedTask;
+                };
+            }
+            
 
             return null;
         }

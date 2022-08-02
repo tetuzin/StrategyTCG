@@ -407,7 +407,7 @@ namespace UK.Utils.Card
                         {
                             foreach (CardUnit cardUnit in selectCardList)
                             {
-                                cardUnit.Destroy();
+                                cardUnit.DestroyCard();
                             }
                         }
                     );
@@ -422,7 +422,7 @@ namespace UK.Utils.Card
                         {
                             foreach (CardUnit cardUnit in selectCardList)
                             {
-                                cardUnit.Destroy();
+                                cardUnit.DestroyCard();
                             }
                         }
                     );
@@ -437,7 +437,7 @@ namespace UK.Utils.Card
                         {
                             foreach (CardUnit cardUnit in selectCardList)
                             {
-                                cardUnit.Destroy();
+                                cardUnit.DestroyCard();
                             }
                         }
                     );
@@ -447,6 +447,21 @@ namespace UK.Utils.Card
                 case AbilityType.PLAYER_DAMAGE_DOWN:
                 case AbilityType.ALL_CARD_DAMAGE_DOWN:
                     IngameManager.Instance.GetPlayerUnit((UserType)model.UserType).EffectList.AddEffectUnit(model);
+                    break;
+                
+                // 人物カードにダメージを与える
+                case AbilityType.CARD_DAMAGE:
+                    CardManager.Instance.SelectPlaceCard(
+                        GetPlacePersonCardList((UserType)model.UserType),
+                        model.AbilityParameter2,
+                        (List<CardUnit> selectCardList) =>
+                        {
+                            foreach (CardUnit cardUnit in selectCardList)
+                            {
+                                cardUnit.Damage(model.AbilityParameter1);
+                            }
+                        }
+                    );
                     break;
 
                 default:
@@ -691,6 +706,26 @@ namespace UK.Utils.Card
                 default:
                     Debug.Log("発動が強制カード");
                     return false;
+            }
+        }
+        
+        // 場に出ているカードのグレーアウト
+        public static void SetGrayOutPlaceCard(List<CardUnit> placeCardList)
+        {
+            foreach (CardUnit cardUnit in placeCardList)
+            {
+                cardUnit.SetBlinkFrame(false);
+                cardUnit.SetGrayOut(true);
+            }
+        }
+        
+        // 場に出ているカードの点滅
+        public static void SetBlinkPlaceCard(List<CardUnit> placeCardList)
+        {
+            foreach (CardUnit cardUnit in placeCardList)
+            {
+                cardUnit.SetGrayOut(false, isButtonEvent:true);
+                cardUnit.SetBlinkFrame(true);
             }
         }
     }
