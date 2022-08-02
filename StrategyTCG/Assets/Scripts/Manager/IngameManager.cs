@@ -150,6 +150,8 @@ namespace UK.Manager.Ingame
 
             // タイミング：プレイヤーターンスタート
             _curTiming = TimingType.START_TURN_PLAYER;
+            
+            GetPlayerUnit(GameConst.PLAYER).UpdatePlayer();
 
             // TODO ターンスタートアニメーション
 
@@ -206,6 +208,8 @@ namespace UK.Manager.Ingame
 
             // タイミング：相手ターンスタート
             _curTiming = TimingType.START_TURN_OPPONENT;
+
+            GetPlayerUnit(GameConst.OPPONENT).UpdatePlayer();
 
             // TODO ターンスタートアニメーション
 

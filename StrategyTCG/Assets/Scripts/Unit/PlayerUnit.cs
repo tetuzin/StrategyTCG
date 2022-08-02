@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UK.Const.Ability;
 using UK.Manager.UI;
+using UK.Unit.Effect;
 using UnityEngine;
 
 using UK.Unit.EffectList;
@@ -25,7 +27,11 @@ namespace UK.Unit.Player
         }
         public int MaxHp
         {
-            get { return _maxHp; }
+            get
+            {
+                // TODO カード効果の考慮
+                return _maxHp;
+            }
             set
             {
                 _maxHp = value;
@@ -34,7 +40,8 @@ namespace UK.Unit.Player
         }
         public int CurHp
         {
-            get { return _curHp; }
+            get
+            { return _curHp; }
             set
             {
                 _curHp = value;
@@ -43,7 +50,11 @@ namespace UK.Unit.Player
         }
         public int Power
         {
-            get { return _power; }
+            get
+            {
+                // TODO カード効果の考慮
+                return _power;
+            }
             set
             {
                 _power = value;
@@ -52,7 +63,11 @@ namespace UK.Unit.Player
         }
         public int PeopleNum
         {
-            get { return _peopleNum; }
+            get
+            {
+                // TODO カード効果の考慮
+                return _peopleNum;
+            }
             set
             {
                 _peopleNum = value;
@@ -61,7 +76,11 @@ namespace UK.Unit.Player
         }
         public int Fund
         {
-            get { return _fund; }
+            get
+            {
+                // TODO カード効果の考慮
+                return _fund;
+            }
             set
             {
                 _fund = value;
@@ -70,7 +89,20 @@ namespace UK.Unit.Player
         }
         public int TurnFund
         {
-            get { return _turnFund; }
+            get
+            {
+                int turnFund = _turnFund;
+                foreach (EffectUnit effect in _effectList.GetEffectUnitList())
+                {
+                    switch (effect.Ability)
+                    {
+                        case AbilityType.TURN_FUND_UP:
+                            turnFund += effect.Value;
+                            break;
+                    }
+                }
+                return turnFund;
+            }
             set
             {
                 _turnFund = value;
@@ -115,6 +147,13 @@ namespace UK.Unit.Player
             Initialize();
             _isPlayer = isPlayer;
         }
+        
+        // ターン毎の更新処理
+        public void UpdatePlayer()
+        {
+            Fund += TurnFund;
+            _effectList.UpdateEffect();
+        }
 
         // 相手に与えるダメージ値を算出し返す
         public int CalcAttackDamage()
@@ -128,6 +167,28 @@ namespace UK.Unit.Player
         {
             int damage = value;
             damage -= _power;
+            
+            // 発動中効果
+            foreach (EffectUnit effect in _effectList.GetEffectUnitList())
+            {
+                switch (effect.Ability)
+                {
+                    // プレイヤーが受けるダメージをN減少させる
+                    case AbilityType.PLAYER_DAMAGE_DOWN:
+                        Debug.Log("効果発動：プレイヤーの被ダメ-" + effect.Value);
+                        damage -= effect.Value;
+                        break;
+                    
+                    default:
+                        break;
+                }
+            }
+
+            if (damage <= 0)
+            {
+                damage = 0;
+            }
+            
             return damage;
         }
 

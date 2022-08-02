@@ -54,7 +54,7 @@ namespace UK.Unit.Effect
         {
             if (_turn > 0)
             {
-                _turn--;
+                --_turn;
             }
         }
         

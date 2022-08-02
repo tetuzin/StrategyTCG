@@ -34,6 +34,26 @@ namespace UK.Unit.EffectList
             _effectUnitList.Add(effectUnit);
         }
         
+        // カード効果リストの取得
+        public List<EffectUnit> GetEffectUnitList()
+        {
+            return _effectUnitList;
+        }
+        
+        // 効果のターン毎の更新処理
+        public void UpdateEffect()
+        {
+            List<EffectUnit> effectList = _effectUnitList;
+            foreach (EffectUnit effect in effectList)
+            {
+                effect.UpdateTurn();
+                if (effect.Turn == 0)
+                {
+                    _effectUnitList.Remove(effect);
+                }
+            }
+        }
+        
         // ---------- Private関数 ----------
         // ---------- protected関数 ---------
     }

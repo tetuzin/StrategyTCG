@@ -7,24 +7,26 @@ using TMPro;
 using DG.Tweening;
 
 using Ch120.Utils.Resource;
+
+using UK.Const.Game;
+using UK.Const.Card.UseType;
 using UK.Const.Ability;
 using UK.Const.Card.Type;
+
+using UK.Manager.Ingame;
 using UK.Manager.Card;
 using UK.Manager.UI;
 using UK.Manager.Popup;
 
 using UK.Model.CardMain;
 using UK.Model.EffectMain;
-using UK.Model.EffectGroup;
-using UK.Model.EffectAbility;
 
 using UK.Unit.Player;
-using UK.Unit.EffectList;
-using UK.Utils.Card;
-using UK.Const.Game;
-using UK.Const.Card.UseType;
-using UK.Manager.Ingame;
 using UK.Unit.Place;
+using UK.Unit.Effect;
+using UK.Unit.EffectList;
+
+using UK.Utils.Card;
 
 namespace UK.Unit.Card
 {
@@ -210,11 +212,44 @@ namespace UK.Unit.Card
             Debug.Log(_cardModel.CardName + "は倒れた！");
         }
         
-        // TODO ダメージを受ける
+        // ダメージを受ける
         public void Damage(int value)
         {
             // TODO ダメージの算出(受けている効果やバフなどを考慮する
             int damage = value;
+            
+            // プレイヤーがもつ発動中効果の考慮
+            foreach (EffectUnit effect in IngameManager.Instance.GetPlayerUnit(_isPlayer).EffectList.GetEffectUnitList())
+            {
+                switch (effect.Ability)
+                {
+                    // カードユニットが受けるダメージをN減少させる
+                    case AbilityType.ALL_CARD_DAMAGE_DOWN:
+                        Debug.Log("効果発動：カードユニットの被ダメ-" + effect.Value);
+                        damage -= effect.Value;
+                        break;
+                    
+                    default:
+                        break;
+                }
+            }
+            
+            // カードユニットがもつ発動中効果の考慮
+            foreach (EffectUnit effect in _effectList.GetEffectUnitList())
+            {
+                switch (effect.Ability)
+                {
+                    // カードユニットが受けるダメージをN減少させる
+                    case AbilityType.CARD_DAMAGE_DOWN:
+                    case AbilityType.ALL_CARD_DAMAGE_DOWN:
+                        Debug.Log("効果発動：カードユニットの被ダメ-" + effect.Value);
+                        damage -= effect.Value;
+                        break;
+                    
+                    default:
+                        break;
+                }
+            }
             
             // TODO ダメージを受ける
             _curHp -= damage;
@@ -225,7 +260,7 @@ namespace UK.Unit.Card
             
             // TODO 画面上にダメージを表示
 
-            // TODO 被ダメ後の状態を反映させて再描画
+            // 被ダメ後の状態を反映させて再描画
             SetHpText(_curHp);
             Debug.Log(_cardModel.CardName + "は" + damage + "ダメージを受けた！");
 

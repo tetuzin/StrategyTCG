@@ -408,13 +408,22 @@ namespace UK.Utils.Card
                         {
                             foreach (CardUnit cardUnit in selectCardList)
                             {
-                                // TODO カードユニット軽減
+                                // カードユニット軽減
                                 cardUnit.EffectList.AddEffectUnit(model);
                             }
                         }
                     );
                     break;
                 
+                // 自分のすべてのユニットが受けるダメージをN減少させる
+                case AbilityType.ALL_CARD_DAMAGE_DOWN:
+                    foreach (CardUnit cardUnit in GetPlacePersonCardList((UserType)model.UserType))
+                    {
+                        // カードユニット軽減
+                        cardUnit.EffectList.AddEffectUnit(model);
+                    }
+                    break;
+
                 // カードを破壊
                 case AbilityType.DESTORY_FIELD_CARD:
                     CardManager.Instance.SelectPlaceCard(
@@ -460,9 +469,8 @@ namespace UK.Utils.Card
                     );
                     break;
                 
-                // TODO プレイヤーにバフ持たせる系
+                // プレイヤーにバフ持たせる系
                 case AbilityType.PLAYER_DAMAGE_DOWN:
-                case AbilityType.ALL_CARD_DAMAGE_DOWN:
                     IngameManager.Instance.GetPlayerUnit((UserType)model.UserType).EffectList.AddEffectUnit(model);
                     break;
                 
