@@ -7,6 +7,7 @@ using TMPro;
 
 using Ch120.Singleton;
 using Ch120.Popup;
+using Ch120.Utils.Popup;
 
 namespace Ch120.Manager.Popup
 {
@@ -14,6 +15,8 @@ namespace Ch120.Manager.Popup
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
+        [Header("キャンバス")]
+        [SerializeField] private List<Canvas> _canvasList = new List<Canvas>();
         
         [Header("テキスト")]
         [SerializeField] private List<TextMeshProUGUI> _textList = new List<TextMeshProUGUI>();
@@ -25,6 +28,7 @@ namespace Ch120.Manager.Popup
         [SerializeField] private List<CanvasGroup> _canvasGroupList = new List<CanvasGroup>();
         
         [Header("ポップアップ")]
+        [SerializeField, Tooltip("ポップアップ生成時の親オブジェクト")] private GameObject _popupParent = default;
         [SerializeField] private List<BasePopup> _PopupList = new List<BasePopup>();
         
         // ---------- プレハブ ----------
@@ -110,11 +114,28 @@ namespace Ch120.Manager.Popup
             _PopupList[index].Open(isModal);
         }
         
-        // ポップアップの初期化
-        public void InitPopup(int index, dynamic param, Dictionary<string, Action> actions)
+        // ポップアップの設定
+        public void SetPopup(int index, Dictionary<string, Action> actions,  dynamic param)
         {
             if (!IsBounds(index, _PopupList.Count)) return;
             _PopupList[index].InitPopup(actions, param);
+        }
+        
+        // ポップアップの生成と表示
+        public void CreateOpenPopup(int index, Dictionary<string, Action> actions = null,  dynamic param = null)
+        {
+            if (!IsBounds(index, _PopupList.Count)) return;
+            if (_popupParent == default)
+            {
+                Debug.LogWarning("ポップアップを生成するための親オブジェクトが設定されていません！");
+                return;
+            }
+            PopupUtils.OpenPopup(
+                _popupParent,
+                _PopupList[index].gameObject,
+                actions,
+                param
+                );
         }
         
         // ---------- Private関数 ----------
@@ -128,18 +149,27 @@ namespace Ch120.Manager.Popup
             }
         }
         
+        // 全ポップアップの初期化
+        private void InitPopup()
+        {
+            foreach (Button button in _buttonList)
+            {
+                button.onClick.RemoveAllListeners();
+            }
+        }
+        
         // indexが範囲内かチェック
         private bool IsBounds(int index, int count)
         {
             if (index < 0)
             {
-                Debug.LogError("indexの値がマイナスです！");
+                Debug.LogWarning("indexの値がマイナスです！");
                 return false;
             }
 
             if (index >= count)
             {
-                Debug.LogError("そのindexは要素数を超えています！");
+                Debug.LogWarning("そのindexは要素数を超えています！");
                 return false;
             }
             return true;

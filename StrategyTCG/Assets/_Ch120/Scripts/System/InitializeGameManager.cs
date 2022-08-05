@@ -45,6 +45,7 @@ namespace Ch120.Game
             UserManager.Instance.Initialize();
             _isInitialize = true;
             SceneLoadManager.Instance.TransitionScene("TitleScene");
+            // SceneLoadManager.Instance.TransitionScene("IngameScene");
         }
 
         // ---------- protected関数 ---------

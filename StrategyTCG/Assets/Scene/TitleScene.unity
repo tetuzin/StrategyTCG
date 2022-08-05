@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbf2ef3ae5f4ab9be775a7ad60c79ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasList: []
   _textList: []
   _buttonList:
   - {fileID: 1793037256}
@@ -518,7 +519,9 @@ MonoBehaviour:
   - {fileID: 737569413}
   - {fileID: 56305219}
   - {fileID: 842130143}
-  _PopupList: []
+  _popupParent: {fileID: 785830855}
+  _PopupList:
+  - {fileID: 6360852931437952228, guid: 1b27daf76482c3147ac21e4c6546bf1a, type: 3}
 --- !u!1 &353288570
 GameObject:
   m_ObjectHideFlags: 0

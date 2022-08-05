@@ -15,7 +15,6 @@ namespace Ch120.Popup
         
         [SerializeField, Tooltip("ポップアップのオブジェクト")] protected GameObject popupObject = default;
         [SerializeField, Tooltip("モーダルのオブジェクト")] protected GameObject modalObject = default;
-        [SerializeField, Tooltip("キャンバス")] private Canvas _canvas = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -115,7 +114,7 @@ namespace Ch120.Popup
             if (modalObject == null) { return; }
 
             // モーダル生成
-            _modal = PopupUtils.CreateModal(_canvas.gameObject);
+            _modal = PopupUtils.CreateModal(modalObject);
 
             // モーダルにポップアップ閉じる処理を設定
             Button button = _modal.GetComponent<Button>();
@@ -124,8 +123,6 @@ namespace Ch120.Popup
             {
                 SetModalEvent(Close);
             }
-
-            _modal.transform.SetParent(modalObject.transform);
         }
 
         // ---------- protected関数 ---------

@@ -27,6 +27,11 @@ namespace UK.Manager.TitleUI
         public const int BATTLE_MENU = 1;       // 対戦メニューUI
         public const int CARD_MENU = 2;         // カードメニューUI
     }
+
+    public class TitlePopupType
+    {
+        public const int SIMPLE = 0;            // シンプルテキストポップアップ
+    }
     
     public class TitleUIManager : BaseUIManager
     {
@@ -66,7 +71,31 @@ namespace UK.Manager.TitleUI
             
             SetButtonEvent(TitleButtonType.CARD_MENU, () =>
             {
-                
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+            });
+            SetButtonEvent(TitleButtonType.OPTION_MENU, () =>
+            {
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+            });
+            SetButtonEvent(TitleButtonType.ONLINE_BATTLE, () =>
+            {
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+            });
+            SetButtonEvent(TitleButtonType.CARD_PACK, () =>
+            {
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+            });
+            SetButtonEvent(TitleButtonType.CARD_LIST, () =>
+            {
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+            });
+            SetButtonEvent(TitleButtonType.DECK_LIST, () =>
+            {
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+            });
+            SetButtonEvent(TitleButtonType.GAME_EXIT, () =>
+            {
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
             });
         }
         

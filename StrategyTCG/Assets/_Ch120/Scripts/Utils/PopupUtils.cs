@@ -30,17 +30,17 @@ namespace Ch120.Utils.Popup
 
         // ポップアップを開く
         public static void OpenPopup(
-            GameObject canvas,
+            GameObject parentObj,
             GameObject popupPrefab,
-            Dictionary<string, Action> actions,
-            dynamic param
+            Dictionary<string, Action> actions = null,
+            dynamic param = null
             )
         {
             // 既に開いているポップアップは開かない
             if (CheckPopupName(popupPrefab)) { return; }
 
             // Popupインスタンス生成
-            GameObject obj = Instantiate(popupPrefab, canvas.transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(popupPrefab, parentObj.transform.position, Quaternion.identity);
             BasePopup popup = obj.GetComponent<BasePopup>();
             obj.name = obj.name.Replace( "(Clone)", "" );
 
@@ -48,10 +48,7 @@ namespace Ch120.Utils.Popup
             if (popup.CheckOpen()) { return; }
 
             // Popupをキャンバスの下に配置
-            obj.transform.SetParent(canvas.transform);
-
-            // コールバックがないなら初期化
-            if (actions == null) { actions = new Dictionary<string, Action>(); }
+            obj.transform.SetParent(parentObj.transform);
 
             // Popup表示
             popup.InitPopup(actions, param);

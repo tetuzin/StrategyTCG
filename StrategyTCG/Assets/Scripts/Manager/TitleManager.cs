@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using DG.Tweening;
 
 using Ch120.Singleton;
+using Ch120.Manager.Scene;
 
 using UK.Manager.TitleUI;
 
@@ -40,6 +41,11 @@ namespace UK.Manager.Title
             }
             
             TitleUIManager.Instance.Initialize();
+            
+            TitleUIManager.Instance.SetButtonEvent(TitleButtonType.CPU_BATTLE, () =>
+            {
+                SceneLoadManager.Instance.TransitionScene("IngameScene");
+            });
         }
         
         // ---------- protected関数 ---------

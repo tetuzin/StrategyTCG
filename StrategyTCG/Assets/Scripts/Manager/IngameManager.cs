@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 using Ch120.Singleton;
 using Ch120.Manager.Master;
+using Ch120.Manager.Scene;
 
 using UK.Const.Game;
 using UK.Const.Effect;
@@ -142,10 +143,11 @@ namespace UK.Manager.Ingame
         {
             Debug.Log("EndGame");
 
-            if (!_playerUnit.IsDeath)
+            if (_playerUnit.IsDeath)
             {
                 bool isRematch = false;
                 Dictionary<string, Action> actions = new Dictionary<string, Action>();
+                actions.Add(UK.Popup.Result.ResultPopup.RESULT_END_BUTTON, TransitionTitle);
                 PopupManager.Instance.SetResultLosePopup(isRematch, actions);
                 PopupManager.Instance.ShowResultLosePopup();
             }
@@ -153,6 +155,7 @@ namespace UK.Manager.Ingame
             {
                 bool isRematch = false;
                 Dictionary<string, Action> actions = new Dictionary<string, Action>();
+                actions.Add(UK.Popup.Result.ResultPopup.RESULT_END_BUTTON, TransitionTitle);
                 PopupManager.Instance.SetResultWinPopup(isRematch, actions);
                 PopupManager.Instance.ShowResultWinPopup();
             }
@@ -341,6 +344,12 @@ namespace UK.Manager.Ingame
             int damage = defenseUnit.CalcDefenseDamage(atkValue);
 
             defenseUnit.ReceiveDamage(damage);
+        }
+        
+        // タイトル画面へ遷移
+        private void TransitionTitle()
+        {
+            SceneLoadManager.Instance.TransitionScene("TitleScene");
         }
 
 
