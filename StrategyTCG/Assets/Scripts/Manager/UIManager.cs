@@ -71,7 +71,7 @@ namespace UK.Manager.UI
             });
 
             SetDeckShowButton(() => {
-                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                Dictionary<string, Action> actions = new Dictionary<string, Action>();
                 actions.Add(CommonPopup.DECISION_BUTTON_EVENT, () => {});
                 actions.Add(CommonPopup.CANCEL_BUTTON_EVENT, () => {});
                 PopupManager.Instance.SetDeckCardViewPopup(

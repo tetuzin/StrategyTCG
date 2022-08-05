@@ -24,7 +24,7 @@ namespace UK.CpuCtrl
         // ---------- インスタンス変数宣言 ----------
 
         private bool _isPlayer = default;
-        private UnityAction _attackAction = default;
+        private Action _attackAction = default;
 
         private int _debugValue = default;
         

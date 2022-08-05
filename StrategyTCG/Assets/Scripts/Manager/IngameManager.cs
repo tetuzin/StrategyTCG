@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -62,7 +62,7 @@ namespace UK.Manager.Ingame
         // ---------- Public関数 ----------
         
         // 攻撃処理の取得
-        public UnityAction GetAttackAction(bool isPlayer)
+        public Action GetAttackAction(bool isPlayer)
         {
             return isPlayer ? AttackPlayer : AttackOpponent;
         }
@@ -145,14 +145,14 @@ namespace UK.Manager.Ingame
             if (!_playerUnit.IsDeath)
             {
                 bool isRematch = false;
-                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                Dictionary<string, Action> actions = new Dictionary<string, Action>();
                 PopupManager.Instance.SetResultLosePopup(isRematch, actions);
                 PopupManager.Instance.ShowResultLosePopup();
             }
             else
             {
                 bool isRematch = false;
-                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                Dictionary<string, Action> actions = new Dictionary<string, Action>();
                 PopupManager.Instance.SetResultWinPopup(isRematch, actions);
                 PopupManager.Instance.ShowResultWinPopup();
             }
@@ -293,7 +293,7 @@ namespace UK.Manager.Ingame
         private void decisionIsFirst()
         {
             // TODO 確定した先手後手を画面上に大きく描画する
-            bool isFirst = Random.Range(0, 2) == 0;
+            bool isFirst = UnityEngine.Random.Range(0, 2) == 0;
             _isFirst = isFirst;
         }
 

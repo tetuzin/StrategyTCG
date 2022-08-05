@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -490,7 +490,7 @@ namespace UK.Unit.Card
         // カード使用（消費）
         private void UseCardConsumption()
         {
-            Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+            Dictionary<string, Action> actions = new Dictionary<string, Action>();
             actions.Add(
                 Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                 () => {

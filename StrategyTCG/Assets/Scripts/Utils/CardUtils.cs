@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Ch120.Const.Game;
 using UnityEngine;
@@ -94,7 +95,7 @@ namespace UK.Utils.Card
             // 能力使用確認（任意能力用）
             if (CheckSelectEffectTrigger((TriggerType)model.EffectTriggerType))
             {
-                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                Dictionary<string, Action> actions = new Dictionary<string, Action>();
                 actions.Add(
                     Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                     () => {
@@ -335,7 +336,7 @@ namespace UK.Utils.Card
                     };
                     EffectActionByUserType((bool b) =>
                     {
-                        Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                        Dictionary<string, Action> actions = new Dictionary<string, Action>();
                         PopupManager.Instance.SetDeckCardViewPopup(
                             CardManager.Instance.GetCardBattleField(b).GetDeckUnit(),
                             actions,

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -232,7 +233,7 @@ namespace UK.Popup.DeckCardView
                         {
                             text = "あと" +  (_selectCardNum - num) + "枚選択してください。";
                         }
-                        PopupManager.Instance.SetSimpleTextPopup(text, new Dictionary<string, UnityAction>());
+                        PopupManager.Instance.SetSimpleTextPopup(text, new Dictionary<string, Action>());
                         PopupManager.Instance.ShowSimpleTextPopup();
                     }
                 }
@@ -243,7 +244,7 @@ namespace UK.Popup.DeckCardView
                 if (_selectCardNum != default)
                 {
                     // 選択を本当にやめるか確認するポップアップを表示する
-                    Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                    Dictionary<string, Action> actions = new Dictionary<string, Action>();
                     actions.Add(
                         Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                         () =>

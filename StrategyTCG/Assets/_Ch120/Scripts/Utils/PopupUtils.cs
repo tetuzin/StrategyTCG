@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +32,7 @@ namespace Ch120.Utils.Popup
         public static void OpenPopup(
             GameObject canvas,
             GameObject popupPrefab,
-            Dictionary<string, UnityAction> actions,
+            Dictionary<string, Action> actions,
             dynamic param
             )
         {
@@ -51,7 +51,7 @@ namespace Ch120.Utils.Popup
             obj.transform.SetParent(canvas.transform);
 
             // コールバックがないなら初期化
-            if (actions == null) { actions = new Dictionary<string, UnityAction>(); }
+            if (actions == null) { actions = new Dictionary<string, Action>(); }
 
             // Popup表示
             popup.InitPopup(actions, param);

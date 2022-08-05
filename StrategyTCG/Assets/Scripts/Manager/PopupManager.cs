@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -39,7 +40,7 @@ namespace UK.Manager.Popup
         }
 
         // カード消費ポップアップ設定
-        public void SetConsumptionPopup(CardMainModel model, Dictionary<string, UnityAction> actions)
+        public void SetConsumptionPopup(CardMainModel model, Dictionary<string, Action> actions)
         {
             string cardTypeName = UK.Utils.Card.CardUtils.GetCardTypeName(model.CardType);
             string text = cardTypeName + "カード[" + model.CardName + "]を使用しますか？";
@@ -59,7 +60,7 @@ namespace UK.Manager.Popup
         }
 
         // カード効果発動確認ポップアップ設定
-        public void SetCheckEffectPopup(CardMainModel model, Dictionary<string, UnityAction> actions)
+        public void SetCheckEffectPopup(CardMainModel model, Dictionary<string, Action> actions)
         {
             string text = "[" + model.CardName + "]のカード効果を発動しますか？";
             var parameter = new {
@@ -78,7 +79,7 @@ namespace UK.Manager.Popup
         }
 
         // 山札カード一覧ポップアップ設定
-        public void SetDeckCardViewPopup(DeckUnit deckUnit, Dictionary<string, UnityAction> actions, dynamic popupParam)
+        public void SetDeckCardViewPopup(DeckUnit deckUnit, Dictionary<string, Action> actions, dynamic popupParam)
         {
             var parameter = new {
                 titleText = "山札カード一覧",
@@ -96,7 +97,7 @@ namespace UK.Manager.Popup
         }
 
         // シンプルテキストポップアップ設定
-        public void SetSimpleTextPopup(string text, Dictionary<string, UnityAction> actions = null)
+        public void SetSimpleTextPopup(string text, Dictionary<string, Action> actions = null)
         {
             var parameter = new {
                 mainText = text
@@ -111,7 +112,7 @@ namespace UK.Manager.Popup
         }
         
         // 効果発動キャンセルポップアップ設定
-        public void SetEffectCancelPopup(Dictionary<string, UnityAction> actions)
+        public void SetEffectCancelPopup(Dictionary<string, Action> actions)
         {
             var parameter = new {
                 titleText = "効果発動確認",
@@ -129,7 +130,7 @@ namespace UK.Manager.Popup
         }
         
         // 勝利ポップアップ設定
-        public void SetResultWinPopup(bool isRematchBool, Dictionary<string, UnityAction> actions)
+        public void SetResultWinPopup(bool isRematchBool, Dictionary<string, Action> actions)
         {
             var parameter = new {
                 isRematch = isRematchBool
@@ -144,7 +145,7 @@ namespace UK.Manager.Popup
         }
         
         // 敗北ポップアップ設定
-        public void SetResultLosePopup(bool isRematchBool, Dictionary<string, UnityAction> actions)
+        public void SetResultLosePopup(bool isRematchBool, Dictionary<string, Action> actions)
         {
             var parameter = new {
                 isRematch = isRematchBool

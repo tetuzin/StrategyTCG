@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +28,7 @@ namespace Ch120.Popup
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
-        protected Dictionary<string, UnityAction> _actions = default;
+        protected Dictionary<string, Action> _actions = default;
         protected bool _isOpen = default;
         protected GameObject _modal = default;
         protected Button _modalBtn = default;
@@ -38,8 +38,9 @@ namespace Ch120.Popup
 
         // 初期化
         public void InitPopup(
-            Dictionary<string, UnityAction> actions,
-            dynamic param = null
+            Dictionary<string, Action> actions = null,
+            dynamic param = null,
+            Canvas canvas = null
             )
         {
             gameObject.name = gameObject.name.Replace( "(Clone)", "" );
@@ -81,7 +82,7 @@ namespace Ch120.Popup
         }
         
         // モーダルボタンの設定
-        public void SetModalEvent(UnityAction action)
+        public void SetModalEvent(Action action)
         {
             if (_modalBtn == default) return;
             
@@ -95,9 +96,16 @@ namespace Ch120.Popup
         // ---------- Private関数 ----------
 
         // コールバックを設定
-        void SetActions(Dictionary<string, UnityAction> actions)
+        void SetActions(Dictionary<string, Action> actions)
         {
-            _actions = actions;
+            if (actions == null)
+            {
+                _actions = new Dictionary<string, Action>();
+            }
+            else
+            {
+                _actions = actions;
+            }
         }
 
         // モーダルの設定
@@ -129,7 +137,7 @@ namespace Ch120.Popup
         protected virtual void SetData(dynamic param) {}
 
         // コールバックの取得
-        protected UnityAction GetAction(string key)
+        protected Action GetAction(string key)
         {
             if (_actions.ContainsKey(key)) { return _actions[key]; }
             
