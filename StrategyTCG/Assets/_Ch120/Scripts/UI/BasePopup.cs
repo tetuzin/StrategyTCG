@@ -28,10 +28,10 @@ namespace Ch120.Popup
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
-        private Dictionary<string, UnityAction> _actions = default;
-        private bool _isOpen = default;
-        private GameObject _modal = default;
-        private Button _modalBtn = default;
+        protected Dictionary<string, UnityAction> _actions = default;
+        protected bool _isOpen = default;
+        protected GameObject _modal = default;
+        protected Button _modalBtn = default;
         
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
@@ -49,11 +49,11 @@ namespace Ch120.Popup
         }
 
         // ポップアップを開く
-        public void Open()
+        public virtual void Open(bool isModal = true)
         {
             if (!_isOpen)
             {
-                SetModal();
+                SetModal(isModal);
                 _isOpen = true;
                 modalObject.SetActive(true);
                 popupObject.SetActive(true);
@@ -101,7 +101,7 @@ namespace Ch120.Popup
         }
 
         // モーダルの設定
-        void SetModal(bool isModal = false)
+        void SetModal(bool isModal = true)
         {
             // モーダルが無ければ何もしない
             if (modalObject == null) { return; }
@@ -112,7 +112,7 @@ namespace Ch120.Popup
             // モーダルにポップアップ閉じる処理を設定
             Button button = _modal.GetComponent<Button>();
             _modalBtn = button;
-            if (!isModal)
+            if (isModal)
             {
                 SetModalEvent(Close);
             }

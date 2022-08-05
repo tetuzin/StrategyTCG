@@ -120,6 +120,14 @@ namespace UK.Unit.Player
             get { return _isPlayer; }
         }
 
+        public bool IsDeath
+        {
+            get
+            {
+                return _curHp <= 0;
+            }
+        }
+
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 

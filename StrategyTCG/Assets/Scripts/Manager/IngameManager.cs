@@ -14,6 +14,7 @@ using UK.Model.CardMain;
 using UK.Dao;
 using UK.Unit.Player;
 using UK.CpuCtrl;
+using UK.Manager.Popup;
 
 namespace UK.Manager.Ingame
 {
@@ -139,8 +140,22 @@ namespace UK.Manager.Ingame
         // ゲーム終了
         private void EndGame()
         {
-            // TODO
             Debug.Log("EndGame");
+
+            if (!_playerUnit.IsDeath)
+            {
+                bool isRematch = false;
+                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                PopupManager.Instance.SetResultLosePopup(isRematch, actions);
+                PopupManager.Instance.ShowResultLosePopup();
+            }
+            else
+            {
+                bool isRematch = false;
+                Dictionary<string, UnityAction> actions = new Dictionary<string, UnityAction>();
+                PopupManager.Instance.SetResultWinPopup(isRematch, actions);
+                PopupManager.Instance.ShowResultWinPopup();
+            }
         }
 
         // 自分のターン開始
@@ -198,7 +213,14 @@ namespace UK.Manager.Ingame
             UIManager.Instance.SetActiveTurnEndButton(false);
             UIManager.Instance.SetActiveHandGroup(false);
 
-            StartOpponentTurn();
+            if (_playerUnit.IsDeath || _opponentUnit.IsDeath)
+            {
+                EndGame();
+            }
+            else
+            {
+                StartOpponentTurn();
+            }
         }
 
         // 相手のターン開始
@@ -256,8 +278,15 @@ namespace UK.Manager.Ingame
             // TODO ターンエンドアニメーション
 
             UpdateCurTurn();
-
-            StartPlayerTurn();
+            
+            if (_playerUnit.IsDeath || _opponentUnit.IsDeath)
+            {
+                EndGame();
+            }
+            else
+            {
+                StartPlayerTurn();
+            }
         }
 
         // プレイヤーの先手後手を決める

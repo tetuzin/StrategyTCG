@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,10 +6,10 @@ using Ch120.Singleton;
 using Ch120.Popup.Common;
 using Ch120.Popup.Simple;
 
-using UK.Const.Card.Type;
 using UK.Model.CardMain;
-using UK.Popup.DeckCardView;
 using UK.Unit.Deck;
+using UK.Popup.DeckCardView;
+using UK.Popup.Result;
 
 namespace UK.Manager.Popup
 {
@@ -23,6 +22,8 @@ namespace UK.Manager.Popup
         [SerializeField, Tooltip("カード効果発動確認ポップアップ")] private CommonPopup _checkEffectPopup = default;
         [SerializeField, Tooltip("山札カード一覧ポップアップ")] private DeckCardViewPopup _deckCardViewPopup = default;
         [SerializeField, Tooltip("シンプルテキストポップアップ")] private SimpleTextPopup _simpleTextPopup = default;
+        [SerializeField, Tooltip("勝利ポップアップ")] private ResultPopup _resultWinPopup = default;
+        [SerializeField, Tooltip("敗北ポップアップ")] private ResultPopup _resultLosePopup = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -73,7 +74,7 @@ namespace UK.Manager.Popup
         // 山札カード一覧ポップアップ表示
         public void ShowDeckCardViewPopup()
         {
-            _deckCardViewPopup.Open();
+            _deckCardViewPopup.Open(isModal:false);
         }
 
         // 山札カード一覧ポップアップ設定
@@ -119,6 +120,36 @@ namespace UK.Manager.Popup
                 cancelText = "発動続行"
             };
             _consumptionPopup.InitPopup(actions, parameter);
+        }
+        
+        // 勝利ポップアップ表示
+        public void ShowResultWinPopup()
+        {
+            _resultWinPopup.Open(isModal:false);
+        }
+        
+        // 勝利ポップアップ設定
+        public void SetResultWinPopup(bool isRematchBool, Dictionary<string, UnityAction> actions)
+        {
+            var parameter = new {
+                isRematch = isRematchBool
+            };
+            _resultWinPopup.InitPopup(actions, parameter);
+        }
+        
+        // 敗北ポップアップ表示
+        public void ShowResultLosePopup()
+        {
+            _resultLosePopup.Open(isModal:false);
+        }
+        
+        // 敗北ポップアップ設定
+        public void SetResultLosePopup(bool isRematchBool, Dictionary<string, UnityAction> actions)
+        {
+            var parameter = new {
+                isRematch = isRematchBool
+            };
+            _resultLosePopup.InitPopup(actions, parameter);
         }
 
         // ---------- Private関数 ----------
