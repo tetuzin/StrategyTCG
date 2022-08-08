@@ -14,6 +14,7 @@ using UK.Model.CardMain;
 using UK.Model.EffectMain;
 using UK.Model.EffectGroup;
 using UK.Model.EffectAbility;
+using UK.Model.CountryMain;
 
 using UK.Dao;
 
@@ -712,6 +713,13 @@ namespace UK.Utils.Card
                 default:
                     return "未分類";
             }
+        }
+        
+        // カードの国名を取得
+        public static string GetCardCountryName(int countryId)
+        {
+            CountryMainModel model = ((CountryMainDao)MasterManager.Instance.GetDao("CountryMainDao")).GetModelById(countryId);
+            return model.CountryName;
         }
 
         // カード効果発動が任意かどうか

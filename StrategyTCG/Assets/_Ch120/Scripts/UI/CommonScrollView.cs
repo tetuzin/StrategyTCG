@@ -60,7 +60,7 @@ namespace Ch120.ScrollView
         }
 
         // 縦スクロールの位置設定
-        public void SetVerticalPosition(float position = 0.0f)
+        public void SetVerticalPosition(float position = 1.0f)
         {
             _scrollRect.verticalNormalizedPosition = position;
         }

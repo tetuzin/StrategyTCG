@@ -7,6 +7,7 @@ using TMPro;
 using DG.Tweening;
 
 using Ch120.Utils.Resource;
+using Ch120.Utils.Popup;
 using Ch120.UI.CommonBtn;
 
 using UK.Const.Game;
@@ -21,7 +22,7 @@ using UK.Manager.Popup;
 
 using UK.Model.CardMain;
 using UK.Model.EffectMain;
-
+using UK.Popup.CardDetail;
 using UK.Unit.Player;
 using UK.Unit.Place;
 using UK.Unit.Effect;
@@ -47,6 +48,7 @@ namespace UK.Unit.Card
         [SerializeField, Tooltip("カード選択時フレーム")] private Image _cardSelectFrame = default;
         [SerializeField, Tooltip("カード選択用ボタン")] private CommonButton _cardCommonBtn = default;
         [SerializeField, Tooltip("カードグレーアウト用画像")] private GameObject _cardGrayOutImage = default;
+        [SerializeField, Tooltip("カード詳細ポップアップ")] private CardDetailPopup _cardDetailPopup = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -398,7 +400,12 @@ namespace UK.Unit.Card
         {
             _cardCommonBtn.SetOnDownEvent(() =>
             {
-                Debug.Log("!!!!!!!");
+                PopupUtils.OpenPopup(
+                    UIManager.Instance.GetCanvas().gameObject,
+                    _cardDetailPopup.gameObject,
+                    null,
+                    new { cardMainModel = _cardModel }
+                );
             });
         }
 
