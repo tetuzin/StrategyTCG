@@ -16,20 +16,23 @@ namespace Ch120.Manager.Popup
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         [Header("キャンバス")]
-        [SerializeField] private List<Canvas> _canvasList = new List<Canvas>();
+        [SerializeField] protected List<Canvas> _canvasList = new List<Canvas>();
         
         [Header("テキスト")]
-        [SerializeField] private List<TextMeshProUGUI> _textList = new List<TextMeshProUGUI>();
+        [SerializeField] protected List<TextMeshProUGUI> _textList = new List<TextMeshProUGUI>();
         
         [Header("ボタン")]
-        [SerializeField] private List<Button> _buttonList = new List<Button>();
+        [SerializeField] protected List<Button> _buttonList = new List<Button>();
+        
+        [Header("画像")]
+        [SerializeField] protected List<Image> _imageList = new List<Image>();
         
         [Header("キャンバスグループ")]
-        [SerializeField] private List<CanvasGroup> _canvasGroupList = new List<CanvasGroup>();
+        [SerializeField] protected List<CanvasGroup> _canvasGroupList = new List<CanvasGroup>();
         
         [Header("ポップアップ")]
-        [SerializeField, Tooltip("ポップアップ生成時の親オブジェクト")] private GameObject _popupParent = default;
-        [SerializeField] private List<BasePopup> _PopupList = new List<BasePopup>();
+        [SerializeField, Tooltip("ポップアップ生成時の親オブジェクト")] protected GameObject _popupParent = default;
+        [SerializeField] protected List<BasePopup> _PopupList = new List<BasePopup>();
         
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -78,6 +81,20 @@ namespace Ch120.Manager.Popup
             if (!IsBounds(index, _buttonList.Count)) return;
             _buttonList[index].onClick.RemoveAllListeners();
             _buttonList[index].onClick.AddListener(action);
+        }
+        
+        // 画像の表示・非表示
+        public void SetImageActive(int index, bool isActive)
+        {
+            if (!IsBounds(index, _imageList.Count)) return;
+            _imageList[index].gameObject.SetActive(isActive);
+        }
+        
+        // 画像色の変更
+        public void SetImageColor(int index, Color color)
+        {
+            if (!IsBounds(index, _imageList.Count)) return;
+            _imageList[index].color = color;
         }
         
         // キャンバスグループの表示・非表示

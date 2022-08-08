@@ -7,12 +7,13 @@ using TMPro;
 using DG.Tweening;
 
 using Ch120.Utils.Resource;
+using Ch120.UI.CommonBtn;
 
 using UK.Const.Game;
 using UK.Const.Card.UseType;
 using UK.Const.Ability;
 using UK.Const.Card.Type;
-
+using UK.Const.Effect;
 using UK.Manager.Ingame;
 using UK.Manager.Card;
 using UK.Manager.UI;
@@ -44,7 +45,7 @@ namespace UK.Unit.Card
         [SerializeField, Tooltip("カード種別アイコン配列")] private GameObject[] _cardTypeIcons = default;
         [SerializeField, Tooltip("カード背面画像")] private GameObject _cardBackImage = default;
         [SerializeField, Tooltip("カード選択時フレーム")] private Image _cardSelectFrame = default;
-        [SerializeField, Tooltip("カード選択用ボタン")] private Button _cardButton = default;
+        [SerializeField, Tooltip("カード選択用ボタン")] private CommonButton _cardCommonBtn = default;
         [SerializeField, Tooltip("カードグレーアウト用画像")] private GameObject _cardGrayOutImage = default;
 
         // ---------- プレハブ ----------
@@ -162,11 +163,8 @@ namespace UK.Unit.Card
             SetHpText(_curHp);
             SetCostText(_curAtk);
 
-            if (CheckOperationPlayer())
-            {
-                // カードボタン処理初期化
-                InitSelectButtonEvent();
-            }
+            // カードボタン処理初期化
+            InitSelectButtonEvent();
             
             _cardSelectFrame.gameObject.SetActive(false);
             _cardGrayOutImage.SetActive(false);
@@ -346,12 +344,28 @@ namespace UK.Unit.Card
         // カード選択ボタンの初期化
         public void InitSelectButtonEvent()
         {
-            SetSelectButtonEvent(OnClickSelectCard);
+            if (CheckOperationPlayer())
+            {
+                _cardCommonBtn.SetOnEvent(OnClickSelectCard);
+            }
+            _cardCommonBtn.SetOnDownEvent(OnDownSelectCard);
         }
         
         // カード選択処理
         public void OnClickSelectCard()
         {
+            // プレイヤーは自分のターンでしかカードを選択できない
+            if (_isPlayer == GameConst.PLAYER)
+            {
+                if (IngameManager.Instance.CurTiming != TimingType.TURN_PLAYER) return;
+            }
+
+            // 相手は相手のターンでしかカードを選択できない
+            if (_isPlayer == GameConst.OPPONENT)
+            {
+                if (IngameManager.Instance.CurTiming != TimingType.TURN_OPPONENT) return;
+            }
+            
             // 選択中のカードがあるか
             if (!CardManager.Instance.IsSelect())
             {
@@ -378,12 +392,21 @@ namespace UK.Unit.Card
                 }
             }
         }
+        
+        // カード選択ボタン長押し時のイベント
+        public void OnDownSelectCard()
+        {
+            _cardCommonBtn.SetOnDownEvent(() =>
+            {
+                Debug.Log("!!!!!!!");
+            });
+        }
 
         // 簡易選択用ボタンイベントの設定
         public void SetSelectButtonEvent(UnityAction action)
         {
-            _cardButton.onClick.RemoveAllListeners();
-            _cardButton.onClick.AddListener(() => {
+            _cardCommonBtn.SetOnEvent(() =>
+            {
                 action();
             });
         }
@@ -397,13 +420,14 @@ namespace UK.Unit.Card
         // カードボタンの活性化・非活性化
         public void SetActiveCardButton(bool b)
         {
-            _cardButton.gameObject.SetActive(b);
+            _cardCommonBtn.SetOnActive(b);
+            // _cardCommonBtn.gameObject.SetActive(b);
         }
 
         // カードボタンのイベントを削除
         public void SetRemoveCardButtonEvent()
         {
-            _cardButton.onClick.RemoveAllListeners();
+            _cardCommonBtn.RemoveOnEvent();
         }
 
         // カード背面画像の表示を設定
@@ -456,11 +480,11 @@ namespace UK.Unit.Card
                     _isSelect = false;
                     CardManager.Instance.IsSelectCardUnit = null;
                     gameObject.transform.localPosition = position;
-                    _cardButton.gameObject.SetActive(true);
+                    _cardCommonBtn.gameObject.SetActive(true);
                 });
                 UIManager.Instance.SetHandButtonActive(true);
-            
-                _cardButton.gameObject.SetActive(false);
+                
+                _cardCommonBtn.gameObject.SetActive(false);
                 _isSelect = true;
             }
             else

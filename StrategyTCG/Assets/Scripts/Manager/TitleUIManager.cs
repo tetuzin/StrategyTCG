@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 using Ch120.Manager.Popup;
 
@@ -19,6 +20,11 @@ namespace UK.Manager.TitleUI
         public const int DECK_LIST = 7;         // デッキリストボタン
         public const int GAME_EXIT = 8;         // ゲーム終了ボタン
         public const int BACK = 9;              // もどるボタン
+    }
+    
+    public class TitleImageType
+    {
+        public const int TITLE = 0;             // タイトル画像
     }
 
     public class TitleCanvasGroupType
@@ -49,11 +55,17 @@ namespace UK.Manager.TitleUI
         {
             base.Initialize();
             
+            // 戻るボタンの非表示
             SetButtonActive(TitleButtonType.BACK, false);
             
+            // キャンバスグループの初期設定
             SetCanvasGroupActive(TitleCanvasGroupType.TITLE, true);
             SetCanvasGroupActive(TitleCanvasGroupType.BATTLE_MENU, false);
             SetCanvasGroupActive(TitleCanvasGroupType.CARD_MENU, false);
+            
+            _imageList[TitleImageType.TITLE].gameObject.transform.DOScale(
+                new Vector3(1.1f, 1.1f, 1.1f), 2.0f).SetLoops(-1,LoopType.Yoyo
+            );
             
             // 対戦メニューボタンのイベント設定
             SetButtonEvent(TitleButtonType.BATTLE_MENU, () =>

@@ -515,6 +515,8 @@ MonoBehaviour:
   - {fileID: 1606841653}
   - {fileID: 606320642}
   - {fileID: 30457013}
+  _imageList:
+  - {fileID: 1006080785}
   _canvasGroupList:
   - {fileID: 737569413}
   - {fileID: 56305219}
