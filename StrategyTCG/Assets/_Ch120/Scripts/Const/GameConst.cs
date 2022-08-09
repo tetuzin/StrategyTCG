@@ -1,4 +1,4 @@
-namespace _Ch120.Const.Game
+namespace Ch120.Const.Game
 {
     public class GameConst
     {

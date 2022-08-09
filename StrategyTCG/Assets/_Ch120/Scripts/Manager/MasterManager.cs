@@ -10,21 +10,18 @@ namespace Ch120.Manager.Master
     public class MasterManager : SingletonMonoBehaviour<MasterManager>
     {
         // ---------- 定数宣言 ----------
-
-        // TODO
-        // Daoクラスの名前リスト（新しく作成したDaoクラスはここに記述する）
-        private static readonly string[] DAO_CLASS_NAME = {
+        
+        // TODO Daoクラスの名前リスト（新しく作成したDaoクラスはここに記述する）
+        protected static readonly string[] DAO_CLASS_NAME = {
             "CardMainDao",
             "CountryMainDao",
             "EffectMainDao",
             "EffectAbilityDao",
             "EffectGroupDao",
         };
-
-        // TODO
-        // Daoクラスの名前空間
-        private readonly string DAO_CLASS_NAMESPACE = "UK.Dao.";
-
+        
+        // TODO Daoクラスの名前空間
+        protected readonly string DAO_CLASS_NAMESPACE = "UK.Dao.";
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -45,21 +42,33 @@ namespace Ch120.Manager.Master
         {
             InitializeMaster();
         }
-
+        
+        // ---------- Private関数 ----------
+        // ---------- protected関数 ---------
+        
         // マスタ配列の初期化
-        public void InitializeMaster()
+        protected void InitializeMaster()
         {
             _daoDict = new Dictionary<string, BaseDao>();
-            foreach (string daoName in DAO_CLASS_NAME)
+            foreach (string daoName in GetDaoClassNameList())
             {
-                Type daoType = Type.GetType(DAO_CLASS_NAMESPACE + daoName, true);
+                Type daoType = Type.GetType(GetDaoClassNamespace() + daoName, true);
                 BaseDao dao = (BaseDao)Activator.CreateInstance(daoType);
                 dao.LoadJsonMasterList();
                 _daoDict.Add(daoName, dao);
             }
         }
-
-        // ---------- Private関数 ----------
-        // ---------- protected関数 ---------
+        
+        // DAOクラス名の配列を返す
+        protected string[] GetDaoClassNameList()
+        {
+            return DAO_CLASS_NAME;
+        }
+        
+        // DAOクラスの名前空間を返す
+        protected string GetDaoClassNamespace()
+        {
+            return DAO_CLASS_NAMESPACE;
+        }
     }
 }

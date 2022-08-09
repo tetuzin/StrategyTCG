@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ch120.Manager.Audio;
 using UnityEngine;
 
 using Ch120.Singleton;
@@ -18,6 +19,12 @@ namespace Ch120.Game
         private const string SCENE_NAME = "TitleScene";
         
         // ---------- ゲームオブジェクト参照変数宣言 ----------
+
+        [Header("マネージャー")] 
+        [SerializeField] protected MasterManager _masterManager = default;
+        [SerializeField] protected UserManager _userManager = default;
+        [SerializeField] protected AudioManager _audioManager = default;
+        
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
 
@@ -45,8 +52,9 @@ namespace Ch120.Game
         // 起動時の初期設定
         private void Initialize()
         {
-            MasterManager.Instance.Initialize();
-            UserManager.Instance.Initialize();
+            if (_masterManager != default) _masterManager.Initialize();
+            if (_userManager != default) _userManager.Initialize();
+            if (_audioManager != default) _audioManager.Initialize();
             _isInitialize = true;
             SceneLoadManager.Instance.TransitionScene(SCENE_NAME);
         }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Ch120.Const.Audio;
+using Ch120.Manager.Audio;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
@@ -51,6 +53,9 @@ namespace UK.Manager.Title
             {
                 OnClickCpuBattle();
             });
+            
+            AudioManager.Instance.SetSEAudioFile(AudioConst.SE_KEY_CLICK_BUTTON, AudioConst.SE_PATH_CLICK_BUTTON);
+            AudioManager.Instance.SetSEAudioFile(AudioConst.SE_KEY_HOVER_BUTTON, AudioConst.SE_PATH_HOVER_BUTTON);
         }
 
         // デッキ選択ポップアップの表示

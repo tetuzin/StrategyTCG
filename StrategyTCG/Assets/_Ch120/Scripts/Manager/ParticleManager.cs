@@ -2,7 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using _Ch120.Const.Game;
+using Ch120.Const.Game;
 using UnityEngine;
 
 using Ch120.Singleton;
