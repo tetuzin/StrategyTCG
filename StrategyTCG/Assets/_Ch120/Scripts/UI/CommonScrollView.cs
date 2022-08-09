@@ -26,7 +26,7 @@ namespace Ch120.ScrollView
         // 初期化
         public void Initialize()
         {
-            AllRemove();
+            // AllRemove();
             SetVerticalPosition();
             SetHorizontalPosition();
         }

@@ -40,7 +40,7 @@ namespace Ch120.Singleton
 
         // ---------- Unity組込関数 ----------
 
-        virtual protected void Awake()
+        protected virtual void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
             CheckInstance();
@@ -53,7 +53,7 @@ namespace Ch120.Singleton
         // コンストラクタ
         protected SingletonMonoBehaviour() {}
 
-        virtual protected void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (Instance == this)
             {
@@ -61,7 +61,7 @@ namespace Ch120.Singleton
             }
         }
 
-        virtual protected bool CheckInstance()
+        protected virtual bool CheckInstance()
         {
             if (_instance == null)
             {

@@ -524,6 +524,7 @@ MonoBehaviour:
   _popupParent: {fileID: 785830855}
   _PopupList:
   - {fileID: 6360852931437952228, guid: 1b27daf76482c3147ac21e4c6546bf1a, type: 3}
+  - {fileID: 1123540482448734322, guid: 0e954e0a1ebe69949abda67e12c5684c, type: 3}
 --- !u!1 &353288570
 GameObject:
   m_ObjectHideFlags: 0

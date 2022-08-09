@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-using Ch120.Popup;
+using Ch120.UI.CommonBtn;
 
 namespace Ch120.Popup.Common
 {
@@ -19,8 +20,8 @@ namespace Ch120.Popup.Common
 
         // ---------- ゲームオブジェクト参照変数宣言 ----------
 
-        [SerializeField, Tooltip("決定ボタン")] private Button _decisionButton = default;
-        [SerializeField, Tooltip("キャンセルボタン")] private Button _cancelButton = default;
+        [SerializeField, Tooltip("決定ボタン")] private CommonButton _decisionButton = default;
+        [SerializeField, Tooltip("キャンセルボタン")] private CommonButton _cancelButton = default;
         [SerializeField, Tooltip("タイトルテキスト")] private TextMeshProUGUI _titleText;
         [SerializeField, Tooltip("メインテキスト")] private TextMeshProUGUI _mainText;
         [SerializeField, Tooltip("決定ボタンテキスト")] private TextMeshProUGUI _decisionText;
@@ -73,8 +74,7 @@ namespace Ch120.Popup.Common
         {
             if (_decisionButton != default)
             {
-                _decisionButton.onClick.RemoveAllListeners();
-                _decisionButton.onClick.AddListener(() => {
+                _decisionButton.SetOnEvent(() => {
                     Action action = GetAction(DECISION_BUTTON_EVENT);
                     action();
                     Close();
@@ -83,8 +83,7 @@ namespace Ch120.Popup.Common
             
             if (_cancelButton != default)
             {
-                _cancelButton.onClick.RemoveAllListeners();
-                _cancelButton.onClick.AddListener(() => {
+                _cancelButton.SetOnEvent(() => {
                     Action action = GetAction(CANCEL_BUTTON_EVENT);
                     action();
                     Close();
@@ -95,20 +94,19 @@ namespace Ch120.Popup.Common
         // データの設定
         protected override void SetData(dynamic param)
         {
-            // データの初期化
-            var paramter = new {
-                titleText = "title",
-                mainText = "Please select...",
-                decisionText = "OK",
-                cancelText = "Cancel"
+            var parameter = new
+            {
+                titleText = param.titleText,
+                mainText = param.mainText,
+                decisionText = param.decisionText,
+                cancelText = param.cancelText
             };
-            paramter = param;
-
+            
             // 各種取得データの設定
-            SetTitleText(paramter.titleText);
-            SetMainText(paramter.mainText);
-            SetDecisionText(paramter.decisionText);
-            SetCancelText(paramter.cancelText);
+            SetTitleText(parameter.titleText);
+            SetMainText(parameter.mainText);
+            SetDecisionText(parameter.decisionText);
+            SetCancelText(parameter.cancelText);
         }
     }
 }

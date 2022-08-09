@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ch120.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -43,6 +44,7 @@ namespace Ch120.Popup
             )
         {
             gameObject.name = gameObject.name.Replace( "(Clone)", "" );
+            Initialize();
             SetActions(actions);
             SetData(param);
             SetButtonEvents();
@@ -126,12 +128,15 @@ namespace Ch120.Popup
         }
 
         // ---------- protected関数 ---------
+        
+        // 初期化
+        protected virtual void Initialize() { }
 
         // ボタンの処理を設定
-        protected virtual void SetButtonEvents(){}
+        protected virtual void SetButtonEvents() { }
 
         // データの設定
-        protected virtual void SetData(dynamic param) {}
+        protected virtual void SetData(dynamic param) { }
 
         // コールバックの取得
         protected Action GetAction(string key)

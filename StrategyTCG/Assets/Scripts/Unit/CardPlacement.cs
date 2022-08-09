@@ -9,6 +9,7 @@ using UK.Unit.Card;
 using UK.Unit.Card3D;
 using UK.Const.Game;
 using UK.Const.Card.Type;
+using UK.Manager.Particle;
 
 namespace UK.Unit.Place
 {
@@ -91,6 +92,8 @@ namespace UK.Unit.Place
             _card3DUnit.gameObject.transform.localRotation = Quaternion.Euler(90.0f, -90.0f, 0.0f);
             _card3DUnit.gameObject.transform.localScale = new Vector3(0.14f, 0.14f, 1.0f);
             _card3DUnit.GetCardUnit().Placement(this);
+
+            IngameParticleManager.Instance.CreateParticle(ParticleType.CARD_PLACEMENT, gameObject.transform.position, Quaternion.identity);
             
             _isPlacement = true;
         }
