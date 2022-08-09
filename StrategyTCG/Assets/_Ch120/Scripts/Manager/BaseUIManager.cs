@@ -7,11 +7,12 @@ using TMPro;
 
 using Ch120.Singleton;
 using Ch120.Popup;
+using Ch120.UI.CommonBtn;
 using Ch120.Utils.Popup;
 
 namespace Ch120.Manager.Popup
 {
-    public class BaseUIManager : SingletonMonoBehaviour<BaseUIManager>
+    public class BaseUIManager<T> : SingletonMonoBehaviour<T> where T : MonoBehaviour
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
@@ -22,7 +23,7 @@ namespace Ch120.Manager.Popup
         [SerializeField] protected List<TextMeshProUGUI> _textList = new List<TextMeshProUGUI>();
         
         [Header("ボタン")]
-        [SerializeField] protected List<Button> _buttonList = new List<Button>();
+        [SerializeField] protected List<CommonButton> _buttonList = new List<CommonButton>();
         
         [Header("画像")]
         [SerializeField] protected List<Image> _imageList = new List<Image>();
@@ -79,8 +80,10 @@ namespace Ch120.Manager.Popup
         public void SetButtonEvent(int index, UnityAction action)
         {
             if (!IsBounds(index, _buttonList.Count)) return;
-            _buttonList[index].onClick.RemoveAllListeners();
-            _buttonList[index].onClick.AddListener(action);
+            _buttonList[index].SetOnEvent(() =>
+            {
+                action();
+            });
         }
         
         // 画像の表示・非表示
@@ -160,21 +163,12 @@ namespace Ch120.Manager.Popup
         // 全ボタンの初期化
         private void InitButtons()
         {
-            foreach (Button button in _buttonList)
+            foreach (CommonButton button in _buttonList)
             {
-                button.onClick.RemoveAllListeners();
+                button.RemoveOnEvent();
             }
         }
-        
-        // 全ポップアップの初期化
-        private void InitPopup()
-        {
-            foreach (Button button in _buttonList)
-            {
-                button.onClick.RemoveAllListeners();
-            }
-        }
-        
+
         // indexが範囲内かチェック
         private bool IsBounds(int index, int count)
         {

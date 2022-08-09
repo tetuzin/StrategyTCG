@@ -398,15 +398,12 @@ namespace UK.Unit.Card
         // カード選択ボタン長押し時のイベント
         public void OnDownSelectCard()
         {
-            _cardCommonBtn.SetOnDownEvent(() =>
-            {
-                PopupUtils.OpenPopup(
-                    UIManager.Instance.GetCanvas().gameObject,
-                    _cardDetailPopup.gameObject,
-                    null,
-                    new { cardMainModel = _cardModel }
-                );
-            });
+            PopupUtils.OpenPopup(
+                UIManager.Instance.GetCanvas().gameObject,
+                _cardDetailPopup.gameObject,
+                null,
+                new { cardMainModel = _cardModel }
+            );
         }
 
         // 簡易選択用ボタンイベントの設定

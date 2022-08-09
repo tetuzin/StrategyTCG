@@ -90,7 +90,7 @@ namespace UK.Popup.DeckSelect
                     }
                     else
                     {
-                        TitleUIManager.Instance.CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "デッキを選択してください！"});
+                        TitleUIManager.Instance.ShowSimplePopup("デッキを選択してください！");
                     }
                 });
             }
