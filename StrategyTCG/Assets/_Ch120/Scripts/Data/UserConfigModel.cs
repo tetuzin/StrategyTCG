@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ch120.Model;
 
+using UK.Model.Deck;
+
 namespace Ch120.Model.User
 {
     [Serializable]
@@ -13,6 +15,8 @@ namespace Ch120.Model.User
         [SerializeField] private float volumeSE;
         [SerializeField] private float volumeBGM;
         [SerializeField] private int fps;
+        [SerializeField] private DeckModel playerDeck;
+        [SerializeField] private DeckModel opponentDeck;
         public int WindowWidth
         {
             get { return windowWidth; }
@@ -37,6 +41,16 @@ namespace Ch120.Model.User
         {
             get { return fps; }
             set { fps = value; }
+        }
+        public DeckModel PlayerDeck
+        {
+            get { return playerDeck; }
+            set { playerDeck = value; }
+        }
+        public DeckModel OpponentDeck
+        {
+            get { return opponentDeck; }
+            set { opponentDeck = value; }
         }
     }
 }

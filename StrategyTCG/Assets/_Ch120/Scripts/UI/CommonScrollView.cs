@@ -34,8 +34,8 @@ namespace Ch120.ScrollView
         // オブジェクトの追加
         public void AddContent(GameObject obj)
         {
-            obj.transform.SetParent(_content.transform);
             obj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            obj.transform.SetParent(_content.transform);
         }
         
         // オブジェクトの全削除

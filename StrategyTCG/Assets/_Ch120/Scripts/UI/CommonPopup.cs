@@ -20,12 +20,12 @@ namespace Ch120.Popup.Common
 
         // ---------- ゲームオブジェクト参照変数宣言 ----------
 
-        [SerializeField, Tooltip("決定ボタン")] private CommonButton _decisionButton = default;
-        [SerializeField, Tooltip("キャンセルボタン")] private CommonButton _cancelButton = default;
-        [SerializeField, Tooltip("タイトルテキスト")] private TextMeshProUGUI _titleText;
-        [SerializeField, Tooltip("メインテキスト")] private TextMeshProUGUI _mainText;
-        [SerializeField, Tooltip("決定ボタンテキスト")] private TextMeshProUGUI _decisionText;
-        [SerializeField, Tooltip("キャンセルボタンテキスト")] private TextMeshProUGUI _cancelText;
+        [SerializeField, Tooltip("決定ボタン")] protected CommonButton _decisionButton = default;
+        [SerializeField, Tooltip("キャンセルボタン")] protected CommonButton _cancelButton = default;
+        [SerializeField, Tooltip("タイトルテキスト")] protected TextMeshProUGUI _titleText;
+        [SerializeField, Tooltip("メインテキスト")] protected TextMeshProUGUI _mainText;
+        [SerializeField, Tooltip("決定ボタンテキスト")] protected TextMeshProUGUI _decisionText;
+        [SerializeField, Tooltip("キャンセルボタンテキスト")] protected TextMeshProUGUI _cancelText;
         
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------

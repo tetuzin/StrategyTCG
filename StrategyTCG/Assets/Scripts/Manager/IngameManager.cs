@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using Ch120.Singleton;
 using Ch120.Manager.Master;
 using Ch120.Manager.Scene;
-
+using Ch120.Manager.User;
 using UK.Const.Game;
 using UK.Const.Effect;
 using UK.Manager.UI;
@@ -110,10 +110,10 @@ namespace UK.Manager.Ingame
             _curTiming = TimingType.NONE;
 
             // TODO お互いのデッキを読み込む(現状、仮)
-            List<CardMainModel> playerDeck = CreatePlayerDeck();
-            List<CardMainModel> opponentDeck = CreateOpponentDeck();
-            // List<CardMainModel> playerDeck = CreateOpponentDeck();
-            // List<CardMainModel> opponentDeck = CreatePlayerDeck();
+            // List<CardMainModel> playerDeck = CreatePlayerDeck();
+            // List<CardMainModel> opponentDeck = CreateOpponentDeck();
+            List<CardMainModel> playerDeck = UserManager.Instance.GetModel().PlayerDeck.CardList;
+            List<CardMainModel> opponentDeck = UserManager.Instance.GetModel().OpponentDeck.CardList;
 
             // お互いのデッキをDeckUnitに設定
             CardManager.Instance.SetPlayerDeck(playerDeck);

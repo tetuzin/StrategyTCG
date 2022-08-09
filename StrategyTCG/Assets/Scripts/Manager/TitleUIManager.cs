@@ -92,19 +92,7 @@ namespace UK.Manager.TitleUI
             });
             SetButtonEvent(TitleButtonType.ONLINE_BATTLE, () =>
             {
-                // デッキ選択ポップアップの表示
-                Dictionary<string, Action> actions = new Dictionary<string, Action>();
-                var parameter = new
-                {
-                    titleText = "デッキ選択",
-                    mainText = "Please select...",
-                    decisionText = "決定",
-                    cancelText = "戻る",
-                    verticalScroll = true,
-                    horizontalScroll = false
-                };
-                CreateOpenPopup(TitlePopupType.DECK_SELECT, actions, parameter);
-                // CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
             });
             SetButtonEvent(TitleButtonType.CARD_PACK, () =>
             {
@@ -122,6 +110,11 @@ namespace UK.Manager.TitleUI
             {
                 CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
             });
+        }
+
+        public void ShowSimplePopup(string text)
+        {
+            CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = text});
         }
         
         // ---------- Private関数 ----------

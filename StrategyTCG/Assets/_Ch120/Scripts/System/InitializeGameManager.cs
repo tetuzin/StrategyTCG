@@ -13,6 +13,10 @@ namespace Ch120.Game
     public class InitializeGameManager : SingletonMonoBehaviour<InitializeGameManager>
     {
         // ---------- 定数宣言 ----------
+        
+        // 最初に開くシーン
+        private const string SCENE_NAME = "TitleScene";
+        
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -44,8 +48,7 @@ namespace Ch120.Game
             MasterManager.Instance.Initialize();
             UserManager.Instance.Initialize();
             _isInitialize = true;
-            SceneLoadManager.Instance.TransitionScene("TitleScene");
-            // SceneLoadManager.Instance.TransitionScene("IngameScene");
+            SceneLoadManager.Instance.TransitionScene(SCENE_NAME);
         }
 
         // ---------- protected関数 ---------

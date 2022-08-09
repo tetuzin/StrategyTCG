@@ -14,7 +14,7 @@ namespace Ch120.Popup.ScrollView
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         
-        [SerializeField, Tooltip("スクロールビュー")] private CommonScrollView _scrollView;
+        [SerializeField, Tooltip("スクロールビュー")] protected CommonScrollView _scrollView;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
