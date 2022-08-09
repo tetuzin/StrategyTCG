@@ -56,8 +56,9 @@ namespace UK.Manager.UI
         // ---------- Public関数 ----------
 
         // UIの初期化
-        virtual public void Initialize()
+        public virtual void Initialize()
         {
+            SetCanvasActive(false);
             InitializeButton();
             
             _handButton.gameObject.SetActive(false);
@@ -105,6 +106,12 @@ namespace UK.Manager.UI
         public Canvas GetCanvas()
         {
             return _canvas;
+        }
+        
+        // Canvasの表示・非表示
+        public void SetCanvasActive(bool isActive)
+        {
+            _canvas.gameObject.SetActive(isActive);
         }
 
         // プレイヤーが操作するUIの表示・非表示

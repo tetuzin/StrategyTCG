@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
+using DG.Tweening;
 
 using Ch120.Singleton;
 using Ch120.Manager.Master;
@@ -23,6 +24,9 @@ namespace UK.Manager.Ingame
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
+        
+        [SerializeField, Tooltip("カメラ")] protected Camera _camera;
+        
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
 
@@ -57,7 +61,7 @@ namespace UK.Manager.Ingame
         
         void Start()
         {
-            InitializeIngame();
+            StartGame();
         }
 
         // ---------- Public関数 ----------
@@ -77,9 +81,8 @@ namespace UK.Manager.Ingame
         // ---------- Private関数 ----------
 
         // ゲームの初期化
-        private void InitializeIngame()
+        private async Task InitializeIngame()
         {
-            // TODO
             Debug.Log("InitializeIngame");
 
             _curTurn = 1;
@@ -96,22 +99,8 @@ namespace UK.Manager.Ingame
 
             // ターン終了の処理をボタンに設定
             UIManager.Instance.SetTurnEndAction(AttackPlayer);
-
-            StartGame();
-        }
-
-        // ゲーム開始
-        private void StartGame()
-        {
-            // TODO
-            Debug.Log("StartGame");
-
-            // タイミング初期化
-            _curTiming = TimingType.NONE;
-
-            // TODO お互いのデッキを読み込む(現状、仮)
-            // List<CardMainModel> playerDeck = CreatePlayerDeck();
-            // List<CardMainModel> opponentDeck = CreateOpponentDeck();
+            
+            // お互いのデッキを読み込む
             List<CardMainModel> playerDeck = UserManager.Instance.GetModel().PlayerDeck.CardList;
             List<CardMainModel> opponentDeck = UserManager.Instance.GetModel().OpponentDeck.CardList;
 
@@ -124,6 +113,27 @@ namespace UK.Manager.Ingame
             // 手札を取得
             CardManager.Instance.DeckDraw(GameConst.PLAYER, GameConst.START_HAND_CARD);
             CardManager.Instance.DeckDraw(GameConst.OPPONENT, GameConst.START_HAND_CARD);
+            
+            // カメラの移動
+            _camera.gameObject.transform.position = new Vector3(0.0f, 350.0f, -700.0f);
+            _camera.gameObject.transform.rotation = Quaternion.identity;
+            _camera.gameObject.transform.DOMove(new Vector3(0.0f, 155.0f, 0.0f), 2.0f).SetEase(Ease.InOutQuart);
+            await _camera.gameObject.transform.DORotate(new Vector3(90.0f, 0.0f, 0.0f), 2.0f).AsyncWaitForCompletion();
+        }
+
+        // ゲーム開始
+        private async void StartGame()
+        {
+            await InitializeIngame();
+            
+            // TODO
+            Debug.Log("StartGame");
+
+            // タイミング初期化
+            _curTiming = TimingType.NONE;
+
+            // UIの表示
+            UIManager.Instance.SetCanvasActive(true);
 
             // 先手後手の初期化
             decisionIsFirst();
