@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ch120.Manager.Audio;
 using UnityEngine;
 
@@ -8,30 +9,19 @@ using Ch120.Manager.Scene;
 using Ch120.Manager.Master;
 using Ch120.Manager.User;
 
-namespace Ch120.Game
+namespace Ch120.Manager.Initialize
 {
     [DefaultExecutionOrder(-1)]
-    public class InitializeGameManager : SingletonMonoBehaviour<InitializeGameManager>
+    public class InitializeGameManager<T> : SingletonMonoBehaviour<T> where T : MonoBehaviour
     {
         // ---------- 定数宣言 ----------
-        
-        // 最初に開くシーン
-        private const string SCENE_NAME = "TitleScene";
-        
         // ---------- ゲームオブジェクト参照変数宣言 ----------
-
-        [Header("マネージャー")] 
-        [SerializeField] protected MasterManager _masterManager = default;
-        [SerializeField] protected UserManager _userManager = default;
-        [SerializeField] protected AudioManager _audioManager = default;
-        
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
 
         public static bool IsInitialize
         {
             get { return _isInitialize; }
-            set { _isInitialize = value; }
         }
         
         // ---------- クラス変数宣言 ----------
@@ -50,16 +40,40 @@ namespace Ch120.Game
         // ---------- Private関数 ----------
 
         // 起動時の初期設定
-        private void Initialize()
+        private async void Initialize()
         {
-            if (_masterManager != default) _masterManager.Initialize();
-            if (_userManager != default) _userManager.Initialize();
-            if (_audioManager != default) _audioManager.Initialize();
+            await InitMasterManager();
+            await InitUserManager();
+            await InitAudioManager();
+            
             _isInitialize = true;
-            SceneLoadManager.Instance.TransitionScene(SCENE_NAME);
+            
+            Transition();
         }
-
+        
+        // 最初のシーンへ遷移
+        private void Transition()
+        {
+            string sceneName = GetSceneName();
+            SceneLoadManager.Instance.TransitionScene(sceneName);
+        }
+        
         // ---------- protected関数 ---------
+        
+        // MasterManagerの初期化
+        protected virtual async Task InitMasterManager() { }
+        
+        // UserManagerの初期化
+        protected virtual async Task InitUserManager() { }
+        
+        // AudioManagerの初期化
+        protected virtual async Task InitAudioManager() { }
+
+        // 最初に遷移するシーン名を取得
+        protected virtual string GetSceneName()
+        {
+            return "";
+        }
     }
 }
 

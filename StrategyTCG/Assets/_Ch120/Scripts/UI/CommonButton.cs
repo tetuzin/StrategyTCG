@@ -1,6 +1,6 @@
 using System;
 using Ch120.Const.Audio;
-using Ch120.Manager.Audio;
+using UK.Manager.Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -146,7 +146,7 @@ namespace Ch120.UI.CommonBtn
         // ボタンにポインターが入ったとき
         protected virtual void OnPointerEnterButton(PointerEventData data)
         {
-            AudioManager.Instance.PlaySE(AudioConst.SE_KEY_HOVER_BUTTON);
+            UKAudioManager.Instance.PlaySE(AudioConst.SE_KEY_HOVER_BUTTON);
             _object.transform.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.3f);
         }
         
@@ -175,7 +175,7 @@ namespace Ch120.UI.CommonBtn
             {
                 if (_isActiveOnEvent)
                 {
-                    AudioManager.Instance.PlaySE(AudioConst.SE_KEY_CLICK_BUTTON);
+                    UKAudioManager.Instance.PlaySE(AudioConst.SE_KEY_CLICK_BUTTON);
                     _onEvent?.Invoke();
                 }
             }

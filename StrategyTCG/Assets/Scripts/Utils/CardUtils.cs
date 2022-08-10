@@ -4,7 +4,7 @@ using Ch120.Const.Game;
 using UnityEngine;
 using UnityEngine.Events;
 
-using Ch120.Manager.Master;
+using UK.Manager.Master;
 
 using UK.Manager.Card;
 using UK.Manager.Ingame;
@@ -35,19 +35,19 @@ namespace UK.Utils.Card
         // 効果番号から効果を取得
         public static EffectMainModel GetEffectMainModel(int effectId)
         {
-            return ((EffectMainDao)MasterManager.Instance.GetDao("EffectMainDao")).GetModelById(effectId);
+            return ((EffectMainDao)UKMasterManager.Instance.GetDao("EffectMainDao")).GetModelById(effectId);
         }
 
         // 効果番号から効果リストを取得
         public static List<EffectGroupModel> GetEffectGroupModelList(int effectId)
         {
-            return ((EffectGroupDao)MasterManager.Instance.GetDao("EffectGroupDao")).GetModelAllById(effectId);
+            return ((EffectGroupDao)UKMasterManager.Instance.GetDao("EffectGroupDao")).GetModelAllById(effectId);
         }
 
         // 効果能力番号から能力を取得
         public static EffectAbilityModel GetEffectAbilityModel(int effectAbilityId)
         {
-            return ((EffectAbilityDao)MasterManager.Instance.GetDao("EffectAbilityDao")).GetModelById(effectAbilityId);
+            return ((EffectAbilityDao)UKMasterManager.Instance.GetDao("EffectAbilityDao")).GetModelById(effectAbilityId);
         }
 
         // 効果番号から能力リストを取得
@@ -718,7 +718,7 @@ namespace UK.Utils.Card
         // カードの国名を取得
         public static string GetCardCountryName(int countryId)
         {
-            CountryMainModel model = ((CountryMainDao)MasterManager.Instance.GetDao("CountryMainDao")).GetModelById(countryId);
+            CountryMainModel model = ((CountryMainDao)UKMasterManager.Instance.GetDao("CountryMainDao")).GetModelById(countryId);
             return model.CountryName;
         }
 

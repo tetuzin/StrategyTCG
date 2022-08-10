@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Ch120.Manager.User;
 using UnityEngine;
 
 using Ch120.Popup.ScrollView;
 using Ch120.UI.ListItem;
+using UK.Manager.User;
 using UK.Manager.TitleUI;
 using UK.Model.Deck;
 
@@ -53,8 +53,8 @@ namespace UK.Popup.DeckSelect
                     else
                     {
                         _selectItem = item;
-                        UserManager.Instance.GetModel().PlayerDeck = model;
-                        UserManager.Instance.GetModel().OpponentDeck = model;
+                        UKUserManager.Instance.GetModel().PlayerDeck = model;
+                        UKUserManager.Instance.GetModel().OpponentDeck = model;
                         foreach (CommonListItem listItem in _itemList)
                         {
                             listItem.SetGrayOut(true);

@@ -5,15 +5,14 @@ using UnityEngine;
 using DG.Tweening;
 
 using Ch120.Singleton;
-using Ch120.Manager.Master;
 using Ch120.Manager.Scene;
-using Ch120.Manager.User;
+
+using UK.Manager.User;
 using UK.Const.Game;
 using UK.Const.Effect;
 using UK.Manager.UI;
 using UK.Manager.Card;
 using UK.Model.CardMain;
-using UK.Dao;
 using UK.Unit.Player;
 using UK.CpuCtrl;
 using UK.Manager.Popup;
@@ -101,8 +100,8 @@ namespace UK.Manager.Ingame
             UIManager.Instance.SetTurnEndAction(AttackPlayer);
             
             // お互いのデッキを読み込む
-            List<CardMainModel> playerDeck = UserManager.Instance.GetModel().PlayerDeck.CardList;
-            List<CardMainModel> opponentDeck = UserManager.Instance.GetModel().OpponentDeck.CardList;
+            List<CardMainModel> playerDeck = UKUserManager.Instance.GetModel().PlayerDeck.CardList;
+            List<CardMainModel> opponentDeck = UKUserManager.Instance.GetModel().OpponentDeck.CardList;
 
             // お互いのデッキをDeckUnitに設定
             CardManager.Instance.SetPlayerDeck(playerDeck);
@@ -380,102 +379,6 @@ namespace UK.Manager.Ingame
         //     await System.Threading.Tasks.Task.Delay(1000);
         //     AttackOpponent();
         // }
-
-        // 開発テスト用関数：プレイヤーの山札生成
-        private List<CardMainModel> CreatePlayerDeck()
-        {
-            List<CardMainModel> deck = new List<CardMainModel>();
-            List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
-            deck.Add(list[0]);
-            deck.Add(list[0]);
-            deck.Add(list[0]);
-            deck.Add(list[0]);
-            deck.Add(list[1]);
-            deck.Add(list[1]);
-            deck.Add(list[1]);
-            deck.Add(list[2]);
-            deck.Add(list[3]);
-            deck.Add(list[4]);
-            deck.Add(list[4]);
-            deck.Add(list[4]);
-            deck.Add(list[5]);
-            deck.Add(list[5]);
-            deck.Add(list[5]);
-            deck.Add(list[6]);
-            deck.Add(list[6]);
-            deck.Add(list[6]);
-            deck.Add(list[7]);
-            deck.Add(list[7]);
-            deck.Add(list[8]);
-            deck.Add(list[8]);
-            deck.Add(list[9]);
-            deck.Add(list[9]);
-            deck.Add(list[9]);
-            deck.Add(list[9]);
-            deck.Add(list[10]);
-            deck.Add(list[10]);
-            deck.Add(list[11]);
-            deck.Add(list[11]);
-            deck.Add(list[12]);
-            deck.Add(list[12]);
-            deck.Add(list[13]);
-            deck.Add(list[13]);
-            deck.Add(list[14]);
-            deck.Add(list[14]);
-            deck.Add(list[15]);
-            deck.Add(list[15]);
-            deck.Add(list[16]);
-            deck.Add(list[16]);
-            return deck;
-        }
-
-        // 開発テスト用関数：相手の山札生成
-        private List<CardMainModel> CreateOpponentDeck()
-        {
-            List<CardMainModel> deck = new List<CardMainModel>();
-            List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
-            deck.Add(list[0]);
-            deck.Add(list[0]);
-            deck.Add(list[1]);
-            deck.Add(list[1]);
-            deck.Add(list[1]);
-            deck.Add(list[17]);
-            deck.Add(list[18]);
-            deck.Add(list[19]);
-            deck.Add(list[19]);
-            deck.Add(list[19]);
-            deck.Add(list[20]);
-            deck.Add(list[20]);
-            deck.Add(list[20]);
-            deck.Add(list[21]);
-            deck.Add(list[21]);
-            deck.Add(list[21]);
-            deck.Add(list[22]);
-            deck.Add(list[22]);
-            deck.Add(list[23]);
-            deck.Add(list[23]);
-            deck.Add(list[24]);
-            deck.Add(list[24]);
-            deck.Add(list[24]);
-            deck.Add(list[24]);
-            deck.Add(list[25]);
-            deck.Add(list[25]);
-            deck.Add(list[26]);
-            deck.Add(list[26]);
-            deck.Add(list[27]);
-            deck.Add(list[27]);
-            deck.Add(list[28]);
-            deck.Add(list[28]);
-            deck.Add(list[29]);
-            deck.Add(list[29]);
-            deck.Add(list[30]);
-            deck.Add(list[30]);
-            deck.Add(list[31]);
-            deck.Add(list[31]);
-            deck.Add(list[31]);
-            deck.Add(list[31]);
-            return deck;
-        }
 
         // 開発テスト用関数：PlayerUnitの仮データを返す
         private PlayerUnit CreatePlayerUnit(bool isPlayer)

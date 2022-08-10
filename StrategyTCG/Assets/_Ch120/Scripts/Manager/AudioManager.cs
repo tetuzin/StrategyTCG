@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using Ch120.Singleton;
 using UnityEngine;
 using UnityEngine.Audio;
+using System.Threading.Tasks;
+
 using Ch120.Const.Audio;
+using Ch120.Singleton;
 
 namespace Ch120.Manager.Audio
 {
-    public class AudioManager : SingletonMonoBehaviour<AudioManager>
+    public class AudioManager<T> : SingletonMonoBehaviour<T> where T : MonoBehaviour
     {
         // ---------- 定数宣言 ----------
+
+        private const string AUDIO_MIXER_MASTER = "Master";
+        private const string AUDIO_MIXER_SE = "SE";
+        private const string AUDIO_MIXER_BGM = "BGM";
+        
         // ---------- ゲームオブジェクト参照変数宣言 ----------
 
         [SerializeField] private AudioSource _audioSourceSE = default;
@@ -18,38 +25,19 @@ namespace Ch120.Manager.Audio
         
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
-        
-        public float VolumeSE
-        {
-            get { return _volumeSE; }
-            set { _volumeSE = value; }
-        }
-        
-        public float VolumeBGM
-        {
-            get { return _volumeBGM; }
-            set
-            {
-                _volumeBGM = value;
-                // _audioSourceBGM.volume = _volumeBGM;
-            }
-        }
-
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
         
-        private Dictionary<string, AudioClip> _seClips = default;
-        private Dictionary<string, AudioClip> _bgmClips = default;
-        private float _volumeSE = 1.0f;
-        private float _volumeBGM = 1.0f;
-        
+        private Dictionary<string, AudioClip> _seClips = new Dictionary<string, AudioClip>();
+        private Dictionary<string, AudioClip> _bgmClips = new Dictionary<string, AudioClip>();
+
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
         
-        public void Initialize()
+        public async Task Initialize()
         {
-            _seClips = new Dictionary<string, AudioClip>();
-            _bgmClips = new Dictionary<string, AudioClip>();
+            await InitSELoad();
+            await InitBGMLoad();
         }
         
         // SEを再生
@@ -93,36 +81,37 @@ namespace Ch120.Manager.Audio
         }
 
         // SEファイルの読み込み
-        public void SetSEAudioFile(string key, string file)
+        public Task SetSEAudioFile(string key, string file)
         {
             AudioClip audioClip = LoadAudioFile(AudioConst.SE_FILE_PATH + file);
-            Debug.Log(audioClip);
             SetSEAudioClip(key, audioClip);
+            return Task.CompletedTask;
         }
 
         // BGMファイルの読み込み
-        public void SetBGMAudioFile(string key, string file)
+        public Task SetBGMAudioFile(string key, string file)
         {
             AudioClip audioClip = LoadAudioFile(AudioConst.BGM_FILE_PATH + file);
             SetBGMAudioClip(key, audioClip);
+            return Task.CompletedTask;
         }
         
         // Master音量の設定
         public void SetMasterVolume(float volume)
         {
-            _audioMixer.SetFloat("Master", volume);
+            _audioMixer.SetFloat(AUDIO_MIXER_MASTER, volume);
         }
         
         // SE音量の設定
         public void SetSEVolume(float volume)
         {
-            _audioMixer.SetFloat("SE", volume);
+            _audioMixer.SetFloat(AUDIO_MIXER_SE, volume);
         }
         
         // BGM音量の設定
         public void SetBGMVolume(float volume)
         {
-            _audioMixer.SetFloat("BGM", volume);
+            _audioMixer.SetFloat(AUDIO_MIXER_BGM, volume);
         }
 
         // ---------- Private関数 ----------
@@ -141,9 +130,26 @@ namespace Ch120.Manager.Audio
                 Debug.LogWarning(filePath + "は存在しません。");
                 return null;
             }
+            // if (System.IO.File.Exists(filePath))
+            // {
+            //     AudioClip audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(filePath);
+            //     Debug.Log(audioClip);
+            //     return audioClip;
+            // }
+            // else
+            // {
+            //     Debug.LogWarning(filePath + "は存在しません。");
+            //     return null;
+            // }
         }
         
         // ---------- protected関数 ---------
+        
+        // SEの初期化読み込み処理
+        protected virtual async Task InitSELoad() { }
+        
+        // BGMの初期化読み込み処理
+        protected virtual async Task InitBGMLoad() { }
     }
 }
 

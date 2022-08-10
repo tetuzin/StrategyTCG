@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Ch120.Game;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 using Ch120.Utils.Popup;
 

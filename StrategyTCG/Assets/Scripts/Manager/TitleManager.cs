@@ -8,7 +8,7 @@ using DG.Tweening;
 
 using Ch120.Singleton;
 using Ch120.Manager.Scene;
-using Ch120.Manager.Master;
+using UK.Manager.Master;
 
 using UK.Dao;
 using UK.Manager.TitleUI;
@@ -53,9 +53,6 @@ namespace UK.Manager.Title
             {
                 OnClickCpuBattle();
             });
-            
-            AudioManager.Instance.SetSEAudioFile(AudioConst.SE_KEY_CLICK_BUTTON, AudioConst.SE_PATH_CLICK_BUTTON);
-            AudioManager.Instance.SetSEAudioFile(AudioConst.SE_KEY_HOVER_BUTTON, AudioConst.SE_PATH_HOVER_BUTTON);
         }
 
         // デッキ選択ポップアップの表示
@@ -96,7 +93,7 @@ namespace UK.Manager.Title
         private List<CardMainModel> CreatePlayerDeck()
         {
             List<CardMainModel> deck = new List<CardMainModel>();
-            List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
+            List<CardMainModel> list =  ((CardMainDao)UKMasterManager.Instance.GetDao("CardMainDao")).Get();
             deck.Add(list[0]);
             deck.Add(list[0]);
             deck.Add(list[0]);
@@ -144,7 +141,7 @@ namespace UK.Manager.Title
         private List<CardMainModel> CreateOpponentDeck()
         {
             List<CardMainModel> deck = new List<CardMainModel>();
-            List<CardMainModel> list =  ((CardMainDao)MasterManager.Instance.GetDao("CardMainDao")).Get();
+            List<CardMainModel> list =  ((CardMainDao)UKMasterManager.Instance.GetDao("CardMainDao")).Get();
             deck.Add(list[0]);
             deck.Add(list[0]);
             deck.Add(list[1]);

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 using Ch120.Utils.Json;
@@ -10,7 +11,7 @@ using Ch120.Model.User;
 
 namespace Ch120.Manager.User
 {
-    public class UserManager : SingletonMonoBehaviour<UserManager>
+    public class UserManager<T> : SingletonMonoBehaviour<T> where T : MonoBehaviour
     {
         // ---------- 定数宣言 ----------
         
@@ -28,22 +29,24 @@ namespace Ch120.Manager.User
         // ---------- Public関数 ----------
         
         // 初期化
-        public void Initialize()
+        public async Task Initialize()
         {
-            InitializeUserData();
+            await InitializeUserData();
         }
         
         // データの読み込み
-        public void LoadUserData()
+        public Task LoadUserData()
         {
             List<UserConfigModel> list = JsonUtils.LoadResourceFile<UserConfigModel>(_fileName);
             SetModel(list[0]);
+            return Task.CompletedTask;
         }
 
         // データの保存
-        public void SaveUserData()
+        public Task SaveUserData()
         {
             JsonUtils.SaveJsonModel<UserConfigModel>(_model, _fileName);
+            return Task.CompletedTask;
         }
 
         // データモデルの設定
@@ -62,12 +65,12 @@ namespace Ch120.Manager.User
         // ---------- protected関数 ---------
         
         // データの初期化
-        protected void InitializeUserData()
+        protected async Task InitializeUserData()
         {
             string path = "Assets/Resources/" + _fileName + ".json";
             if (File.Exists(path))
             {
-                LoadUserData();
+                await LoadUserData();
             }
             else
             {
@@ -76,7 +79,7 @@ namespace Ch120.Manager.User
         }
 
         // データの作成
-        protected void CreateUserData()
+        protected async Task CreateUserData()
         {
             _model = new UserConfigModel();
             _model.WindowWidth = 1920;
@@ -84,7 +87,7 @@ namespace Ch120.Manager.User
             _model.VolumeBGM = 50;
             _model.VolumeSE = 50;
             _model.Fps = 60;
-            SaveUserData();
+            await SaveUserData();
         }
     }
 }

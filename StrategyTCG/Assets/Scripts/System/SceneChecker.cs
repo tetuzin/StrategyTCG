@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UK.Manager;
 
-namespace Ch120.Game
+namespace UK.Game
 {
     [DefaultExecutionOrder(-1)]
     public class SceneChecker : MonoBehaviour
@@ -26,7 +27,7 @@ namespace Ch120.Game
 
         private void Initialize()
         {
-            if (!InitializeGameManager.IsInitialize)
+            if (!InitializeUKManager.IsInitialize)
             {
                 SceneManager.LoadScene(0);
             }
