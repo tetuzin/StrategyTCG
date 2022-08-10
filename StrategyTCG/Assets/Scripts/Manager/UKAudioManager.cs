@@ -13,14 +13,25 @@ namespace UK.Manager.Audio
         // SEの初期化読み込み処理
         protected override async Task InitSELoad()
         {
-            await SetSEAudioFile(AudioConst.SE_KEY_CLICK_BUTTON, AudioConst.SE_PATH_CLICK_BUTTON);
-            await SetSEAudioFile(AudioConst.SE_KEY_HOVER_BUTTON, AudioConst.SE_PATH_HOVER_BUTTON);
+            await SetSEAudioFile(AudioConst.SE_CLICK_BUTTON, AudioConst.SE_CLICK_BUTTON);
+            await SetSEAudioFile(AudioConst.SE_HOVER_BUTTON, AudioConst.SE_HOVER_BUTTON);
+            await SetSEAudioFile(AudioConst.SE_ATTACK_PHASE, AudioConst.SE_ATTACK_PHASE);
+            await SetSEAudioFile(AudioConst.SE_BATTLE_START, AudioConst.SE_BATTLE_START);
+            await SetSEAudioFile(AudioConst.SE_BOM, AudioConst.SE_BOM);
+            await SetSEAudioFile(AudioConst.SE_CANNON, AudioConst.SE_CANNON);
+            await SetSEAudioFile(AudioConst.SE_EFFECT, AudioConst.SE_EFFECT);
+            await SetSEAudioFile(AudioConst.SE_PUNCH, AudioConst.SE_PUNCH);
+            await SetSEAudioFile(AudioConst.SE_RESULT_LOSE, AudioConst.SE_RESULT_LOSE);
+            await SetSEAudioFile(AudioConst.SE_RESULT_WIN, AudioConst.SE_RESULT_WIN);
+            await SetSEAudioFile(AudioConst.SE_SLASH, AudioConst.SE_SLASH);
+            await SetSEAudioFile(AudioConst.SE_UNIT_HP_HEAL, AudioConst.SE_UNIT_HP_HEAL);
+            await SetSEAudioFile(AudioConst.SE_WARNING, AudioConst.SE_WARNING);
         }
         
         // BGMの初期化読み込み処理
         protected override async Task InitBGMLoad()
         {
-            
+            await SetBGMAudioFile(AudioConst.BGM_BATTLE_BACK, AudioConst.BGM_BATTLE_BACK);
         }
     }
 }

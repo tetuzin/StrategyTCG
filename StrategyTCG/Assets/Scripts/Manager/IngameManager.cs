@@ -6,8 +6,10 @@ using DG.Tweening;
 
 using Ch120.Singleton;
 using Ch120.Manager.Scene;
+using Ch120.Const.Audio;
 
 using UK.Manager.User;
+using UK.Manager.Audio;
 using UK.Const.Game;
 using UK.Const.Effect;
 using UK.Manager.UI;
@@ -159,6 +161,7 @@ namespace UK.Manager.Ingame
                 actions.Add(UK.Popup.Result.ResultPopup.RESULT_END_BUTTON, TransitionTitle);
                 PopupManager.Instance.SetResultLosePopup(isRematch, actions);
                 PopupManager.Instance.ShowResultLosePopup();
+                UKAudioManager.Instance.PlaySE(AudioConst.SE_RESULT_LOSE);
             }
             else
             {
@@ -167,6 +170,7 @@ namespace UK.Manager.Ingame
                 actions.Add(UK.Popup.Result.ResultPopup.RESULT_END_BUTTON, TransitionTitle);
                 PopupManager.Instance.SetResultWinPopup(isRematch, actions);
                 PopupManager.Instance.ShowResultWinPopup();
+                UKAudioManager.Instance.PlaySE(AudioConst.SE_RESULT_WIN);
             }
         }
 
