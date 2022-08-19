@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ch120.Const.Audio;
 using UnityEngine;
 
 using Ch120.Singleton;
 
 using UK.Const.Game;
+using UK.Manager.Audio;
 using UK.Manager.Popup;
 using UK.Manager.UI;
 using UK.Model.CardMain;
@@ -117,6 +119,8 @@ namespace UK.Manager.Card
             // UI再描画
             int deckCount = GetCardBattleField(isPlayer).GetDeckUnit().GetCardNum();
             UIManager.Instance.GetStatusGroup(isPlayer).SetCurDeckNumText(deckCount);
+
+            UKAudioManager.Instance.PlaySE(AudioConst.SE_CARD_OPEN);
         }
 
         // 山札からカードを取得

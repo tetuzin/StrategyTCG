@@ -101,7 +101,7 @@ namespace UK.Utils.Card
                     Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                     () => {
                         // 能力発動
-                        CardAbilityActivate(effectList, abilityList, unit.IsPlayer);
+                        CardAbilityActivate(effectList, abilityList, unit);
                     }
                 );
                 PopupManager.Instance.SetCheckEffectPopup(unit.CardModel, actions);
@@ -111,13 +111,13 @@ namespace UK.Utils.Card
             else
             {
                 // 能力発動
-                CardAbilityActivate(effectList, abilityList, unit.IsPlayer);
+                CardAbilityActivate(effectList, abilityList, unit);
                 return true;
             }
         }
 
         // カード能力発動
-        public static void CardAbilityActivate(List<EffectGroupModel> effectList, List<EffectAbilityModel> abilityList, bool isPlayer)
+        public static void CardAbilityActivate(List<EffectGroupModel> effectList, List<EffectAbilityModel> abilityList, CardUnit unit)
         {
             for (int i = 0; i < abilityList.Count; i++)
             {
@@ -125,12 +125,30 @@ namespace UK.Utils.Card
                 if (!CheckEffectCondition(
                     effectList[i].AbilityConditionType, 
                     effectList[i].AbilityConditionParameter,
-                    isPlayer)
+                    unit.IsPlayer)
                 ){ continue; }
 
                 // カード効果の関数を呼び出し
                 Debug.Log(abilityList[i].AbilityName + "の効果発動[" + (i+1) + "]");
-                EffectActivate(abilityList[i]);
+
+                int index = i;
+                var parameter = new
+                {
+                    mainText = GetEffectMainModel(unit.CardModel.EffectId).EffectText,
+                    titleText = unit.CardModel.CardName + "の効果発動",
+                    cardMainModel = unit.CardModel,
+                    isPlayer = unit.IsPlayer
+                };
+                Dictionary<string, Action> actions = new Dictionary<string, Action>();
+                actions.Add(
+                    UK.Popup.CardEffectActivate.CardEffectActivatePopup.CALLBACK_EVENT,
+                    () =>
+                    {
+                        EffectActivate(abilityList[index]);
+                    }
+                );
+                PopupManager.Instance.SetCardEffectActivatePopup(parameter, actions);
+                PopupManager.Instance.ShowCardEffectActivatePopup();
             }
         }
 

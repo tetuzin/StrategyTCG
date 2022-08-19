@@ -17,14 +17,15 @@ namespace Ch120.UI.CommonBtn
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         
-        [SerializeField, Tooltip("ボタンオブジェクト")] public GameObject _object = default;
-        [SerializeField, Tooltip("イベントトリガー")] public EventTrigger _eventTrigger = default;
-        [SerializeField, Tooltip("テキスト")] public TextMeshProUGUI _text = default;
+        [SerializeField, Tooltip("ボタンオブジェクト")] public GameObject obj = default;
+        [SerializeField, Tooltip("イベントトリガー")] public EventTrigger eventTrigger = default;
+        [SerializeField, Tooltip("テキスト")] public TextMeshProUGUI text = default;
         
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
         
-        [SerializeField, Tooltip("長押しする時間")] public float _downWaitTime = 1.0f;
+        [SerializeField, Tooltip("長押しする時間")] public float downWaitTime = 1.0f;
+        [SerializeField, Tooltip("SEを再生するかどうか")] public bool isPlaySE = true;
         
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
@@ -53,7 +54,7 @@ namespace Ch120.UI.CommonBtn
             if (_isDown && !_isOnDownEvent)
             {
                 _downTime += Time.deltaTime;
-                if (_downTime >= _downWaitTime)
+                if (_downTime >= downWaitTime)
                 {
                     _isOnDownEvent = true;
                     if (_isActiveDownEvent) _onDownEvent?.Invoke();
@@ -116,44 +117,47 @@ namespace Ch120.UI.CommonBtn
             _isOnDownEvent = false;
             _downTime = 0.0f;
             
-            if (_eventTrigger == default) return;
+            if (eventTrigger == default) return;
             
             // ポインターがオブジェクトに入るときのイベント
             _onEnter = new EventTrigger.Entry();
             _onEnter.eventID = EventTriggerType.PointerEnter;
             _onEnter.callback.AddListener((data) => { OnPointerEnterButton((PointerEventData)data); });
-            _eventTrigger.triggers.Add(_onEnter);
+            eventTrigger.triggers.Add(_onEnter);
             
             // ポインターがオブジェクトから出たときのイベント
             _onExit = new EventTrigger.Entry();
             _onExit.eventID = EventTriggerType.PointerExit;
             _onExit.callback.AddListener((data) => { OnPointerExitButton((PointerEventData)data); });
-            _eventTrigger.triggers.Add(_onExit);
+            eventTrigger.triggers.Add(_onExit);
             
             // ボタンを長押ししたときのイベント
             _onDown = new EventTrigger.Entry();
             _onDown.eventID = EventTriggerType.PointerDown;
             _onDown.callback.AddListener((data) => { OnPointerDownButton((PointerEventData)data); });
-            _eventTrigger.triggers.Add(_onDown);
+            eventTrigger.triggers.Add(_onDown);
             
             // ボタンを離したときのイベント
             _onUp = new EventTrigger.Entry();
             _onUp.eventID = EventTriggerType.PointerUp;
             _onUp.callback.AddListener((data) => { OnPointerUpButton((PointerEventData)data); });
-            _eventTrigger.triggers.Add(_onUp);
+            eventTrigger.triggers.Add(_onUp);
         }
         
         // ボタンにポインターが入ったとき
         protected virtual void OnPointerEnterButton(PointerEventData data)
         {
-            UKAudioManager.Instance.PlaySE(AudioConst.SE_HOVER_BUTTON);
-            _object.transform.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.3f);
+            if (isPlaySE)
+            {
+                UKAudioManager.Instance.PlaySE(AudioConst.SE_HOVER_BUTTON);
+            }
+            obj.transform.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.3f);
         }
         
         // ボタンからポインターが出たとき
         protected virtual void OnPointerExitButton(PointerEventData data)
         {
-            _object.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.3f);
+            obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.3f);
         }
         
         // ボタンを長押ししたとき
@@ -175,7 +179,10 @@ namespace Ch120.UI.CommonBtn
             {
                 if (_isActiveOnEvent)
                 {
-                    UKAudioManager.Instance.PlaySE(AudioConst.SE_CLICK_BUTTON);
+                    if (isPlaySE)
+                    {
+                        UKAudioManager.Instance.PlaySE(AudioConst.SE_CLICK_BUTTON);
+                    }
                     _onEvent?.Invoke();
                 }
             }
@@ -188,10 +195,11 @@ namespace Ch120.UI.CommonBtn
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
             var component = (CommonButton) target;
-            PropertyField(nameof(component._object), "ButtonObject");
-            PropertyField(nameof(component._eventTrigger), "EventTrigger");
-            PropertyField(nameof(component._text), "Text");
-            PropertyField(nameof(component._downWaitTime), "DownWaitTime");
+            PropertyField(nameof(component.obj), "ButtonObject");
+            PropertyField(nameof(component.eventTrigger), "EventTrigger");
+            PropertyField(nameof(component.text), "Text");
+            PropertyField(nameof(component.downWaitTime), "DownWaitTime");
+            PropertyField(nameof(component.isPlaySE), "IsPlaySE");
             serializedObject.ApplyModifiedProperties();
         }
 

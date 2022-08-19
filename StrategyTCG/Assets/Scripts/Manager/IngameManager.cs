@@ -135,6 +135,8 @@ namespace UK.Manager.Ingame
 
             // UIの表示
             UIManager.Instance.SetCanvasActive(true);
+            
+            // UKAudioManager.Instance.PlayBGM(AudioConst.BGM_BATTLE_BACK);
 
             // 先手後手の初期化
             decisionIsFirst();

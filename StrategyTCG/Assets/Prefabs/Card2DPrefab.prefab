@@ -510,7 +510,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3726841362627543393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1693,6 +1693,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789353, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: isPlaySE
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789354, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1783,7 +1787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.size
-      value: 78
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.data[63].eventID
@@ -1831,6 +1835,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.data[77].eventID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[79].eventID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[80].eventID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[81].eventID
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []

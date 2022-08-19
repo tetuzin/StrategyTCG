@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Ch120.Const.Audio;
+
 using UK.Manager.Card;
 using UK.Manager.UI;
 using UK.Unit.Card;
 using UK.Unit.Card3D;
 using UK.Const.Game;
 using UK.Const.Card.Type;
+using UK.Manager.Audio;
 using UK.Manager.Particle;
 
 namespace UK.Unit.Place
@@ -92,9 +95,11 @@ namespace UK.Unit.Place
             _card3DUnit.gameObject.transform.localRotation = Quaternion.Euler(90.0f, -90.0f, 0.0f);
             _card3DUnit.gameObject.transform.localScale = new Vector3(0.14f, 0.14f, 1.0f);
             _card3DUnit.GetCardUnit().Placement(this);
+            
+            UKAudioManager.Instance.PlaySE(AudioConst.SE_CARD_PLACEMENT);
 
             IngameParticleManager.Instance.CreateParticle(ParticleType.CARD_PLACEMENT, gameObject.transform.position, Quaternion.identity);
-            
+
             _isPlacement = true;
         }
         

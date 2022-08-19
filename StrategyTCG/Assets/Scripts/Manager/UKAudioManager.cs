@@ -26,6 +26,9 @@ namespace UK.Manager.Audio
             await SetSEAudioFile(AudioConst.SE_SLASH, AudioConst.SE_SLASH);
             await SetSEAudioFile(AudioConst.SE_UNIT_HP_HEAL, AudioConst.SE_UNIT_HP_HEAL);
             await SetSEAudioFile(AudioConst.SE_WARNING, AudioConst.SE_WARNING);
+            await SetSEAudioFile(AudioConst.SE_CARD_OPEN, AudioConst.SE_CARD_OPEN);
+            await SetSEAudioFile(AudioConst.SE_CARD_SHUFFLE, AudioConst.SE_CARD_SHUFFLE);
+            await SetSEAudioFile(AudioConst.SE_CARD_PLACEMENT, AudioConst.SE_CARD_PLACEMENT);
         }
         
         // BGMの初期化読み込み処理

@@ -19,6 +19,9 @@ namespace Ch120.Const.Audio
         public static readonly string SE_SLASH = "se_slash";
         public static readonly string SE_UNIT_HP_HEAL = "se_unit_hp_heal";
         public static readonly string SE_WARNING = "se_warning";
+        public static readonly string SE_CARD_OPEN = "se_card_open";
+        public static readonly string SE_CARD_SHUFFLE = "se_card_shuffle";
+        public static readonly string SE_CARD_PLACEMENT = "se_card_placement";
 
         // BGM用ファイルのPath
         public static readonly string BGM_FILE_PATH = "Audio/BGM/";

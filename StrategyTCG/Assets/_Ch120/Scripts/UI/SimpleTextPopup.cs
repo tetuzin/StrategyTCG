@@ -8,20 +8,18 @@ namespace Ch120.Popup.Simple
     public class SimpleTextPopup : BasePopup
     {
         // ---------- 定数宣言 ----------
-
-        private const float DELAY_TIME = 3.0f;
-
         // ---------- ゲームオブジェクト参照変数宣言 ----------
 
-        [SerializeField, Tooltip("メインテキスト")] private TextMeshProUGUI _mainText;
+        [SerializeField, Tooltip("メインテキスト")] protected TextMeshProUGUI _mainText = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+        [SerializeField, Tooltip("表示する時間")] protected float delayTime = 1.5f;
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
-        private float _curTime = default;
-        private bool _isShow = default;
+        protected float _curTime = default;
+        protected bool _isShow = default;
 
         // ---------- Unity組込関数 ----------
 
@@ -31,7 +29,7 @@ namespace Ch120.Popup.Simple
             {
                 _curTime += Time.deltaTime;
 
-                if (_curTime >= DELAY_TIME)
+                if (_curTime >= delayTime)
                 {
                     Hide();
                 }
@@ -39,15 +37,21 @@ namespace Ch120.Popup.Simple
         }
 
         // ---------- Public関数 ----------
+        
+        // ポップアップを開く
+        public override void Open(bool isModal = true)
+        {
+            base.Open(isModal);
+            Show();
+        }
 
-        public void Show()
+        public virtual void Show()
         {
             _isShow = true;
             _curTime = 0.0f;
-            Open();
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             _isShow = false;
             _curTime = 0.0f;
@@ -80,9 +84,8 @@ namespace Ch120.Popup.Simple
 
             // データの初期化
             var paramter = new {
-                mainText = "Main Text."
+                mainText = param.mainText
             };
-            paramter = param;
 
             // 各種取得データの設定
             SetMainText(paramter.mainText);

@@ -8,6 +8,7 @@ using Ch120.Popup.Common;
 using Ch120.Popup.Simple;
 
 using UK.Model.CardMain;
+using UK.Popup.CardEffectActivate;
 using UK.Unit.Deck;
 using UK.Popup.DeckCardView;
 using UK.Popup.Result;
@@ -25,6 +26,7 @@ namespace UK.Manager.Popup
         [SerializeField, Tooltip("シンプルテキストポップアップ")] private SimpleTextPopup _simpleTextPopup = default;
         [SerializeField, Tooltip("勝利ポップアップ")] private ResultPopup _resultWinPopup = default;
         [SerializeField, Tooltip("敗北ポップアップ")] private ResultPopup _resultLosePopup = default;
+        [SerializeField, Tooltip("カード効果発動ポップアップ")] private CardEffectActivatePopup _cardEffectActivatePopup = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -151,6 +153,18 @@ namespace UK.Manager.Popup
                 isRematch = isRematchBool
             };
             _resultLosePopup.InitPopup(actions, parameter);
+        }
+        
+        // カード効果発動ポップアップ表示
+        public void ShowCardEffectActivatePopup()
+        {
+            _cardEffectActivatePopup.Open(isModal:false);
+        }
+        
+        // カード効果発動ポップアップ設定
+        public void SetCardEffectActivatePopup(dynamic param, Dictionary<string, Action> actions)
+        {
+            _cardEffectActivatePopup.InitPopup(actions, param);
         }
 
         // ---------- Private関数 ----------

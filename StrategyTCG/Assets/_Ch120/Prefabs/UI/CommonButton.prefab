@@ -258,10 +258,11 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  _object: {fileID: 4265266273507789355}
-  _eventTrigger: {fileID: 4265266273507789358}
-  _text: {fileID: 4265266272561568011}
-  _downWaitTime: 1
+  obj: {fileID: 4265266273507789355}
+  eventTrigger: {fileID: 4265266273507789358}
+  text: {fileID: 4265266272561568011}
+  downWaitTime: 1
+  isPlaySE: 1
 --- !u!114 &4265266273507789358
 MonoBehaviour:
   m_ObjectHideFlags: 0
