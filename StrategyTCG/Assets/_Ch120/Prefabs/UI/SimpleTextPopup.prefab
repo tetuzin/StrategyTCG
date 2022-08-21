@@ -52,9 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupObject: {fileID: 127817894016259370}
+  baseObject: {fileID: 127817895252634370}
   modalObject: {fileID: 4952733844524156253}
-  _canvas: {fileID: 0}
+  isAnimation: 0
   _mainText: {fileID: 127817894552479888}
+  delayTime: 1.5
 --- !u!1 &127817894552479890
 GameObject:
   m_ObjectHideFlags: 0

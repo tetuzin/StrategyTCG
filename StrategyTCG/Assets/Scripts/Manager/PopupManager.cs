@@ -27,6 +27,8 @@ namespace UK.Manager.Popup
         [SerializeField, Tooltip("勝利ポップアップ")] private ResultPopup _resultWinPopup = default;
         [SerializeField, Tooltip("敗北ポップアップ")] private ResultPopup _resultLosePopup = default;
         [SerializeField, Tooltip("カード効果発動ポップアップ")] private CardEffectActivatePopup _cardEffectActivatePopup = default;
+        [SerializeField, Tooltip("Player攻撃ポップアップ")] private SimpleTextPopup _playerAttackPopup = default;
+        [SerializeField, Tooltip("Opponent攻撃ポップアップ")] private SimpleTextPopup _opponentAttackPopup = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -165,6 +167,36 @@ namespace UK.Manager.Popup
         public void SetCardEffectActivatePopup(dynamic param, Dictionary<string, Action> actions)
         {
             _cardEffectActivatePopup.InitPopup(actions, param);
+        }
+        
+        // シンプルテキストポップアップ表示
+        public void ShowPlayerAttackPopup()
+        {
+            _playerAttackPopup.Open(isModal:false);
+        }
+
+        // シンプルテキストポップアップ設定
+        public void SetPlayerAttackPopup(string text, Dictionary<string, Action> actions = null)
+        {
+            var parameter = new {
+                mainText = text
+            };
+            _playerAttackPopup.InitPopup(actions, parameter);
+        }
+        
+        // シンプルテキストポップアップ表示
+        public void ShowOpponentAttackPopup()
+        {
+            _opponentAttackPopup.Open(isModal:false);
+        }
+
+        // シンプルテキストポップアップ設定
+        public void SetOpponentAttackPopup(string text, Dictionary<string, Action> actions = null)
+        {
+            var parameter = new {
+                mainText = text
+            };
+            _opponentAttackPopup.InitPopup(actions, parameter);
         }
 
         // ---------- Private関数 ----------

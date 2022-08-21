@@ -2927,7 +2927,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupObject: {fileID: 6790221017479761484}
+  baseObject: {fileID: 6790221018733113444}
   modalObject: {fileID: 1965269868108848699}
+  isAnimation: 1
   _cancelButton: {fileID: 6790221018459853472}
   _cardImage: {fileID: 7147762186174291239}
   _titleText: {fileID: 6790221019106179931}

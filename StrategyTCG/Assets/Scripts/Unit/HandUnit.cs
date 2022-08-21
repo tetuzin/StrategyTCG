@@ -1,13 +1,16 @@
-using System.Collections;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using UK.Const.Card.Type;
 using UnityEngine;
+using DG.Tweening;
 
 using UK.Const.Card.UseType;
 using UK.Manager.Card;
 using UK.Unit.Card;
 using UK.Model.CardMain;
 using UK.Utils.Card;
+using UK.Manager.Audio;
+using Ch120.Const.Audio;
 
 namespace UK.Unit.Hand
 {
@@ -50,21 +53,23 @@ namespace UK.Unit.Hand
         }
 
         // カードをパネルに配置（手札表示
-        public void SetCardPanel(CardUnit card)
+        public async Task SetCardPanel(CardUnit card)
         {
             card.gameObject.transform.SetParent(_panel.transform);
             card.gameObject.transform.localPosition = Vector3.zero;
             card.gameObject.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
             card.SetActiveBackImage(!_isPlayer);
+            UKAudioManager.Instance.PlaySE(AudioConst.SE_CARD_OPEN);
+            await Task.Delay(300);
         }
 
         // カードリストを手札に追加
-        public void AddHandCard(List<CardMainModel> addCardList)
+        public async void AddHandCard(List<CardMainModel> addCardList)
         {
             foreach (CardMainModel cardModel in addCardList)
             {
                 CardUnit cardUnit = CardManager.Instance.Instantiate2DCardUnit(cardModel, _isPlayer);
-                SetCardPanel(cardUnit);
+                await SetCardPanel(cardUnit);
                 _handCardUnit.Add(cardUnit);
             }
         }

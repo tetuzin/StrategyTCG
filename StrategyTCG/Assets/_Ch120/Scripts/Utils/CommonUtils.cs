@@ -13,6 +13,16 @@ namespace Ch120.Utils.Common
         {
             return compareValue >= originalValue;
         }
+        
+        // ゲーム終了
+        public static void GameExit()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+#else
+            Application.Quit();//ゲームプレイ終了
+#endif
+        }
     }
 }
 

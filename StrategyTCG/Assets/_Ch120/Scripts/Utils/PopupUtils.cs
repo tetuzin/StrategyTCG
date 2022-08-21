@@ -12,7 +12,7 @@ namespace Ch120.Utils.Popup
         // ---------- 定数宣言 ----------
         
         // モーダルウィンドウサイズ
-        private static Vector3 WINDOW_SCALE = new Vector3(1920, 1080, 0);
+        private static Vector2 WINDOW_SCALE = new Vector2(1920, 1080);
         // モーダル名
         private static string MODAL_NAME = "ModalButton";
         // モーダルカラー
@@ -45,7 +45,7 @@ namespace Ch120.Utils.Popup
             obj.name = obj.name.Replace( "(Clone)", "" );
 
             // ポップアップが既に開いているなら開かない
-            if (popup.CheckOpen()) { return; }
+            if (popup.IsOpen) { return; }
 
             // Popupをキャンバスの下に配置
             obj.transform.SetParent(parentObj.transform);
@@ -79,12 +79,19 @@ namespace Ch120.Utils.Popup
             // インスタンス生成
             GameObject modal = new GameObject(MODAL_NAME);
             modal.transform.localPosition = Vector3.zero;
-            modal.transform.localScale = WINDOW_SCALE;
+            modal.transform.localScale = Vector3.one;
             modal.transform.SetParent(parentObj.transform);
 
             // コンポーネント追加
             modal.AddComponent<Button>();
+            
             modal.AddComponent<Image>();
+            
+            modal.AddComponent<RectTransform>();
+            RectTransform rectTrans = modal.GetComponent<RectTransform>();
+            rectTrans.localPosition = Vector3.zero;
+            rectTrans.localScale = Vector3.one;
+            rectTrans.sizeDelta = WINDOW_SCALE;
 
             // モーダル色設定
             Image image = modal.GetComponent<Image>();

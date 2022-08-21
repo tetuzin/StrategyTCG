@@ -7,7 +7,7 @@ using DG.Tweening;
 using Ch120.Singleton;
 using Ch120.Manager.Scene;
 using Ch120.Const.Audio;
-
+using Ch120.Popup.Simple;
 using UK.Manager.User;
 using UK.Manager.Audio;
 using UK.Const.Game;
@@ -110,10 +110,6 @@ namespace UK.Manager.Ingame
             CardManager.Instance.SetOpponentDeck(opponentDeck);
             UIManager.Instance.InitializePlayerStatusGroup(_playerUnit);
             UIManager.Instance.InitializeOpponentStatusGroup(_opponentUnit);
-
-            // 手札を取得
-            CardManager.Instance.DeckDraw(GameConst.PLAYER, GameConst.START_HAND_CARD);
-            CardManager.Instance.DeckDraw(GameConst.OPPONENT, GameConst.START_HAND_CARD);
             
             // カメラの移動
             _camera.gameObject.transform.position = new Vector3(0.0f, 350.0f, -700.0f);
@@ -135,6 +131,12 @@ namespace UK.Manager.Ingame
 
             // UIの表示
             UIManager.Instance.SetCanvasActive(true);
+            
+            // 手札を取得
+            CardManager.Instance.DeckDraw(GameConst.PLAYER, GameConst.START_HAND_CARD);
+            await Task.Delay(3000);
+            CardManager.Instance.DeckDraw(GameConst.OPPONENT, GameConst.START_HAND_CARD);
+            await Task.Delay(3000);
             
             // UKAudioManager.Instance.PlayBGM(AudioConst.BGM_BATTLE_BACK);
 
@@ -186,7 +188,9 @@ namespace UK.Manager.Ingame
             
             GetPlayerUnit(GameConst.PLAYER).UpdatePlayer();
 
-            // TODO ターンスタートアニメーション
+            // ターンスタートアニメーション
+            PopupManager.Instance.SetSimpleTextPopup("あなたのターン");
+            PopupManager.Instance.ShowSimpleTextPopup();
 
             // 山札一枚ドロー
             CardManager.Instance.DeckDraw(GameConst.PLAYER);
@@ -210,11 +214,23 @@ namespace UK.Manager.Ingame
 
             // タイミング：相手の攻撃
             _curTiming = TimingType.END_ATTACK_PLAYER;
+            
+            Dictionary<string, Action> actions = new Dictionary<string, Action>();
+            actions.Add(
+                SimpleTextPopup.CALLBACK_EVENT,
+                () =>
+                {
+                    
+                    // ターン最後の攻撃処理
+                    DoAttack(_playerUnit, _opponentUnit);
 
-            // ターン最後の攻撃処理
-            DoAttack(_playerUnit, _opponentUnit);
-
-            EndPlayerTurn();
+                    EndPlayerTurn();
+                }
+            );
+            string text = _playerUnit.Name + "の攻撃！";
+            PopupManager.Instance.SetPlayerAttackPopup(text, actions);
+            UKAudioManager.Instance.PlaySE(AudioConst.SE_ATTACK_PHASE);
+            PopupManager.Instance.ShowPlayerAttackPopup();
         }
 
         // 自分のターン終了
@@ -251,7 +267,9 @@ namespace UK.Manager.Ingame
 
             GetPlayerUnit(GameConst.OPPONENT).UpdatePlayer();
 
-            // TODO ターンスタートアニメーション
+            // ターンスタートアニメーション
+            PopupManager.Instance.SetSimpleTextPopup("相手のターン");
+            PopupManager.Instance.ShowSimpleTextPopup();
 
             // 山札一枚ドロー
             CardManager.Instance.DeckDraw(GameConst.OPPONENT);
@@ -277,10 +295,22 @@ namespace UK.Manager.Ingame
             // タイミング：相手の攻撃
             _curTiming = TimingType.END_ATTACK_OPPONENT;
 
-            // ターン最後の攻撃処理
-            DoAttack(_opponentUnit, _playerUnit);
+            Dictionary<string, Action> actions = new Dictionary<string, Action>();
+            actions.Add(
+                SimpleTextPopup.CALLBACK_EVENT,
+                () =>
+                {
+                    // ターン最後の攻撃処理
+                    DoAttack(_opponentUnit, _playerUnit);
 
-            EndOpponentTurn();
+                    EndOpponentTurn();
+                }
+            );
+
+            string text = _opponentUnit.Name + "の攻撃！";
+            PopupManager.Instance.SetOpponentAttackPopup(text, actions);
+            UKAudioManager.Instance.PlaySE(AudioConst.SE_ATTACK_PHASE);
+            PopupManager.Instance.ShowOpponentAttackPopup();
         }
 
         // 相手のターン終了
@@ -352,13 +382,15 @@ namespace UK.Manager.Ingame
         }
         
         // 攻撃処理
-        private void DoAttack(PlayerUnit attackUnit, PlayerUnit defenseUnit)
+        private Task DoAttack(PlayerUnit attackUnit, PlayerUnit defenseUnit)
         {
             // ダメージの算出
             int atkValue = attackUnit.CalcAttackDamage();
             int damage = defenseUnit.CalcDefenseDamage(atkValue);
 
             defenseUnit.ReceiveDamage(damage);
+            
+            return Task.CompletedTask;
         }
         
         // タイトル画面へ遷移

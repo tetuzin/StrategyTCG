@@ -380,7 +380,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupObject: {fileID: 4742238021623099807}
+  baseObject: {fileID: 4742238020656009143}
   modalObject: {fileID: 338452600097595880}
+  isAnimation: 1
   _decisionButton: {fileID: 4528289229081228153}
   _cancelButton: {fileID: 6072007488430328668}
   _titleText: {fileID: 4742238019963126920}
@@ -502,7 +504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.size
-      value: 114
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.data[67].eventID
@@ -646,6 +648,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.data[113].eventID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[115].eventID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[116].eventID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[117].eventID
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -983,7 +997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.size
-      value: 114
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.data[67].eventID
@@ -1127,6 +1141,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
       propertyPath: m_Delegates.Array.data[113].eventID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[115].eventID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[116].eventID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265266273507789358, guid: 1e28ddec7f9c5ce4aada21782881e73d, type: 3}
+      propertyPath: m_Delegates.Array.data[117].eventID
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []

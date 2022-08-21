@@ -13,6 +13,7 @@ namespace UK.Manager.Audio
         // SEの初期化読み込み処理
         protected override async Task InitSELoad()
         {
+            base.InitSELoad();
             await SetSEAudioFile(AudioConst.SE_CLICK_BUTTON, AudioConst.SE_CLICK_BUTTON);
             await SetSEAudioFile(AudioConst.SE_HOVER_BUTTON, AudioConst.SE_HOVER_BUTTON);
             await SetSEAudioFile(AudioConst.SE_ATTACK_PHASE, AudioConst.SE_ATTACK_PHASE);
@@ -34,6 +35,7 @@ namespace UK.Manager.Audio
         // BGMの初期化読み込み処理
         protected override async Task InitBGMLoad()
         {
+            base.InitBGMLoad();
             await SetBGMAudioFile(AudioConst.BGM_BATTLE_BACK, AudioConst.BGM_BATTLE_BACK);
         }
     }

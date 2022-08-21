@@ -119,8 +119,6 @@ namespace UK.Manager.Card
             // UI再描画
             int deckCount = GetCardBattleField(isPlayer).GetDeckUnit().GetCardNum();
             UIManager.Instance.GetStatusGroup(isPlayer).SetCurDeckNumText(deckCount);
-
-            UKAudioManager.Instance.PlaySE(AudioConst.SE_CARD_OPEN);
         }
 
         // 山札からカードを取得

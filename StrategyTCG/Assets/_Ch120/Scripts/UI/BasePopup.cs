@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 using Ch120.Utils.Popup;
 
@@ -12,11 +13,14 @@ namespace Ch120.Popup
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         
-        [SerializeField, Tooltip("ポップアップのオブジェクト")] protected GameObject popupObject = default;
+        [SerializeField, Tooltip("親オブジェクト")] protected GameObject popupObject = default;
+        [SerializeField, Tooltip("ポップアップのオブジェクト")] protected GameObject baseObject = default;
         [SerializeField, Tooltip("モーダルのオブジェクト")] protected GameObject modalObject = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+        
+        [SerializeField, Tooltip("アニメーションフラグ")] protected bool isAnimation = true;
 
         public bool IsOpen
         {
@@ -49,37 +53,29 @@ namespace Ch120.Popup
         }
 
         // ポップアップを開く
-        public virtual void Open(bool isModal = true)
+        public void Open(bool isModal = true)
         {
             if (!_isOpen)
             {
-                SetModal(isModal);
-                _isOpen = true;
-                modalObject.SetActive(true);
-                popupObject.SetActive(true);
-                PopupUtils.AddPopupName(this.gameObject);
+                ShowOpenAnimation(() =>
+                {
+                    ShowPopup(isModal);
+                }, () => { });
             }
         }
 
         // ポップアップを閉じる
-        public virtual void Close()
+        public void Close()
         {
             if (_isOpen)
             {
-                modalObject.SetActive(false);
-                popupObject.SetActive(false);
-                Destroy(_modal);
-                PopupUtils.RemovePopupName(this.gameObject);
-                _isOpen = false;
+                ShowCloseAnimation(() => { }, () =>
+                {
+                    HidePopup();
+                });
             }
         }
 
-        // ポップアップが開いているか確認
-        public bool CheckOpen()
-        {
-            return _isOpen;
-        }
-        
         // モーダルボタンの設定
         public void SetModalEvent(Action action)
         {
@@ -129,6 +125,28 @@ namespace Ch120.Popup
         
         // 初期化
         protected virtual void Initialize() { }
+        
+        // ポップアップを開くときの処理
+        protected virtual void ShowPopup(bool isModal)
+        {
+            SetModal(isModal);
+            _isOpen = true;
+            modalObject.SetActive(true);
+            popupObject.SetActive(true);
+            PopupUtils.AddPopupName(this.gameObject);
+            PlayOpenSE();
+        }
+        
+        // ポップアップを閉じるときの処理
+        protected virtual void HidePopup()
+        {
+            modalObject.SetActive(false);
+            popupObject.SetActive(false);
+            Destroy(_modal);
+            PopupUtils.RemovePopupName(this.gameObject);
+            _isOpen = false;
+            PlayCloseSE();
+        }
 
         // ボタンの処理を設定
         protected virtual void SetButtonEvents() { }
@@ -142,6 +160,62 @@ namespace Ch120.Popup
             if (_actions.ContainsKey(key)) { return _actions[key]; }
             
             return () => {};
+        }
+        
+        // ポップアップを開いたときのSE
+        protected virtual void PlayOpenSE()
+        {
+            
+        }
+        
+        // ポップアップを開いたときのSE
+        protected virtual void PlayCloseSE()
+        {
+            
+        }
+        
+        // ポップアップを開いたときのアニメ―ション
+        protected virtual void ShowOpenAnimation(Action startCallback, Action endCallback)
+        {
+            if (isAnimation)
+            {
+                Sequence seq = DOTween.Sequence();
+                seq.AppendCallback(() =>
+                {
+                    baseObject.transform.localScale = Vector3.zero;
+                    startCallback?.Invoke();
+                }).Append(baseObject.transform.DOScale(Vector3.one, 0.2f)).AppendCallback(() =>
+                {
+                    endCallback?.Invoke();
+                });
+            }
+            else
+            {
+                startCallback?.Invoke();
+                endCallback?.Invoke();
+            }
+        }
+        
+        // ポップアップを閉じたときのアニメ―ション
+        protected virtual void ShowCloseAnimation(Action startCallback, Action endCallback)
+        {
+            if (isAnimation)
+            {
+                Sequence seq = DOTween.Sequence();
+                seq.AppendCallback(() =>
+                {
+                    baseObject.transform.localScale = Vector3.one;
+                    startCallback?.Invoke();
+                }).Append(baseObject.transform.DOScale(Vector3.zero, 0.2f)).AppendCallback(() =>
+                {
+                    endCallback?.Invoke();
+                });
+            }
+            else
+            {
+                startCallback?.Invoke();
+                endCallback?.Invoke();
+            }
         }
     }
 }

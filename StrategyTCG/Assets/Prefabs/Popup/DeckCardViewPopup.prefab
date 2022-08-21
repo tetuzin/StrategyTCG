@@ -885,16 +885,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2511bca1e65ae546b3b2d4dfd7e6316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupObject: {fileID: 4488090225732420864}
+  popupObject: {fileID: 4488090226963561256}
+  baseObject: {fileID: 4488090225732420864}
   modalObject: {fileID: 8878102064182160223}
-  _canvas: {fileID: 0}
+  isAnimation: 1
+  _scrollView: {fileID: 2134167654503747366}
   _decisionButton: {fileID: 4488090226581909829}
   _cancelButton: {fileID: 4488090226004436932}
-  _titleText: {fileID: 4488090226415341119}
-  _mainText: {fileID: 0}
-  _decisionText: {fileID: 4488090227566393919}
-  _cancelText: {fileID: 4488090226553222066}
-  _scrollView: {fileID: 2134167654503747366}
 --- !u!1 &4488090227404679475
 GameObject:
   m_ObjectHideFlags: 0

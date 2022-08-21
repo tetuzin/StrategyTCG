@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Ch120.Const.Audio;
 using Ch120.Const.Game;
 using UnityEngine;
 using UnityEngine.Events;
 
 using UK.Manager.Master;
-
 using UK.Manager.Card;
 using UK.Manager.Ingame;
 using UK.Manager.Popup;
+using UK.Manager.Particle;
 
 using UK.Model.CardMain;
 using UK.Model.EffectMain;
@@ -22,6 +23,7 @@ using UK.Const.Card.Type;
 using UK.Const.Card.UseType;
 using UK.Const.Effect;
 using UK.Const.Ability;
+using UK.Manager.Audio;
 using UK.Manager.UI;
 using UK.Unit.Card;
 using UK.Unit.Field;
@@ -504,6 +506,10 @@ namespace UK.Utils.Card
                             foreach (CardUnit cardUnit in selectCardList)
                             {
                                 cardUnit.Damage(model.AbilityParameter1);
+                                IngameParticleManager.Instance.CreateParticle(
+                                    ParticleType.CANNON_DAMAGE, cardUnit.gameObject.transform.position, Quaternion.identity
+                                );
+                                UKAudioManager.Instance.PlaySE(AudioConst.SE_CANNON);
                             }
                         }
                     );

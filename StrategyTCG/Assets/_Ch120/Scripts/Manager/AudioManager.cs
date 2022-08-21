@@ -45,6 +45,7 @@ namespace Ch120.Manager.Audio
         {
             if (_seClips.ContainsKey(key))
             {
+                _audioSourceSE.Stop();
                 _audioSourceSE.PlayOneShot(_seClips[key]);
             }
             else

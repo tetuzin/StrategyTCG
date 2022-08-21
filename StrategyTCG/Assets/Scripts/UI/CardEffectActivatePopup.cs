@@ -4,6 +4,7 @@ using Ch120.Const.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 using Ch120.Popup.Simple;
 using UK.Manager.Audio;
@@ -16,9 +17,6 @@ namespace UK.Popup.CardEffectActivate
     public class CardEffectActivatePopup : SimpleTextPopup
     {
         // ---------- 定数宣言 ----------
-        
-        public const string CALLBACK_EVENT = "CallBackEvent";
-        
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         
         [SerializeField, Tooltip("タイトルテキスト")] private TextMeshProUGUI _titleText = default;
@@ -31,22 +29,6 @@ namespace UK.Popup.CardEffectActivate
         // ---------- インスタンス変数宣言 ----------
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
-
-        public override void Show()
-        {
-            base.Show();
-            UKAudioManager.Instance.PlaySE(AudioConst.SE_EFFECT);
-        }
-        
-        public override void Hide()
-        {
-            _isShow = false;
-            _curTime = 0.0f;
-            Close();
-            Action action = GetAction(CALLBACK_EVENT);
-            action();
-        }
-        
         // ---------- Private関数 ----------
         
         // タイトルテキストの設定
@@ -100,6 +82,60 @@ namespace UK.Popup.CardEffectActivate
             SetBackgroundColor(paramter.isPlayer);
 
             base.SetData(paramter);
+        }
+        
+        // ポップアップを開いたときのSE
+        protected override void PlayOpenSE()
+        {
+            UKAudioManager.Instance.PlaySE(AudioConst.SE_EFFECT);
+        }
+        
+        // ポップアップを開いたときのアニメ―ション
+        protected override void ShowOpenAnimation(Action startCallback, Action endCallback)
+        {
+            if (isAnimation)
+            {
+                RectTransform rectTrans = baseObject.GetComponent<RectTransform>();
+                Sequence seq = DOTween.Sequence();
+                seq.AppendCallback(() =>
+                {
+                    rectTrans.localPosition = new Vector3(-1920, 0, 0);
+                    startCallback?.Invoke();
+                }).Append(rectTrans.DOAnchorPos(Vector3.zero, 0.2f)).AppendCallback(() =>
+                {
+                    endCallback?.Invoke();
+                    rectTrans.localPosition = Vector3.zero;
+                });
+            }
+            else
+            {
+                startCallback?.Invoke();
+                endCallback?.Invoke();
+            }
+        }
+        
+        // ポップアップを閉じたときのアニメ―ション
+        protected override void ShowCloseAnimation(Action startCallback, Action endCallback)
+        {
+            if (isAnimation)
+            {
+                RectTransform rectTrans = baseObject.GetComponent<RectTransform>();
+                Sequence seq = DOTween.Sequence();
+                seq.AppendCallback(() =>
+                {
+                    rectTrans.localPosition = Vector3.zero;
+                    startCallback?.Invoke();
+                }).Append(rectTrans.DOAnchorPos(new Vector2(1920, 0), 0.2f)).AppendCallback(() =>
+                {
+                    endCallback?.Invoke();
+                    rectTrans.localPosition = Vector3.zero;
+                });
+            }
+            else
+            {
+                startCallback?.Invoke();
+                endCallback?.Invoke();
+            }
         }
     }
 }

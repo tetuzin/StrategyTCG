@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using DG.Tweening;
 
 using Ch120.Manager.Popup;
+using Ch120.Utils.Common;
 
 namespace UK.Manager.TitleUI
 {
@@ -108,7 +109,7 @@ namespace UK.Manager.TitleUI
             });
             SetButtonEvent(TitleButtonType.GAME_EXIT, () =>
             {
-                CreateOpenPopup(TitlePopupType.SIMPLE, null, new {mainText = "鋭意作成中です！ごめんね"});
+                CommonUtils.GameExit();
             });
         }
 

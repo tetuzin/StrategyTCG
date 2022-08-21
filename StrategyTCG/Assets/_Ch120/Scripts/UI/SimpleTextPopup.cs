@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -8,13 +8,18 @@ namespace Ch120.Popup.Simple
     public class SimpleTextPopup : BasePopup
     {
         // ---------- 定数宣言 ----------
+        
+        public const string CALLBACK_EVENT = "CallBackEvent";
+        
         // ---------- ゲームオブジェクト参照変数宣言 ----------
 
         [SerializeField, Tooltip("メインテキスト")] protected TextMeshProUGUI _mainText = default;
 
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
+        
         [SerializeField, Tooltip("表示する時間")] protected float delayTime = 1.5f;
+        
         // ---------- クラス変数宣言 ----------
         // ---------- インスタンス変数宣言 ----------
 
@@ -37,13 +42,6 @@ namespace Ch120.Popup.Simple
         }
 
         // ---------- Public関数 ----------
-        
-        // ポップアップを開く
-        public override void Open(bool isModal = true)
-        {
-            base.Open(isModal);
-            Show();
-        }
 
         public virtual void Show()
         {
@@ -56,6 +54,8 @@ namespace Ch120.Popup.Simple
             _isShow = false;
             _curTime = 0.0f;
             Close();
+            Action action = GetAction(CALLBACK_EVENT);
+            action();
         }
 
         // ---------- Private関数 ----------
@@ -69,11 +69,12 @@ namespace Ch120.Popup.Simple
         }
 
         // ---------- protected関数 ---------
-
-        // ボタンイベントの設定
-        protected override void SetButtonEvents()
+        
+        // ポップアップを開くときの処理
+        protected override void ShowPopup(bool isModal)
         {
-
+            base.ShowPopup(isModal);
+            Show();
         }
 
         // データの設定

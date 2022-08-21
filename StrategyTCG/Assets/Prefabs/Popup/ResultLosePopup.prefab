@@ -510,8 +510,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupObject: {fileID: 105206533075948016}
+  baseObject: {fileID: 105206531912724440}
   modalObject: {fileID: 4902300455849623943}
-  _canvas: {fileID: 0}
+  isAnimation: 1
   _rematchButton: {fileID: 105206532694301597}
   _endButton: {fileID: 105206532186033436}
 --- !u!1 &105206533582865387
