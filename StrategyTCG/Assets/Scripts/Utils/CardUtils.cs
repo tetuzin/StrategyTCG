@@ -282,7 +282,7 @@ namespace UK.Utils.Card
             }
         }
 
-        // TODO 未完成 カード効果発動
+        // カード効果発動
         public static void EffectActivate(EffectAbilityModel model)
         {
             AbilityType abilityType = (AbilityType)model.AbilityType;
