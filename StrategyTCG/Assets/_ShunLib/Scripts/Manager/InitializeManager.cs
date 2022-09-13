@@ -87,7 +87,7 @@ namespace ShunLib.Manager.Initialize
         // 最初に遷移するシーン名を取得
         private string GetSceneName()
         {
-            return "DemoScene";
+            return "TitleScene";
         }
         
         // 最初のシーンへ遷移
