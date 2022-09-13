@@ -4,6 +4,8 @@ using ShunLib.Dao;
 using ShunLib.Singleton;
 using UnityEngine;
 
+using UK.Model.Deck;
+
 namespace ShunLib.Manager.Game
 {
     public class GameManager : SingletonMonoBehaviour<GameManager>
@@ -18,6 +20,8 @@ namespace ShunLib.Manager.Game
         private Func<string, BaseDao> _getDaoCallback = default;
         private Action<AudioEnum> _playSeCallback = default;
         private Action<AudioEnum> _playBgmCallback = default;
+
+        private DeckModel _model = default;
         
         // ---------- Unity組込関数 ----------
         // ---------- Public関数 ----------
@@ -57,6 +61,18 @@ namespace ShunLib.Manager.Game
         public void SetPlayBGMCallback(Action<AudioEnum> callback)
         {
             _playBgmCallback = callback;
+        }
+        
+        // TODO 仮：デッキ設定
+        public void SetDeckModel(DeckModel model)
+        {
+            _model = model;
+        }
+        
+        // TODO 仮：デッキ取得
+        public DeckModel GetDeckModel()
+        {
+            return _model;
         }
         
         // ---------- Private関数 ----------

@@ -60,7 +60,7 @@ namespace UK.Unit.Hand
             card.gameObject.transform.localPosition = Vector3.zero;
             card.gameObject.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
             card.SetActiveBackImage(!_isPlayer);
-            GameManager.Instance.PlaySE(AudioConst.SE_CARD_OPEN);
+            GameManager.Instance.PlaySE(AudioEnum.SE_CARD_OPEN);
             await Task.Delay(300);
         }
 

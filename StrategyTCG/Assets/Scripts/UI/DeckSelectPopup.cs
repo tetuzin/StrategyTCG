@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ShunLib.Manager.Game;
 using UnityEngine;
 
 using ShunLib.Popup.ScrollView;
@@ -53,8 +54,7 @@ namespace UK.Popup.DeckSelect
                     else
                     {
                         _selectItem = item;
-                        UKUserManager.Instance.GetModel().PlayerDeck = model;
-                        UKUserManager.Instance.GetModel().OpponentDeck = model;
+                        GameManager.Instance.SetDeckModel(model);
                         foreach (CommonListItem listItem in _itemList)
                         {
                             listItem.SetGrayOut(true);

@@ -96,7 +96,7 @@ namespace UK.Unit.Place
             _card3DUnit.gameObject.transform.localScale = new Vector3(0.14f, 0.14f, 1.0f);
             _card3DUnit.GetCardUnit().Placement(this);
             
-            GameManager.Instance.PlaySE(AudioConst.SE_CARD_PLACEMENT);
+            GameManager.Instance.PlaySE(AudioEnum.SE_CARD_PLACEMENT);
 
             IngameParticleManager.Instance.CreateParticle(ParticleType.CARD_PLACEMENT, gameObject.transform.position, Quaternion.identity);
 

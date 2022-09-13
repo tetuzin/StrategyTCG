@@ -88,7 +88,7 @@ namespace UK.Popup.CardEffectActivate
         // ポップアップを開いたときのSE
         protected override void PlayOpenSE()
         {
-            GameManager.Instance.PlaySE(AudioConst.SE_EFFECT);
+            GameManager.Instance.PlaySE(AudioEnum.SE_EFFECT);
         }
         
         // ポップアップを開いたときのアニメ―ション

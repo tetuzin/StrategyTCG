@@ -509,7 +509,7 @@ namespace UK.Utils.Card
                                 IngameParticleManager.Instance.CreateParticle(
                                     ParticleType.CANNON_DAMAGE, cardUnit.gameObject.transform.position, Quaternion.identity
                                 );
-                                GameManager.Instance.PlaySE(AudioConst.SE_CANNON);
+                                GameManager.Instance.PlaySE(AudioEnum.SE_CANNON);
                             }
                         }
                     );

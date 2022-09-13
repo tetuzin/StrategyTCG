@@ -9,7 +9,7 @@ using ShunLib.Manager.Scene;
 using ShunLib.Const.Audio;
 using ShunLib.Popup.Simple;
 using UK.Manager.User;
-using UK.Manager.Audio;
+using ShunLib.Manager.Game;
 using UK.Const.Game;
 using UK.Const.Effect;
 using UK.Manager.UI;
@@ -102,8 +102,8 @@ namespace UK.Manager.Ingame
             UIManager.Instance.SetTurnEndAction(AttackPlayer);
             
             // お互いのデッキを読み込む
-            List<CardMainModel> playerDeck = UKUserManager.Instance.GetModel().PlayerDeck.CardList;
-            List<CardMainModel> opponentDeck = UKUserManager.Instance.GetModel().OpponentDeck.CardList;
+            List<CardMainModel> playerDeck = GameManager.Instance.GetDeckModel().CardList;
+            List<CardMainModel> opponentDeck = GameManager.Instance.GetDeckModel().CardList;
 
             // お互いのデッキをDeckUnitに設定
             CardManager.Instance.SetPlayerDeck(playerDeck);
@@ -165,7 +165,7 @@ namespace UK.Manager.Ingame
                 actions.Add(UK.Popup.Result.ResultPopup.RESULT_END_BUTTON, TransitionTitle);
                 PopupManager.Instance.SetResultLosePopup(isRematch, actions);
                 PopupManager.Instance.ShowResultLosePopup();
-                UKAudioManager.Instance.PlaySE(AudioConst.SE_RESULT_LOSE);
+                GameManager.Instance.PlaySE(AudioEnum.SE_RESULT_LOSE);
             }
             else
             {
@@ -174,7 +174,7 @@ namespace UK.Manager.Ingame
                 actions.Add(UK.Popup.Result.ResultPopup.RESULT_END_BUTTON, TransitionTitle);
                 PopupManager.Instance.SetResultWinPopup(isRematch, actions);
                 PopupManager.Instance.ShowResultWinPopup();
-                UKAudioManager.Instance.PlaySE(AudioConst.SE_RESULT_WIN);
+                GameManager.Instance.PlaySE(AudioEnum.SE_RESULT_WIN);
             }
         }
 
@@ -229,7 +229,7 @@ namespace UK.Manager.Ingame
             );
             string text = _playerUnit.Name + "の攻撃！";
             PopupManager.Instance.SetPlayerAttackPopup(text, actions);
-            UKAudioManager.Instance.PlaySE(AudioConst.SE_ATTACK_PHASE);
+            GameManager.Instance.PlaySE(AudioEnum.SE_ATTACK_PHASE);
             PopupManager.Instance.ShowPlayerAttackPopup();
         }
 
@@ -309,7 +309,7 @@ namespace UK.Manager.Ingame
 
             string text = _opponentUnit.Name + "の攻撃！";
             PopupManager.Instance.SetOpponentAttackPopup(text, actions);
-            UKAudioManager.Instance.PlaySE(AudioConst.SE_ATTACK_PHASE);
+            GameManager.Instance.PlaySE(AudioEnum.SE_ATTACK_PHASE);
             PopupManager.Instance.ShowOpponentAttackPopup();
         }
 
