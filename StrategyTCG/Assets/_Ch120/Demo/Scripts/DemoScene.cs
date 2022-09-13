@@ -1,13 +1,15 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Ch120.Demo;
+using DG.Tweening;
 
-namespace UK.Game
+using Ch120.Singleton;
+using Ch120.Manager.Scene;
+
+namespace Ch120.Demo
 {
-    [DefaultExecutionOrder(-1)]
-    public class DemoSceneChecker : MonoBehaviour
+    public class DemoScene : SingletonMonoBehaviour<DemoScene>
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
@@ -17,22 +19,16 @@ namespace UK.Game
         // ---------- インスタンス変数宣言 ----------
         // ---------- Unity組込関数 ----------
 
-        private void Awake()
+        void Start()
         {
-            Initialize();
+            List<DemoMainModel> list = ((DemoMainDao)DemoMasterManager.Instance.GetDao("DemoMainDao")).Get();
+            Debug.Log(list[0].Text);
+            Debug.Log(list[1].Text);
+            Debug.Log(list[2].Text);
         }
-
+        
         // ---------- Public関数 ----------
         // ---------- Private関数 ----------
-
-        private void Initialize()
-        {
-            if (!DemoInitializeManager.IsInitialize)
-            {
-                SceneManager.LoadScene(0);
-            }
-        }
-
         // ---------- protected関数 ---------
     }
 }

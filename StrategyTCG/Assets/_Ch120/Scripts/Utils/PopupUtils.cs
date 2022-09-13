@@ -87,7 +87,7 @@ namespace Ch120.Utils.Popup
             
             modal.AddComponent<Image>();
             
-            modal.AddComponent<RectTransform>();
+            // modal.AddComponent<RectTransform>();
             RectTransform rectTrans = modal.GetComponent<RectTransform>();
             rectTrans.localPosition = Vector3.zero;
             rectTrans.localScale = Vector3.one;

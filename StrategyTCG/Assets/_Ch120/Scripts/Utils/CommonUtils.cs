@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Ch120.Utils.Common
 {
     public class CommonUtils

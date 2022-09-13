@@ -196,9 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8e3dafe29c42acb5d73345a119d0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _masterManager: {fileID: 0}
-  _userManager: {fileID: 0}
-  _audioManager: {fileID: 0}
+  _masterManager: {fileID: 158911587}
+  _userManager: {fileID: 1943345414}
+  _audioManager: {fileID: 983925572}
 --- !u!4 &525459856
 Transform:
   m_ObjectHideFlags: 0
