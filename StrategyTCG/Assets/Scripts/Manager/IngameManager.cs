@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
 
-using Ch120.Singleton;
-using Ch120.Manager.Scene;
-using Ch120.Const.Audio;
-using Ch120.Popup.Simple;
+using ShunLib.Singleton;
+using ShunLib.Manager.Scene;
+using ShunLib.Const.Audio;
+using ShunLib.Popup.Simple;
 using UK.Manager.User;
 using UK.Manager.Audio;
 using UK.Const.Game;

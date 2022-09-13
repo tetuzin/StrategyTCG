@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
-using Ch120.Manager.Initialize;
+using ShunLib.Manager.Initialize;
 using UK.Manager.Audio;
 using UK.Manager.Master;
 using UK.Manager.User;

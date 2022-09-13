@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Ch120.Const.Audio;
-using Ch120.Const.Game;
+using ShunLib.Const.Audio;
+using ShunLib.Const.Game;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -100,7 +100,7 @@ namespace UK.Utils.Card
             {
                 Dictionary<string, Action> actions = new Dictionary<string, Action>();
                 actions.Add(
-                    Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
+                    ShunLib.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                     () => {
                         // 能力発動
                         CardAbilityActivate(effectList, abilityList, unit);

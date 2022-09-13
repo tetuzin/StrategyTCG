@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using Ch120.Singleton;
-using Ch120.Popup.Common;
-using Ch120.Popup.Simple;
+using ShunLib.Singleton;
+using ShunLib.Popup.Common;
+using ShunLib.Popup.Simple;
 
 using UK.Model.CardMain;
 using UK.Popup.CardEffectActivate;

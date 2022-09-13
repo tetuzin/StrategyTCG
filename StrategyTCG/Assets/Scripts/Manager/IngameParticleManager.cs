@@ -1,4 +1,4 @@
-using Ch120.Manager.Particle;
+using ShunLib.Manager.Particle;
 
 namespace UK.Manager.Particle
 {

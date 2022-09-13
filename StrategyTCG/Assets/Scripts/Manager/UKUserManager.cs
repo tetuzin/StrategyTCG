@@ -1,4 +1,4 @@
-using Ch120.Manager.User;
+using ShunLib.Manager.User;
 
 namespace UK.Manager.User
 {

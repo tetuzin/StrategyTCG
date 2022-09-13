@@ -1,4 +1,4 @@
-using Ch120.Manager.Master;
+using ShunLib.Manager.Master;
 
 namespace UK.Manager.Master
 {

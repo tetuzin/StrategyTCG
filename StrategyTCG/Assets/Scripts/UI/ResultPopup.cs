@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-using Ch120.Popup;
-using Ch120.Utils.Popup;
+using ShunLib.Popup;
+using ShunLib.Utils.Popup;
 
 namespace UK.Popup.Result
 {

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-using Ch120.Singleton;
-using Ch120.Popup.Common;
+using ShunLib.Singleton;
+using ShunLib.Popup.Common;
 using UK.Const.Ability;
 using UK.Const.Card.Type;
 using UK.Const.Game;

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Ch120.Const.Audio;
+using ShunLib.Const.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-using Ch120.Popup.Simple;
+using ShunLib.Popup.Simple;
 using UK.Manager.Audio;
 using UK.Manager.Card;
 using UK.Model.CardMain;

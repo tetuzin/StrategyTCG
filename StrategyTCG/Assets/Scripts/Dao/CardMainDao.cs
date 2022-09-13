@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Ch120.Dao;
+using ShunLib.Dao;
 
 using UK.Const.Resource;
 using UK.Model.CardMain;

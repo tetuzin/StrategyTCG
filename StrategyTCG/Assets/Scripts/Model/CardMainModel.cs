@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Ch120.Model;
+using ShunLib.Model;
 
 namespace UK.Model.CardMain
 {

@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Ch120.Popup.ScrollView;
-using Ch120.UI.ListItem;
+using ShunLib.Popup.ScrollView;
+using ShunLib.UI.ListItem;
 using UK.Manager.User;
 using UK.Manager.TitleUI;
 using UK.Model.Deck;

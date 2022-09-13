@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-using Ch120.Popup;
-using Ch120.Utils.Resource;
-using Ch120.ScrollView;
+using ShunLib.Popup;
+using ShunLib.Utils.Resource;
+using ShunLib.ScrollView;
 using UK.Utils.Card;
 using UK.Model.CardMain;
 

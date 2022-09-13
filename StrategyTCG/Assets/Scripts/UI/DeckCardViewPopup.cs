@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-using Ch120.Popup;
-using Ch120.ScrollView;
+using ShunLib.Popup;
+using ShunLib.ScrollView;
 using UK.Const.Ability;
 using UK.Const.Game;
 using UK.Const.Card.Type;
@@ -246,7 +246,7 @@ namespace UK.Popup.DeckCardView
                     // 選択を本当にやめるか確認するポップアップを表示する
                     Dictionary<string, Action> actions = new Dictionary<string, Action>();
                     actions.Add(
-                        Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
+                        ShunLib.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                         () =>
                         {
                             Close();

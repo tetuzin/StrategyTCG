@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-using Ch120.UI.Gauge;
+using ShunLib.UI.Gauge;
 
 using UK.Manager.Card;
 using UK.Unit.Player;

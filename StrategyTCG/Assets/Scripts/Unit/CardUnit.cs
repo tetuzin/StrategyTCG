@@ -6,9 +6,9 @@ using UnityEngine.Events;
 using TMPro;
 using DG.Tweening;
 
-using Ch120.Utils.Resource;
-using Ch120.Utils.Popup;
-using Ch120.UI.CommonBtn;
+using ShunLib.Utils.Resource;
+using ShunLib.Utils.Popup;
+using ShunLib.UI.CommonBtn;
 
 using UK.Const.Game;
 using UK.Const.Card.UseType;
@@ -520,7 +520,7 @@ namespace UK.Unit.Card
         {
             Dictionary<string, Action> actions = new Dictionary<string, Action>();
             actions.Add(
-                Ch120.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
+                ShunLib.Popup.Common.CommonPopup.DECISION_BUTTON_EVENT,
                 () => {
                     // カードをトラッシュへ
                     CardManager.Instance.TrashCard(_isPlayer, this);

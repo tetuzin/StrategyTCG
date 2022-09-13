@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using Ch120.Const.Audio;
+using ShunLib.Const.Audio;
 
 using UK.Manager.Card;
 using UK.Manager.UI;

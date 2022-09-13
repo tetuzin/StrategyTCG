@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 
-using Ch120.Manager.Popup;
-using Ch120.Utils.Common;
+using ShunLib.Manager.Popup;
+using ShunLib.Utils.Common;
 
 namespace UK.Manager.TitleUI
 {
