@@ -6,7 +6,6 @@ using UnityEngine;
 using ShunLib.Singleton;
 
 using UK.Const.Game;
-using UK.Manager.Audio;
 using UK.Manager.Popup;
 using UK.Manager.UI;
 using UK.Model.CardMain;

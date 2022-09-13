@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 
-using ShunLib.Manager.Popup;
+using ShunLib.Manager.UI;
 using ShunLib.Utils.Common;
 
 namespace UK.Manager.TitleUI
@@ -41,7 +41,7 @@ namespace UK.Manager.TitleUI
         public const int DECK_SELECT = 1;       // デッキ選択ポップアップ
     }
     
-    public class TitleUIManager : BaseUIManager<TitleUIManager>
+    public class TitleUIManager : UIManager<TitleUIManager>
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------

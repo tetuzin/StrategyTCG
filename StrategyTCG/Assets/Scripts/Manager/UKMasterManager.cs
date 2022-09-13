@@ -2,7 +2,7 @@ using ShunLib.Manager.Master;
 
 namespace UK.Manager.Master
 {
-    public class UKMasterManager : MasterManager<UKMasterManager>
+    public class UKMasterManager : MasterManager
     {
         // Daoクラスの名前リスト（新しく作成したDaoクラスはここに記述する）
         protected static readonly string[] DAO_CLASS_NAME = {

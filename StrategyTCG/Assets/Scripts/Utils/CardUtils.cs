@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ShunLib.Const.Audio;
 using ShunLib.Const.Game;
+using ShunLib.Manager.Game;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,7 +24,6 @@ using UK.Const.Card.Type;
 using UK.Const.Card.UseType;
 using UK.Const.Effect;
 using UK.Const.Ability;
-using UK.Manager.Audio;
 using UK.Manager.UI;
 using UK.Unit.Card;
 using UK.Unit.Field;
@@ -37,19 +37,19 @@ namespace UK.Utils.Card
         // 効果番号から効果を取得
         public static EffectMainModel GetEffectMainModel(int effectId)
         {
-            return ((EffectMainDao)UKMasterManager.Instance.GetDao("EffectMainDao")).GetModelById(effectId);
+            return ((EffectMainDao)GameManager.Instance.GetDao("EffectMainDao")).GetModelById(effectId);
         }
 
         // 効果番号から効果リストを取得
         public static List<EffectGroupModel> GetEffectGroupModelList(int effectId)
         {
-            return ((EffectGroupDao)UKMasterManager.Instance.GetDao("EffectGroupDao")).GetModelAllById(effectId);
+            return ((EffectGroupDao)GameManager.Instance.GetDao("EffectGroupDao")).GetModelAllById(effectId);
         }
 
         // 効果能力番号から能力を取得
         public static EffectAbilityModel GetEffectAbilityModel(int effectAbilityId)
         {
-            return ((EffectAbilityDao)UKMasterManager.Instance.GetDao("EffectAbilityDao")).GetModelById(effectAbilityId);
+            return ((EffectAbilityDao)GameManager.Instance.GetDao("EffectAbilityDao")).GetModelById(effectAbilityId);
         }
 
         // 効果番号から能力リストを取得
@@ -509,7 +509,7 @@ namespace UK.Utils.Card
                                 IngameParticleManager.Instance.CreateParticle(
                                     ParticleType.CANNON_DAMAGE, cardUnit.gameObject.transform.position, Quaternion.identity
                                 );
-                                UKAudioManager.Instance.PlaySE(AudioConst.SE_CANNON);
+                                GameManager.Instance.PlaySE(AudioConst.SE_CANNON);
                             }
                         }
                     );
@@ -742,7 +742,7 @@ namespace UK.Utils.Card
         // カードの国名を取得
         public static string GetCardCountryName(int countryId)
         {
-            CountryMainModel model = ((CountryMainDao)UKMasterManager.Instance.GetDao("CountryMainDao")).GetModelById(countryId);
+            CountryMainModel model = ((CountryMainDao)GameManager.Instance.GetDao("CountryMainDao")).GetModelById(countryId);
             return model.CountryName;
         }
 

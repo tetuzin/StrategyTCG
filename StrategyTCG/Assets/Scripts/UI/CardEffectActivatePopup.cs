@@ -7,7 +7,8 @@ using TMPro;
 using DG.Tweening;
 
 using ShunLib.Popup.Simple;
-using UK.Manager.Audio;
+using ShunLib.Manager.Game;
+
 using UK.Manager.Card;
 using UK.Model.CardMain;
 using UK.Unit.Card;
@@ -87,7 +88,7 @@ namespace UK.Popup.CardEffectActivate
         // ポップアップを開いたときのSE
         protected override void PlayOpenSE()
         {
-            UKAudioManager.Instance.PlaySE(AudioConst.SE_EFFECT);
+            GameManager.Instance.PlaySE(AudioConst.SE_EFFECT);
         }
         
         // ポップアップを開いたときのアニメ―ション

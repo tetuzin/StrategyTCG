@@ -4,12 +4,13 @@ using UK.Const.Card.Type;
 using UnityEngine;
 using DG.Tweening;
 
+using ShunLib.Manager.Game;
+
 using UK.Const.Card.UseType;
 using UK.Manager.Card;
 using UK.Unit.Card;
 using UK.Model.CardMain;
 using UK.Utils.Card;
-using UK.Manager.Audio;
 using ShunLib.Const.Audio;
 
 namespace UK.Unit.Hand
@@ -59,7 +60,7 @@ namespace UK.Unit.Hand
             card.gameObject.transform.localPosition = Vector3.zero;
             card.gameObject.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
             card.SetActiveBackImage(!_isPlayer);
-            UKAudioManager.Instance.PlaySE(AudioConst.SE_CARD_OPEN);
+            GameManager.Instance.PlaySE(AudioConst.SE_CARD_OPEN);
             await Task.Delay(300);
         }
 

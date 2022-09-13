@@ -8,6 +8,7 @@ using DG.Tweening;
 
 using ShunLib.Singleton;
 using ShunLib.Manager.Scene;
+using ShunLib.Manager.Game;
 using UK.Manager.Master;
 
 using UK.Dao;
@@ -93,7 +94,7 @@ namespace UK.Manager.Title
         private List<CardMainModel> CreatePlayerDeck()
         {
             List<CardMainModel> deck = new List<CardMainModel>();
-            List<CardMainModel> list =  ((CardMainDao)UKMasterManager.Instance.GetDao("CardMainDao")).Get();
+            List<CardMainModel> list =  ((CardMainDao)GameManager.Instance.GetDao("CardMainDao")).Get();
             deck.Add(list[0]);
             deck.Add(list[0]);
             deck.Add(list[0]);
@@ -141,7 +142,7 @@ namespace UK.Manager.Title
         private List<CardMainModel> CreateOpponentDeck()
         {
             List<CardMainModel> deck = new List<CardMainModel>();
-            List<CardMainModel> list =  ((CardMainDao)UKMasterManager.Instance.GetDao("CardMainDao")).Get();
+            List<CardMainModel> list =  ((CardMainDao)GameManager.Instance.GetDao("CardMainDao")).Get();
             deck.Add(list[0]);
             deck.Add(list[0]);
             deck.Add(list[1]);
