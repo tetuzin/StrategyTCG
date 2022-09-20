@@ -116,6 +116,7 @@ namespace UK.Manager.Ingame
             _camera.gameObject.transform.rotation = Quaternion.identity;
             _camera.gameObject.transform.DOMove(new Vector3(0.0f, 155.0f, 0.0f), 2.0f).SetEase(Ease.InOutQuart);
             await _camera.gameObject.transform.DORotate(new Vector3(90.0f, 0.0f, 0.0f), 2.0f).AsyncWaitForCompletion();
+            GameManager.Instance.SetAudioPosition(_camera.gameObject.transform.position);
         }
 
         // ゲーム開始

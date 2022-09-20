@@ -41,7 +41,7 @@ namespace UK.Manager.TitleUI
         public const int DECK_SELECT = 1;       // デッキ選択ポップアップ
     }
     
-    public class TitleUIManager : UIManager<TitleUIManager>
+    public class TitleUIManager : UIManager
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------

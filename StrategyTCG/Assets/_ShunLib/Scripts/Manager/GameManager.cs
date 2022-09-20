@@ -20,6 +20,8 @@ namespace ShunLib.Manager.Game
         private Func<string, BaseDao> _getDaoCallback = default;
         private Action<AudioEnum> _playSeCallback = default;
         private Action<AudioEnum> _playBgmCallback = default;
+        
+        private Action<Vector3> _audioPosCallback = default;
 
         private DeckModel _model = default;
         
@@ -29,7 +31,6 @@ namespace ShunLib.Manager.Game
         // Dao取得処理を実行
         public BaseDao GetDao(string daoName)
         {
-            Debug.Log(_getDaoCallback);
             return _getDaoCallback?.Invoke(daoName);
         }
         
@@ -37,6 +38,18 @@ namespace ShunLib.Manager.Game
         public void SetDaoCallback(Func<string, BaseDao> callback)
         {
             _getDaoCallback = callback;
+        }
+        
+        // AudioManagerの座標を設定
+        public void SetAudioPositionCallback(Action<Vector3> action)
+        {
+            _audioPosCallback = action;
+        }
+        
+        // AudioManagerの座標を設定
+        public void SetAudioPosition(Vector3 pos)
+        {
+            _audioPosCallback?.Invoke(pos);
         }
 
         // SE再生

@@ -14,6 +14,8 @@ namespace UK.Popup.DeckSelect
     public class DeckSelectPopup : ScrollViewPopup
     {
         // ---------- 定数宣言 ----------
+        public const string SIMPLE_TEXT_POPUP = "simple_text_popup";
+        public const string DECISION_BUTTON = "DECISION_BUTTON";
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         
         [SerializeField, Tooltip("リストアイテムプレハブ")] private GameObject _listItemObj = default;
@@ -84,13 +86,14 @@ namespace UK.Popup.DeckSelect
                 _decisionButton.SetOnEvent(() => {
                     if (_selectItem != default)
                     {
-                        Action action = GetAction(DECISION_BUTTON_EVENT);
+                        Action action = GetAction(DECISION_BUTTON);
                         action();
                         Close();
                     }
                     else
                     {
-                        TitleUIManager.Instance.ShowSimplePopup("デッキを選択してください！");
+                        Action action = GetAction(SIMPLE_TEXT_POPUP);
+                        action();
                     }
                 });
             }

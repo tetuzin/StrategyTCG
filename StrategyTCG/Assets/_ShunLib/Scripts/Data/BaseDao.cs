@@ -7,6 +7,8 @@ namespace ShunLib.Dao
     {
         void Initialize();
         void LoadJsonMasterList();
+        
+        void LoadJsonList(string jsontext);
         void SaveJsonMasterList();
     }
 
@@ -47,6 +49,12 @@ namespace ShunLib.Dao
         {
             string filePath = GetJsonPath() + GetJsonFile();
             Set(JsonUtils.LoadResourceFile<T>(filePath));
+        }
+        
+        // JSONからデータを読み込みリストを返す
+        virtual public void LoadJsonList(string jsontext)
+        {
+            Set(JsonUtils.LoadJsonFile<T>(jsontext));
         }
 
         // リストを読み込みJSONに保存する

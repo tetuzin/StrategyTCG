@@ -11,7 +11,7 @@ using ShunLib.Manager.User;
 namespace ShunLib.Manager.Initialize
 {
     [DefaultExecutionOrder(-1)]
-    public class InitializeManager : SingletonMonoBehaviour<InitializeManager>
+    public class InitializeManager : MonoBehaviour
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
@@ -81,6 +81,10 @@ namespace ShunLib.Manager.Initialize
                 await _audioManager.Initialize();
                 _gameManager.SetPlaySECallback(_audioManager.PlaySE);
                 _gameManager.SetPlayBGMCallback(_audioManager.PlayBGM);
+                _gameManager.SetAudioPositionCallback((Vector3 pos) =>
+                {
+                    _audioManager.gameObject.transform.localPosition = pos;
+                });
             }
         }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using ShunLib.Singleton;
 using ShunLib.Dao;
+using ShunLib.Dict;
 
 namespace ShunLib.Manager.Master
 {
@@ -12,6 +13,9 @@ namespace ShunLib.Manager.Master
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
+        
+        [SerializeField] protected MasterDict _textAssets = default;
+        
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
 
@@ -37,14 +41,21 @@ namespace ShunLib.Manager.Master
         // マスタ配列の初期化
         private Task InitializeMaster()
         {
+            Debug.Log("!!!!!");
             _daoDict = new Dictionary<string, BaseDao>();
             foreach (string daoName in GetDaoClassNameList())
             {
+                Debug.Log(daoName);
                 Type daoType = Type.GetType(GetDaoClassNamespace() + daoName, true);
                 BaseDao dao = (BaseDao)Activator.CreateInstance(daoType);
-                dao.LoadJsonMasterList();
+
+                string jsontext = _textAssets.GetValue(daoName).ToString();
+                Debug.Log(jsontext);
+                dao.LoadJsonList(jsontext);
                 _daoDict.Add(daoName, dao);
             }
+            
+            
 
             return Task.CompletedTask;
         }

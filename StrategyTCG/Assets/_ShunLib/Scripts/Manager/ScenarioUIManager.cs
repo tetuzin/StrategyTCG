@@ -27,7 +27,7 @@ namespace ShunLib.Manager.ScenarioUI
         public const int AUTO = 6;      // オート再生ボタン
     }
 
-    public class ScenarioUIManager : UIManager<ScenarioUIManager>
+    public class ScenarioUIManager : UIManager
     {
         // 初期化
         public override void Initialize()

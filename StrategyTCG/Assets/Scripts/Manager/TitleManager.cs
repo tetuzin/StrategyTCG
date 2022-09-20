@@ -18,12 +18,13 @@ using UK.Model.CardMain;
 
 namespace UK.Manager.Title
 {
-    public class TitleManager : SingletonMonoBehaviour<TitleManager>
+    public class TitleManager : MonoBehaviour
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------
         
         [SerializeField, Tooltip("Cameraオブジェクト")] protected Camera _mainCamera = default;
+        [SerializeField, Tooltip("UIManager")] protected TitleUIManager _titleUIManager = default;
         
         // ---------- プレハブ ----------
         // ---------- プロパティ ----------
@@ -42,15 +43,16 @@ namespace UK.Manager.Title
         // 初期化
         private void Initialized()
         {
+            GameManager.Instance.SetAudioPosition(Vector3.zero);
             if (_mainCamera != default)
             {
                 _mainCamera.gameObject.transform.DORotate(Vector3.up * 10.0f, 2.0f)
                     .SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear);
             }
             
-            TitleUIManager.Instance.Initialize();
+            _titleUIManager.Initialize();
             
-            TitleUIManager.Instance.SetButtonEvent(TitleButtonType.CPU_BATTLE, () =>
+            _titleUIManager.SetButtonEvent(TitleButtonType.CPU_BATTLE, () =>
             {
                 OnClickCpuBattle();
             });
@@ -73,9 +75,13 @@ namespace UK.Manager.Title
             };
             
             Dictionary<string, Action> actions = new Dictionary<string, Action>();
-            actions.Add(UK.Popup.DeckSelect.DeckSelectPopup.DECISION_BUTTON_EVENT, () =>
+            actions.Add(UK.Popup.DeckSelect.DeckSelectPopup.DECISION_BUTTON, () =>
             {
                 SceneLoadManager.Instance.TransitionScene("IngameScene");
+            });
+            actions.Add(UK.Popup.DeckSelect.DeckSelectPopup.SIMPLE_TEXT_POPUP, () =>
+            {
+                _titleUIManager.ShowSimplePopup("デッキを選択してください！");
             });
             var parameter = new
             {
@@ -87,7 +93,7 @@ namespace UK.Manager.Title
                 horizontalScroll = false,
                 deckList = new List<DeckModel>(){JAPAN_DECK, AMERICA_DECK}
             };
-            TitleUIManager.Instance.CreateOpenPopup(TitlePopupType.DECK_SELECT, actions, parameter);
+            _titleUIManager.CreateOpenPopup(TitlePopupType.DECK_SELECT, actions, parameter);
         }
         
         // 開発テスト用関数：プレイヤーの山札生成

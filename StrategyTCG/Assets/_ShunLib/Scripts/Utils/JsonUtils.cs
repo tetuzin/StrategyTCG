@@ -73,6 +73,14 @@ namespace ShunLib.Utils.Json
             }
             return list;
         }
+        
+        // JSONファイル名からModelのListを生成する
+        public static List<T> LoadJsonFile<T>(string jsontext)
+        {
+            List<T> list = new List<T>();
+            list.AddRange(JsonToArray<T>(jsontext));
+            return list;
+        }
     }
 
     [Serializable]

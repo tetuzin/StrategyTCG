@@ -11,9 +11,10 @@ namespace ShunLib.Utils.Resource
         // 画像ファイルパス名からTextureを取得
         public static Texture2D GetTexture2D(string path)
         {
-            byte[] bytes = File.ReadAllBytes(path);
-            Texture2D texture = new Texture2D(2, 2);
-            texture.LoadImage(bytes);
+            // byte[] bytes = File.ReadAllBytes(path);
+            // Texture2D texture = new Texture2D(2, 2);
+            // texture.LoadImage(bytes);
+            Texture2D texture = Resources.Load<Texture2D>(path);
             return texture;
         }
 

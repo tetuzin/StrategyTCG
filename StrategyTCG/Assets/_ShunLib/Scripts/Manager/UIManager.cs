@@ -12,7 +12,7 @@ using ShunLib.Utils.Popup;
 
 namespace ShunLib.Manager.UI
 {
-    public class UIManager<T> : SingletonMonoBehaviour<T> where T : MonoBehaviour
+    public class UIManager : MonoBehaviour
     {
         // ---------- 定数宣言 ----------
         // ---------- ゲームオブジェクト参照変数宣言 ----------

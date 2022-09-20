@@ -570,8 +570,9 @@ namespace UK.Unit.Card
         // カード画像の設定
         private void SetCardImage(string imageFile)
         {
-            string path = ResourceUtils.GetTexturePath("CardImage/" + imageFile);
-            Sprite sprite = ResourceUtils.GetSprite(path);
+            // string path = ResourceUtils.GetTexturePath("CardImage/" + imageFile);
+            // Sprite sprite = ResourceUtils.GetSprite(path);
+            Sprite sprite = ResourceUtils.GetSprite(imageFile);
             _image.sprite = sprite;
             _image.color = new Color32(255,255,255,255);
         }
